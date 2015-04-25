@@ -12,7 +12,7 @@
 Saori assistance is the utility program with is more interesting by the user interface which is small and cute. Sometime Saori can be your friend when you are alone.
 
 ### Feature ###
-* Saori The Assistance is used for 
+Saori The Assistance is used for 
 1. Setting alarm clock.
 2. Can be calendar and diary or reminder.
 3. Music player.
