@@ -39,10 +39,4 @@ public class MovingEvent implements Event {
 
 	}
 
-	@Override
-	public void changeEvent(Event nextEvent) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

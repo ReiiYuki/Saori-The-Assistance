@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 
 import Saori.Event.Event;
 import Saori.Event.FallingEvent;
-import Saori.Event.MoveEvent;
 import Saori.Event.MovingEvent;
 
 public class SaoriUI extends JFrame implements Runnable{
@@ -21,7 +20,7 @@ public class SaoriUI extends JFrame implements Runnable{
 		initComponents();
 		pack();
 		 t = new Thread(this);
-		 event = new MovingEvent(this);
+		 event = new FallingEvent(this);
 		 t.start();
 		 setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -37,9 +36,10 @@ public class SaoriUI extends JFrame implements Runnable{
 	public void run(){
 		setVisible(true);
 		try {
-			event.perform();
-			Thread.sleep(10);
-			run();
+			while(true){
+				event.perform();
+				Thread.sleep(10);
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
