@@ -1,12 +1,12 @@
 package Saori.Event;
 
 import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import Saori.SaoriUI;
 
 public class FallingEvent implements Event{
+
 	private final int height=Toolkit.getDefaultToolkit().getScreenSize().height;
 	private final int width=Toolkit.getDefaultToolkit().getScreenSize().width;
 	private final int taskHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
@@ -30,13 +30,14 @@ public class FallingEvent implements Event{
 		}
 		else ui.changeEvent(new MovingEvent(ui));
 	}
+
 	@Override
-	public void rightClickHandler() {
+	public void leftClickHandler() {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void leftClickHandler() {
+	public void dragHandler() {
 		// TODO Auto-generated method stub
 		
 	}

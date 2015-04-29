@@ -1,7 +1,6 @@
 package Saori.Event;
 
 import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import Saori.SaoriUI;
@@ -24,19 +23,18 @@ public class MovingEvent implements Event {
 		if (x<=0) direction = 1;
 		if (x>=width) direction = -1;
 		x+=direction;
-		ui.setLocation(x,y);
-	}
-
-	@Override
-	public void rightClickHandler() {
-		// TODO Auto-generated method stub
-
+		ui.setLocation(x,y-70);
 	}
 
 	@Override
 	public void leftClickHandler() {
 		// TODO Auto-generated method stub
-
+		ui.changeEvent(new StandingEvent(ui));
 	}
-
+	@Override
+	public void dragHandler() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
