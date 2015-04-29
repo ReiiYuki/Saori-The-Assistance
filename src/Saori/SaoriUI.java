@@ -2,24 +2,26 @@ package Saori;
 
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import Saori.Event.Event;
+import Saori.Event.FallingEvent;
+import Saori.Event.MoveEvent;
+import Saori.Event.MovingEvent;
+
 public class SaoriUI extends JFrame implements Runnable{
-	int delay = 500; // milliseconds
-	int x = 0;
-	int y = 0;
+	
 	Thread t;
+	Event event;
 	
 	public SaoriUI (){
 		super("Saoriiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 		initComponents();
-		 // Create a new thread, run() is written in this class (Runnable implemented)
-		 t= new Thread(this);
-		
-		 // Start the thread
+		pack();
+		 t = new Thread(this);
+		 event = new MovingEvent(this);
 		 t.start();
 		 setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -29,30 +31,18 @@ public class SaoriUI extends JFrame implements Runnable{
 		JLabel label = new JLabel("dsaasddsa");
 		field.add(label);
 	}
+	public void changeEvent(Event nextEvent){
+		event = nextEvent;
+	}
 	public void run(){
-		
 		setVisible(true);
-		try
-		{
-		
-			// Get the width of the screen, so that the frame has to go till end!
-			int width=Toolkit.getDefaultToolkit().getScreenSize().width;
-			int i =0;
-			int mod = 1;
-			while(true){
-				if (i<=0) {
-					  mod = 1;
-				}
-				if (i>=width){
-					mod = -1;
-				}
-				i += mod;
-				setLocation(i,55);
-				Thread.sleep(10);
-			}
-		 	// Start the loop
-	
-		}catch(Exception e){}
+		try {
+			event.perform();
+			Thread.sleep(10);
+			run();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	public static void main(String[] args) {
 		SaoriUI s = new SaoriUI();
