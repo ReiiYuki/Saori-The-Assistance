@@ -42,5 +42,8 @@ public class FallingEvent implements Event{
 		// TODO Auto-generated method stub
 		ui.changeEvent(new FlyingEvent(ui));
 	}
-	
+	@Override
+	public void releaseHandler(){
+		
+	}
 }

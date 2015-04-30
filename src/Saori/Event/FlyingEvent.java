@@ -26,5 +26,8 @@ public class FlyingEvent implements Event{
 		// TODO Auto-generated method stub
 		ui.setLocation(e.getLocationOnScreen());
 	}
-
+	@Override
+	public void releaseHandler(){
+		ui.changeEvent(new FallingEvent(ui));
+	}
 }

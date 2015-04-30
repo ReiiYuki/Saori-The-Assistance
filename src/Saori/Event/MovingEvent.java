@@ -16,7 +16,7 @@ public class MovingEvent implements Event {
 	private int direction;
 	public MovingEvent(SaoriUI ui){
 		this.ui=ui;
-		x = 0;
+		x = (int) ui.getLocation().getX();
 		direction = 1;
 	}
 	@Override
@@ -35,7 +35,10 @@ public class MovingEvent implements Event {
 	@Override
 	public void dragHandler(MouseEvent e) {
 		// TODO Auto-generated method stub
+		ui.changeEvent(new FlyingEvent(ui));
+	}
+	@Override
+	public void releaseHandler(){
 		
 	}
-	
 }

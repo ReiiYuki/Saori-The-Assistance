@@ -1,5 +1,7 @@
 package Saori.Event;
 
+import java.awt.event.MouseEvent;
+
 import Saori.SaoriUI;
 
 public class StandingEvent implements Event {
@@ -20,9 +22,12 @@ public class StandingEvent implements Event {
 	}
 
 	@Override
-	public void dragHandler() {
+	public void dragHandler(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		ui.changeEvent(new FlyingEvent(ui));
 	}
-
+	@Override
+	public void releaseHandler(){
+		ui.changeEvent(new FallingEvent(ui));
+	}
 }

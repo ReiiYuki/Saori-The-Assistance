@@ -6,4 +6,5 @@ public interface Event {
 	public void perform();
 	public void leftClickHandler();
 	public void dragHandler(MouseEvent e);
+	public void releaseHandler();
 }
