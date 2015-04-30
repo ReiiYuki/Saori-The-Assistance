@@ -4,6 +4,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
+
 import Saori.SaoriUI;
 
 public class MovingEvent implements Event {
@@ -14,8 +16,15 @@ public class MovingEvent implements Event {
 	private final int y = taskHeight-(height-taskHeight);
 	private int x;
 	private int direction;
+	private int randomMoveStep;
+	private StopWatch AnimateTimer;
+	private StopWatch changeEventTimer;
 	public MovingEvent(SaoriUI ui){
 		this.ui=ui;
+		changeEventTimer = new StopWatch();
+		changeEventTimer.start();
+		ui.Saori.setIcon(new ImageIcon(ClassLoader.getSystemResource("Resource/Images/saori1.png")));
+		randomMoveStep = (int) (Math.random()*10+10);
 		x = (int) ui.getLocation().getX();
 		direction = 1;
 	}
@@ -25,6 +34,12 @@ public class MovingEvent implements Event {
 		if (x>=width) direction = -1;
 		x+=direction;
 		ui.setLocation(x,y-70);
+		if (changeEventTimer.getElapsed()>randomMoveStep) {
+			changeEventTimer.stop();
+			int decision = (int) Math.round(Math.random()) ;
+			if (decision == 0) ui.changeEvent(new SittingEvent(ui));
+			else ui.changeEvent(new StandingEvent(ui));
+		}
 	}
 
 	@Override
@@ -34,7 +49,6 @@ public class MovingEvent implements Event {
 	
 	@Override
 	public void dragHandler(MouseEvent e) {
-		// TODO Auto-generated method stub
 		ui.changeEvent(new FlyingEvent(ui));
 	}
 	@Override

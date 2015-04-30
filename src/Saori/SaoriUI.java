@@ -20,6 +20,7 @@ public class SaoriUI extends JFrame implements Runnable{
 	
 	Thread t;
 	Event event;
+	public JLabel Saori;
 	
 	public SaoriUI (){
 		super("Saoriiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
@@ -27,18 +28,18 @@ public class SaoriUI extends JFrame implements Runnable{
 		setLocation(0,0);
 		pack();
 		 t = new Thread(this);
-		 event = new FallingEvent(this);
+		 event = new MovingEvent(this);
 		 t.start();
 		 setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	public void initComponents(){
 		Container field = this.getContentPane();
 		field.setLayout(new GridLayout(1,1));
-		ImageIcon im = new ImageIcon(ClassLoader.getSystemResource("Resource/Images/shime1.png"));
-		JLabel label = new JLabel(im);
+		ImageIcon im = new ImageIcon(ClassLoader.getSystemResource("Resource/Images/saori1.png"));
+		Saori = new JLabel(im);
 		addMouseListener(new MouseActionListener(this));
 		addMouseMotionListener(new MouseMovingListener(this));
-		field.add(label);
+		field.add(Saori);
 	}
 	public void changeEvent(Event nextEvent){
 		event = nextEvent;

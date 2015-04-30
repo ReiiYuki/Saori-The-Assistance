@@ -11,9 +11,7 @@ public class MouseActionListener implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-//		System.out.println(e.toString());
-//		ui.event.leftClickHandler();
-
+		ui.event.leftClickHandler();
 	}
 
 	@Override
@@ -31,7 +29,6 @@ public class MouseActionListener implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		ui.event.leftClickHandler();
 
 	}
 
