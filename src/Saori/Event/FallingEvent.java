@@ -2,6 +2,7 @@ package Saori.Event;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 
 import Saori.SaoriUI;
 
@@ -15,18 +16,18 @@ public class FallingEvent implements Event{
 	private SaoriUI ui;
 	public FallingEvent(SaoriUI ui){
 		this.ui=ui;
-		y = taskHeight-(height-taskHeight);
+		y = (int) ui.getLocation().getY();
 		x = (int) ui.getLocation().getX();
 	}
 	@Override
 	public void perform() {
-		if (y!=taskHeight) {
+		if (y!= taskHeight-(height-taskHeight)) {
 			y+=1;
 			ui.setLocation(x,y);
 		}
 		else if (y>height) {
 			int randomX = (int) (Math.random()*width);
-			ui.setLocation(randomX,0);
+			ui.setLocation(randomX,y);
 		}
 		else ui.changeEvent(new MovingEvent(ui));
 	}
@@ -37,9 +38,9 @@ public class FallingEvent implements Event{
 		
 	}
 	@Override
-	public void dragHandler() {
+	public void dragHandler(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		ui.changeEvent(new FlyingEvent(ui));
 	}
 	
 }

@@ -2,6 +2,7 @@ package Saori.Event;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 
 import Saori.SaoriUI;
 
@@ -28,11 +29,11 @@ public class MovingEvent implements Event {
 
 	@Override
 	public void leftClickHandler() {
-		// TODO Auto-generated method stub
 		ui.changeEvent(new StandingEvent(ui));
 	}
+	
 	@Override
-	public void dragHandler() {
+	public void dragHandler(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -24,9 +24,10 @@ public class SaoriUI extends JFrame implements Runnable{
 	public SaoriUI (){
 		super("Saoriiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 		initComponents();
+		setLocation(0,0);
 		pack();
 		 t = new Thread(this);
-		 event = new MovingEvent(this);
+		 event = new FallingEvent(this);
 		 t.start();
 		 setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -36,6 +37,7 @@ public class SaoriUI extends JFrame implements Runnable{
 		ImageIcon im = new ImageIcon(ClassLoader.getSystemResource("Resource/Images/shime1.png"));
 		JLabel label = new JLabel(im);
 		addMouseListener(new MouseActionListener(this));
+		addMouseMotionListener(new MouseMovingListener(this));
 		field.add(label);
 	}
 	public void changeEvent(Event nextEvent){
