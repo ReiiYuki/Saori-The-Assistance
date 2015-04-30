@@ -21,6 +21,7 @@ public class StandingEvent implements Event {
 	@Override
 	public void perform() {
 		if (changeEventTimer.getElapsed()>randomTime){
+			changeEventTimer.stop();
 			int dicision = (int) Math.round(Math.random());
 			if (dicision == 0) ui.changeEvent(new MovingEvent(ui));
 			else ui.changeEvent(new SittingEvent(ui));

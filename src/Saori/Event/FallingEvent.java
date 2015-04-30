@@ -39,7 +39,7 @@ public class FallingEvent implements Event{
 			}
 			else {
 				if (y-originalHeight>300) ui.changeEvent(new PowerfulTouchGroundEvent(ui));
-				else ui.changeEvent(new StandingEvent(ui));
+				else ui.changeEvent(new SoftTouchGround(ui));
 			}
 		}
 	}
