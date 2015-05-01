@@ -1,14 +1,13 @@
-package Saori;
+package Saori.Listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-class PopUpRightClick implements ActionListener {
+public class ExitListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		System.exit(0);
 	}
-	
+
 }
