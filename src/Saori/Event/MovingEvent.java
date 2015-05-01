@@ -26,14 +26,16 @@ public class MovingEvent implements Event {
 		ui.Saori.setIcon(new ImageIcon(ClassLoader.getSystemResource("Resource/Images/saori1.png")));
 		randomMoveStep = (int) (Math.random()*10+10);
 		x = (int) ui.getLocation().getX();
-		direction = 1;
+		int randomDirection = (int) Math.round(Math.random());
+		if (randomDirection == 0) direction = 1;
+		else direction = -1;
 	}
 	@Override
 	public void perform() {
 		if (x<=0) direction = 1;
 		if (x>=width) direction = -1;
 		x+=direction;
-		ui.setLocation(x,y-70);
+		ui.setLocation(x,y-150);
 		if (changeEventTimer.getElapsed()>randomMoveStep) {
 			changeEventTimer.stop();
 			int decision = (int) Math.round(Math.random()) ;

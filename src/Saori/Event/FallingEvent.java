@@ -33,7 +33,7 @@ public class FallingEvent implements Event{
 			ui.setLocation(randomX,y);
 		}
 		else {
-			if (y!= taskHeight-(height-taskHeight)) {
+			if (y!= taskHeight-(height-taskHeight)-150) {
 				y+=1;
 				ui.setLocation(x,y);
 			}

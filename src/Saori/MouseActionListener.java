@@ -3,6 +3,9 @@ package Saori;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+
 public class MouseActionListener implements MouseListener {
 	private SaoriUI ui;
 	public MouseActionListener(SaoriUI ui){
@@ -29,13 +32,26 @@ public class MouseActionListener implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		if (e.isPopupTrigger()){
+			JPopupMenu popup = new JPopupMenu();
+			JMenuItem exit = new JMenuItem();
+			exit.addActionListener(new PopUpRightClick());
+			popup.add(exit);
+			popup.show(e.getComponent(), e.getX(), e.getY());
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		ui.event.releaseHandler();
+		if (e.isPopupTrigger()){
+			JPopupMenu popup = new JPopupMenu();
+			JMenuItem exit = new JMenuItem("Exit");
+			exit.addActionListener(new PopUpRightClick());
+			popup.add(exit);
+			popup.show(e.getComponent(), e.getX(), e.getY());
+		}
+		else ui.event.releaseHandler();
 	}
 
 }
