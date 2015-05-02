@@ -34,7 +34,6 @@ public class SaoriUI extends JDialog implements Runnable{
 		 t = new Thread(this);
 		 event = new MovingEvent(this);
 		 t.start();
-		 setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	public void initComponents(){
 		Container field = this.getContentPane();
