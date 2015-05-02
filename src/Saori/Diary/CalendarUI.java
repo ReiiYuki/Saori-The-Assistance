@@ -52,10 +52,13 @@ public class CalendarUI extends JDialog {
 	JButton[][] calendarShow;
 	Font font;
 	private GregorianCalendar  calendar;
+	private GregorianCalendar  calendarNow;
 	JPanel panel;
 	public CalendarUI() throws FontFormatException, IOException {
 		super();
 		setUndecorated(true);
+		calendarNow = new GregorianCalendar();
+		calendarNow.setTimeInMillis(System.currentTimeMillis());
 		calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(System.currentTimeMillis());
         URL fontUrl = ClassLoader.getSystemResource("Resource/Font/WaffleRegular.otf");
