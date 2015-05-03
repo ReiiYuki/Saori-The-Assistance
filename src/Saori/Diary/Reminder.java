@@ -1,11 +1,10 @@
 package Saori.Diary;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class Reminder extends Diary {
 	private GregorianCalendar alertTime;
-	public Reminder(String title, ArrayList<String> article,GregorianCalendar time,GregorianCalendar alertTime) {
+	public Reminder(String title, String[] article,GregorianCalendar time,GregorianCalendar alertTime) {
 		super(title, article, time);
 		this.alertTime = alertTime;
 	}

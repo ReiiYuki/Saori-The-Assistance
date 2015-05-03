@@ -14,10 +14,9 @@ public class Diary implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private GregorianCalendar time;
 	private String title;
-	private ArrayList<String> article;
+	private String[] article;
 	private static int serialNumbers = 0;
-	private String type = "Diary"; 
-	public Diary(String title,ArrayList<String> article,GregorianCalendar time){
+	public Diary(String title,String[] article,GregorianCalendar time){
 		this.time = time;
 		this.title = title;
 		this.article = article;
@@ -32,10 +31,13 @@ public class Diary implements Serializable{
 		}
 	}
 	public void write(JTextArea textArea,GregorianCalendar thatTime){
-		article = (ArrayList<String>) Arrays.asList(textArea.getText().split("\\n"));
+		article = textArea.getText().split("\\n");
 		time = thatTime;
 	}
 	public String getDescription(){
-		return String.format("%03d - Type: %s Title: %s Date: %d-%d-%d",serialNumbers,type, title,time.get(GregorianCalendar.DATE),time.get(GregorianCalendar.MONTH)+1,time.get(GregorianCalendar.YEAR));
+		return String.format("%03d - Type: %s Title: %s Date: %d-%d-%d",serialNumbers,getClass().getName(), title,time.get(GregorianCalendar.DATE),time.get(GregorianCalendar.MONTH)+1,time.get(GregorianCalendar.YEAR));
+	}
+	public String getName(){
+		return String.format("%03d%s",serialNumbers,getClass().getName().charAt(0));
 	}
 }
