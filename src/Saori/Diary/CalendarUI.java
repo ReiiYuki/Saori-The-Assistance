@@ -127,7 +127,6 @@ public class CalendarUI extends JDialog {
 		YearLab.setText(calendar.get(Calendar.YEAR)+"");
 		Calendar upCalendar = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),1);
 		int maxDay = upCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		System.out.println(maxDay);
 		int dayOfFirst = upCalendar.get(Calendar.DAY_OF_WEEK);
 		for (int i = 1;i<=maxDay;i++){
 			int row = (i+dayOfFirst-2)/7;

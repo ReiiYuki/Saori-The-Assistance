@@ -65,7 +65,7 @@ public class DiaryUI extends JDialog {
 			if (file.exists()){
 				try {
 
-					FileOutputStream fout = new FileOutputStream(path+"\\"+diary.getName()+".isr");
+					FileOutputStream fout = new FileOutputStream(path+"\\"+diary.getTitle()+".isr");
 					ObjectOutputStream oos = new ObjectOutputStream(fout);   
 					oos.writeObject(diary);
 					oos.close();
@@ -81,7 +81,7 @@ public class DiaryUI extends JDialog {
 						
 					try {
 
-						FileOutputStream fout = new FileOutputStream(path+"\\"+diary.getName()+".isr");
+						FileOutputStream fout = new FileOutputStream(path+"\\"+diary.getTitle()+".isr");
 						ObjectOutputStream oos = new ObjectOutputStream(fout);   
 						oos.writeObject(diary);
 						oos.close();
@@ -97,6 +97,5 @@ public class DiaryUI extends JDialog {
 	}
 	public static void main(String[] args) {
 		DiaryUI ui = new DiaryUI(new GregorianCalendar());
-		
 	}
 }
