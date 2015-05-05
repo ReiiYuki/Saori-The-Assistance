@@ -38,6 +38,7 @@ public class DigitalClockUI extends JFrame{
 		clock = new Clock();
 		this.setDefaultCloseOperation( EXIT_ON_CLOSE );
 		this.initComponents();
+		getSelected();
 	}
 	/**
 	 * initialize components in the window
@@ -255,5 +256,14 @@ public class DigitalClockUI extends JFrame{
 		this.pack();
 	}
 
+	public void getSelected(){
+		if (clock.isSun()) boxSun.setSelected(true);
+		if (clock.isMon()) boxMon.setSelected(true);
+		if (clock.isTue()) boxTue.setSelected(true);
+		if (clock.isWed()) boxWed.setSelected(true);
+		if (clock.isThu()) boxThu.setSelected(true);
+		if (clock.isFri()) boxFri.setSelected(true);
+		if (clock.isSat()) boxSat.setSelected(true);
 
+	}
 }
