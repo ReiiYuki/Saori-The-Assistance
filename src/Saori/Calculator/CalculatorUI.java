@@ -5,15 +5,14 @@ import java.awt.event.*;
 import java.math.*;
 import javax.swing.*;
 import javax.swing.border.*;
-
-
 public class CalculatorUI extends JFrame {
-	// Variables declaration - do not modify//GEN-BEGIN:variables
+
+	private Calculator calculator;
 	private JPanel panel ;
 	//row1
-	private JTextField textFieldShow;
+	protected JTextField textFieldShow;
 	//row2
-	private JTextField textFieldInput;
+	protected JTextField textFieldInput;
 	//row3
 	private JButton memoryclear ,memoryread ,memorysave;
 	private JTextField textFieldMemory;
@@ -54,20 +53,7 @@ public class CalculatorUI extends JFrame {
 	private JButton equals;
 	private JButton clear;
 	private JButton reset;
-
-
-	//private ButtonGroup buttonGroup1;
-
-	// End of variables declaration//GEN-END:variables 
-
-	private boolean zerodisp;
-	private boolean decdisp;
-	private boolean dgrrad;
-	private boolean sh;
-	private byte op; //operator
-	private double ina;
-	private double inb;
-	private double out;
+	// End of variables 
 
 	public CalculatorUI() {
 		setTitle("Java Calculator");
@@ -75,10 +61,8 @@ public class CalculatorUI extends JFrame {
 		setBounds(100, 100, 314, 525);
 		setResizable(false);
 		initComponents();
+		this.calculator = new Calculator(this);
 	}
-
-	//@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
 		panel = new JPanel();
@@ -89,26 +73,23 @@ public class CalculatorUI extends JFrame {
 		textFieldShow = new JTextField();
 		textFieldShow.setBounds(10, 10, 289, 35);
 		textFieldShow.setBackground(new Color(199, 218, 220));
-		textFieldShow.setFont(new Font("Tahoma", 1, 24)); // NOI18N
+		textFieldShow.setFont(new Font("Tahoma", 1, 24)); 
 		textFieldShow.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
 		textFieldShow.setFocusable(false);
 		panel.add(textFieldShow);
-		//textField.setColumns(10);
 
 		textFieldInput = new JTextField("0");
 		textFieldInput.setBounds(10, 52, 289, 35);
 		textFieldInput.setBackground(new Color(199, 218, 220));
-		textFieldInput.setFont(new Font("Tahoma", 1, 24)); // NOI18N
-		//textFieldInput.setText("0");
+		textFieldInput.setFont(new Font("Tahoma", 1, 24)); 
 		//textFieldInput.setAutoscrolls(false);
 		textFieldInput.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
-		//		textFieldInput.setFocusable(false);
 		textFieldInput.addKeyListener(new KeyListener(){
 			public void keyPressed(KeyEvent evt) {
-				
+
 				int keyCode = evt.getKeyCode();
-				System.out.println(keyCode+" "+KeyEvent.VK_SHIFT);
-				System.out.println(keyCode+" "+KeyEvent.VK_EQUALS);
+				//System.out.println(keyCode+" "+KeyEvent.VK_SHIFT);
+				//System.out.println(keyCode+" "+KeyEvent.VK_EQUALS);
 				if( keyCode == KeyEvent.VK_0 || keyCode == KeyEvent.VK_NUMPAD0 ){
 					zeroActionPerformed(evt);
 				}
@@ -147,7 +128,7 @@ public class CalculatorUI extends JFrame {
 					subtractActionPerformed(evt);
 				}
 				else if( keyCode == KeyEvent.VK_MULTIPLY || ( keyCode == KeyEvent.VK_8 && keyCode == KeyEvent.VK_SHIFT)){
-					
+
 					multiplyActionPerformed(evt);
 				}
 				else if( keyCode == KeyEvent.VK_DIVIDE || keyCode == KeyEvent.VK_SLASH){
@@ -156,23 +137,17 @@ public class CalculatorUI extends JFrame {
 				else if( keyCode == KeyEvent.VK_ENTER || keyCode == KeyEvent.VK_EQUALS){
 					equalsActionPerformed(evt);
 				}
-				
-			}
 
+			}
 			@Override
 			public void keyReleased(KeyEvent evt) {
-
 			}
-
 			@Override
 			public void keyTyped(KeyEvent e) {
-
 			}
 
 		});
-		panel.add(textFieldInput);
 
-		
 		memoryread = new JButton("MR");
 		memoryread.setBounds(10, 94, 52, 28);
 		memoryread.setFont(new Font("Tahoma", 1, 10)); 
@@ -184,7 +159,6 @@ public class CalculatorUI extends JFrame {
 				memoryreadActionPerformed(evt);
 			}
 		});
-		panel.add(memoryread);
 
 		memoryclear = new JButton("MC");
 		memoryclear.setBounds(70, 94, 52, 28);
@@ -197,7 +171,6 @@ public class CalculatorUI extends JFrame {
 				memoryclearActionPerformed(evt);
 			}
 		});
-		panel.add(memoryclear);
 
 		memorysave = new JButton("MS");
 		memorysave.setBounds(129, 94, 52, 28);
@@ -210,7 +183,6 @@ public class CalculatorUI extends JFrame {
 				memorysaveActionPerformed(evt);
 			}
 		});
-		panel.add(memorysave);
 
 		textFieldMemory = new JTextField("0");
 		textFieldMemory.setBounds(188, 94, 111, 28);
@@ -218,8 +190,6 @@ public class CalculatorUI extends JFrame {
 		textFieldMemory.setFont(new Font("Tahoma", 1, 14)); 
 		textFieldMemory.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
 		textFieldMemory.setFocusable(false);
-		panel.add(textFieldMemory);
-
 
 		degrees = new JRadioButton("Degrees");
 		degrees.setBounds(10, 130, 80, 23);
@@ -230,11 +200,10 @@ public class CalculatorUI extends JFrame {
 		degrees.setFocusable(false);
 		degrees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				radians.setSelected(!dgrrad);
+				radians.setSelected(!calculator.dgrrad);
 				degreesActionPerformed(evt);
 			}
 		});
-		panel.add(degrees);
 
 		radians = new JRadioButton("Radians");
 		radians.setBounds(94, 130, 80, 23);
@@ -244,11 +213,10 @@ public class CalculatorUI extends JFrame {
 		radians.setFocusable(false);
 		radians.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				degrees.setSelected(dgrrad);
+				degrees.setSelected(calculator.dgrrad);
 				radiansActionPerformed(evt);
 			}
 		});
-		panel.add(radians);
 
 		percent = new JButton("%");
 		percent.setBounds(188, 129, 52, 28);
@@ -261,7 +229,6 @@ public class CalculatorUI extends JFrame {
 				percentActionPerformed(evt);
 			}
 		});
-		panel.add(percent);
 
 		onedividedbyx = new JButton("1/x");
 		onedividedbyx.setBounds(247, 129, 52, 28);
@@ -274,7 +241,6 @@ public class CalculatorUI extends JFrame {
 				onedividedbyxActionPerformed(evt);
 			}
 		});
-		panel.add(onedividedbyx);
 
 		sin = new JButton("Sin");
 		sin.setBounds(10, 164, 52, 28);
@@ -287,7 +253,6 @@ public class CalculatorUI extends JFrame {
 				sinActionPerformed(evt);
 			}
 		});
-		panel.add(sin);
 
 		cos = new JButton("Cos");
 		cos.setBounds(70, 164, 52, 28);
@@ -300,7 +265,6 @@ public class CalculatorUI extends JFrame {
 				cosActionPerformed(evt);
 			}
 		});
-		panel.add(cos);
 
 		tan = new JButton("Tan");
 		tan.setBounds(129, 164, 52, 28);
@@ -313,7 +277,6 @@ public class CalculatorUI extends JFrame {
 				tanActionPerformed(evt);
 			}
 		});
-		panel.add(tan);
 
 		shift = new JToggleButton("Sh");
 		shift.setBounds(188, 164, 52, 28);
@@ -326,7 +289,6 @@ public class CalculatorUI extends JFrame {
 				shiftMouseClicked(evt);
 			}
 		});
-		panel.add(shift);
 
 		pi = new JButton("π");//ⁿ 
 		pi.setBounds(247, 164, 52, 28);
@@ -339,7 +301,6 @@ public class CalculatorUI extends JFrame {
 				piActionPerformed(evt);
 			}
 		});
-		panel.add(pi);
 
 		seven = new JButton("7");
 		seven.setBounds(10, 199, 52, 52);
@@ -352,7 +313,6 @@ public class CalculatorUI extends JFrame {
 				sevenActionPerformed(evt);
 			}
 		});
-		panel.add(seven);
 
 		eight = new JButton("8");
 		eight.setBounds(70, 199, 52, 52);
@@ -365,7 +325,6 @@ public class CalculatorUI extends JFrame {
 				eightActionPerformed(evt);
 			}
 		});
-		panel.add(eight);
 
 		nine = new JButton("9");
 		nine.setBounds(129, 199, 52, 52);
@@ -378,7 +337,6 @@ public class CalculatorUI extends JFrame {
 				nineActionPerformed(evt);
 			}
 		});
-		panel.add(nine);
 
 		squared = new JButton("x²");
 		squared.setBounds(187, 199, 52, 52);
@@ -391,7 +349,6 @@ public class CalculatorUI extends JFrame {
 				squaredActionPerformed(evt);
 			}
 		});
-		panel.add(squared);
 
 		add = new JButton("+");
 		add.setBounds(247, 199, 52, 52);
@@ -405,8 +362,6 @@ public class CalculatorUI extends JFrame {
 			}
 		});
 
-		panel.add(add);
-
 		four = new JButton("4");
 		four.setBounds(10, 258, 52, 52);
 		four.setFont(new Font("Tahoma", 1, 10));
@@ -418,9 +373,6 @@ public class CalculatorUI extends JFrame {
 				fourActionPerformed(evt);
 			}
 		});
-
-		
-		panel.add(four);
 
 		five = new JButton("5");
 		five.setBounds(70, 258, 52, 52);
@@ -434,9 +386,6 @@ public class CalculatorUI extends JFrame {
 			}
 		});
 
-		
-		panel.add(five);
-
 		six = new JButton("6");
 		six.setBounds(129, 258, 52, 52);
 		six.setFont(new Font("Tahoma", 1, 10)); 
@@ -448,7 +397,6 @@ public class CalculatorUI extends JFrame {
 				sixActionPerformed(evt);
 			}
 		});
-		panel.add(six);
 
 		squareroot = new JButton("√x");
 		squareroot.setBounds(188, 258, 52, 52);
@@ -461,7 +409,6 @@ public class CalculatorUI extends JFrame {
 				squarerootActionPerformed(evt);
 			}
 		});
-		panel.add(squareroot);
 
 		subtract = new JButton("-");
 		subtract.setBounds(247, 258, 52, 52);
@@ -474,7 +421,6 @@ public class CalculatorUI extends JFrame {
 				subtractActionPerformed(evt);
 			}
 		});
-		panel.add(subtract);
 
 		one = new JButton("1");
 		one.setBounds(10, 317, 52, 52);
@@ -487,7 +433,6 @@ public class CalculatorUI extends JFrame {
 				oneActionPerformed(evt);
 			}
 		});
-		panel.add(one);
 
 		two = new JButton("2");
 		two.setBounds(70, 317, 52, 52);
@@ -500,7 +445,6 @@ public class CalculatorUI extends JFrame {
 				twoActionPerformed(evt);
 			}
 		});
-		panel.add(two);
 
 		three = new JButton("3");
 		three.setBounds(129, 317, 52, 52);
@@ -513,7 +457,6 @@ public class CalculatorUI extends JFrame {
 				threeActionPerformed(evt);
 			}
 		});
-		panel.add(three);
 
 		cubed = new JButton("x³");
 		cubed.setBounds(188, 317, 52, 52);
@@ -526,7 +469,6 @@ public class CalculatorUI extends JFrame {
 				cubedActionPerformed(evt);
 			}
 		});
-		panel.add(cubed);
 
 		multiply = new JButton("*");
 		multiply.setBounds(247, 317, 52, 52);
@@ -539,7 +481,6 @@ public class CalculatorUI extends JFrame {
 				multiplyActionPerformed(evt);
 			}
 		});
-		panel.add(multiply);
 
 		zero = new JButton("0");
 		zero.setBounds(10, 376, 52, 52);
@@ -552,7 +493,6 @@ public class CalculatorUI extends JFrame {
 				zeroActionPerformed(evt);
 			}
 		});
-		panel.add(zero);
 
 		decpoint = new JButton(".");
 		decpoint.setBounds(70, 376, 52, 52);
@@ -565,7 +505,6 @@ public class CalculatorUI extends JFrame {
 				decpointActionPerformed(evt);
 			}
 		});
-		panel.add(decpoint);
 
 		negate = new JButton("±");
 		negate.setBounds(129, 376, 52, 52);
@@ -578,7 +517,6 @@ public class CalculatorUI extends JFrame {
 				negateActionPerformed(evt);
 			}
 		});
-		panel.add(negate);
 
 		cuberoot = new JButton("3/x");
 		cuberoot.setBounds(188, 376, 52, 52);
@@ -588,10 +526,9 @@ public class CalculatorUI extends JFrame {
 		cuberoot.setFocusable(false);
 		cuberoot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				cuberootActionPerformed(evt);
+				cubedrootActionPerformed(evt);
 			}
-		});
-		panel.add(cuberoot);
+		});		
 
 		divide = new JButton("/");
 		divide.setBounds(247, 376, 52, 52);
@@ -603,8 +540,7 @@ public class CalculatorUI extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				divideActionPerformed(evt);
 			}
-		});	
-		panel.add(divide);
+		});			
 
 		equals = new JButton("=");
 		equals.setBounds(10, 435, 171, 52);
@@ -617,7 +553,6 @@ public class CalculatorUI extends JFrame {
 				equalsActionPerformed(evt);
 			}
 		});
-		panel.add(equals);
 
 		clear = new JButton("CE");
 		clear.setBounds(188, 435, 52, 52);
@@ -631,7 +566,6 @@ public class CalculatorUI extends JFrame {
 
 			}
 		});
-		panel.add(clear);
 
 		reset = new JButton("C");
 		reset.setBounds(247, 435, 52, 52);
@@ -644,597 +578,206 @@ public class CalculatorUI extends JFrame {
 				resetActionPerformed(evt);
 			}
 		});
+
+		panel.add(textFieldInput);
+		panel.add(memoryread);
+		panel.add(memoryclear);
+		panel.add(memorysave);
+		panel.add(textFieldMemory);
+		panel.add(degrees);
+		panel.add(radians);
+		panel.add(percent);
+		panel.add(onedividedbyx);
+		panel.add(sin);
+		panel.add(cos);
+		panel.add(tan);
+		panel.add(shift);
+		panel.add(pi);
+		panel.add(seven);
+		panel.add(eight);
+		panel.add(nine);
+		panel.add(squared);
+		panel.add(add);
+		panel.add(four);
+		panel.add(five);
+		panel.add(six);
+		panel.add(squareroot);
+		panel.add(subtract);
+		panel.add(one);
+		panel.add(two);
+		panel.add(three);
+		panel.add(cubed);
+		panel.add(multiply);
+		panel.add(zero);
+		panel.add(decpoint);
+		panel.add(negate);
+		panel.add(cuberoot);
+		panel.add(divide);
+		panel.add(equals);
+		panel.add(clear);
 		panel.add(reset);
 	}
-
-	private void zeroActionPerformed(ActionEvent evt) {//GEN-FIRST:event_zeroActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() + "0");
-	}//GEN-LAST:event_zeroActionPerformed
-
-	private void oneActionPerformed(ActionEvent evt) {//GEN-FIRST:event_oneActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() + "1");
-		zerodisp = true;
-	}//GEN-LAST:event_oneActionPerformed
-
-	private void twoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_twoActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() + "2");
-		zerodisp = true;
-	}//GEN-LAST:event_twoActionPerformed
-
-	private void threeActionPerformed(ActionEvent evt) {//GEN-FIRST:event_threeActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() + "3");
-		zerodisp = true;
-	}//GEN-LAST:event_threeActionPerformed
-
-	private void fourActionPerformed(ActionEvent evt) {//GEN-FIRST:event_fourActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() + "4");
-		zerodisp = true;
-	}//GEN-LAST:event_fourActionPerformed
-
-	private void fiveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_fiveActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() + "5");
-		zerodisp = true;
-	}//GEN-LAST:event_fiveActionPerformed
-
-	private void sixActionPerformed(ActionEvent evt) {//GEN-FIRST:event_sixActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() + "6");
-		zerodisp = true;
-	}//GEN-LAST:event_sixActionPerformed
-
-	private void sevenActionPerformed(ActionEvent evt) {//GEN-FIRST:event_sevenActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() + "7");
-		zerodisp = true;
-	}//GEN-LAST:event_sevenActionPerformed
-
-	private void eightActionPerformed(ActionEvent evt) {//GEN-FIRST:event_eightActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() + "8");
-		zerodisp = true;
-	}//GEN-LAST:event_eightActionPerformed
-
-	private void nineActionPerformed(ActionEvent evt) {//GEN-FIRST:event_nineActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() + "9");
-		zerodisp = true;
-	}//GEN-LAST:event_nineActionPerformed
-	private void zeroActionPerformed(KeyEvent evt) {//GEN-FIRST:event_zeroActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() );
-	}//GEN-LAST:event_zeroActionPerformed
-
-	private void oneActionPerformed(KeyEvent evt) {//GEN-FIRST:event_oneActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() );
-		zerodisp = true;
-	}//GEN-LAST:event_oneActionPerformed
-
-	private void twoActionPerformed(KeyEvent evt) {//GEN-FIRST:event_twoActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() );
-		zerodisp = true;
-	}//GEN-LAST:event_twoActionPerformed
-
-	private void threeActionPerformed(KeyEvent evt) {//GEN-FIRST:event_threeActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() );
-		zerodisp = true;
-	}//GEN-LAST:event_threeActionPerformed
-
-	private void fourActionPerformed(KeyEvent evt) {//GEN-FIRST:event_fourActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() );
-		zerodisp = true;
-	}//GEN-LAST:event_fourActionPerformed
-
-	private void fiveActionPerformed(KeyEvent evt) {//GEN-FIRST:event_fiveActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() );
-		zerodisp = true;
-	}//GEN-LAST:event_fiveActionPerformed
-
-	private void sixActionPerformed(KeyEvent evt) {//GEN-FIRST:event_sixActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() );
-		zerodisp = true;
-	}//GEN-LAST:event_sixActionPerformed
-
-	private void sevenActionPerformed(KeyEvent evt) {//GEN-FIRST:event_sevenActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() );
-		zerodisp = true;
-	}//GEN-LAST:event_sevenActionPerformed
-
-	private void eightActionPerformed(KeyEvent evt) {//GEN-FIRST:event_eightActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() );
-		zerodisp = true;
-	}//GEN-LAST:event_eightActionPerformed
-
-	private void nineActionPerformed(KeyEvent evt) {//GEN-FIRST:event_nineActionPerformed
-		if(!zerodisp && !decdisp){
-			textFieldInput.setText(null);
-		}
-		textFieldInput.setText(textFieldInput.getText() );
-		zerodisp = true;
-	}//GEN-LAST:event_nineActionPerformed
-	private void decpointActionPerformed(ActionEvent evt) {//GEN-FIRST:event_decpointActionPerformed
-		if(!decdisp){
+	private void zeroActionPerformed(ActionEvent evt) {
+		this.calculator.zeroFuntion("0");
+	}//end zeroActionPerformed
+	private void oneActionPerformed(ActionEvent evt) {
+		this.calculator.numberFuntion("1");
+	}//end oneActionPerformed
+	private void twoActionPerformed(ActionEvent evt) {
+		this.calculator.numberFuntion("2");
+	}//end twoActionPerformed
+	private void threeActionPerformed(ActionEvent evt) {
+		this.calculator.numberFuntion("3");
+	}//end threeActionPerformed
+	private void fourActionPerformed(ActionEvent evt) {
+		this.calculator.numberFuntion("4");
+	}//end fourActionPerformed
+	private void fiveActionPerformed(ActionEvent evt) {
+		this.calculator.numberFuntion("5");
+	}//end fiveActionPerformed
+	private void sixActionPerformed(ActionEvent evt) {
+		this.calculator.numberFuntion("6");
+	}//end sixActionPerformed
+	private void sevenActionPerformed(ActionEvent evt) {
+		this.calculator.numberFuntion("7");
+	}//end sevenActionPerformed
+	private void eightActionPerformed(ActionEvent evt) {
+		this.calculator.numberFuntion("8");
+	}//end eightActionPerformed
+	private void nineActionPerformed(ActionEvent evt) {
+		this.calculator.numberFuntion("9");
+	}//end nineActionPerformed
+	private void zeroActionPerformed(KeyEvent evt) {
+		this.calculator.zeroFuntion("");
+	}//end zeroActionPerformed
+	private void oneActionPerformed(KeyEvent evt) {
+		this.calculator.numberFuntion("");
+	}//end oneActionPerformed
+	private void twoActionPerformed(KeyEvent evt) {
+		this.calculator.numberFuntion("");
+	}//end twoActionPerformed
+	private void threeActionPerformed(KeyEvent evt) {
+		this.calculator.numberFuntion("");
+	}//end threeActionPerformed
+	private void fourActionPerformed(KeyEvent evt) {
+		this.calculator.numberFuntion("");
+	}//end fourActionPerformed
+	private void fiveActionPerformed(KeyEvent evt) {
+		this.calculator.numberFuntion("");
+	}//end fiveActionPerformed
+	private void sixActionPerformed(KeyEvent evt) {
+		this.calculator.numberFuntion("");
+	}//end sixActionPerformed
+	private void sevenActionPerformed(KeyEvent evt) {
+		this.calculator.numberFuntion("");
+	}//end sevenActionPerformed
+	private void eightActionPerformed(KeyEvent evt) {
+		this.calculator.numberFuntion("");
+	}//end eightActionPerformed
+	private void nineActionPerformed(KeyEvent evt) {
+		this.calculator.numberFuntion("");
+	}//end nineActionPerformed
+	private void decpointActionPerformed(ActionEvent evt) {
+		if(!this.calculator.decdisp){
 			textFieldInput.setText(textFieldInput.getText() + ".");
-			decdisp = true;
+			this.calculator.decdisp = true;
 		}
-	}//GEN-LAST:event_decpointActionPerformed
-
-	private void negateActionPerformed(ActionEvent evt) {//GEN-FIRST:event_negateActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		out = inb * -1;
-
-		if(out > -100000000 && out < 100000000){
-			textFieldInput.setText(String.valueOf(out));
-		}
-		else{
-			textFieldInput.setText("Error");
-		}
-		decdisp = true;
-		out = 0;
-	}//GEN-LAST:event_negateActionPerformed
-
-	private void clearActionPerformed(ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+	}//end decpointActionPerformed
+	private void negateActionPerformed(ActionEvent evt) {
+		this.calculator.negateFunction();
+	}//end negateActionPerformed
+	private void clearActionPerformed(ActionEvent evt) {
 		textFieldInput.setText("0");
-		zerodisp = false;
-		decdisp = false;
-	}//GEN-LAST:event_clearActionPerformed
-
-	private void resetActionPerformed(ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-		textFieldInput.setText("0");
-		textFieldShow.setText(null);
-		zerodisp = false;
-		decdisp = false;
-		ina = 0;
-		inb = 0;
-		out = 0;
-	}//GEN-LAST:event_resetActionPerformed
-
-	private void memoryreadActionPerformed(ActionEvent evt) {//GEN-FIRST:event_memoryreadActionPerformed
+		this.calculator.zerodisp = false;
+		this.calculator.decdisp = false;
+	}//end clearActionPerformed
+	private void resetActionPerformed(ActionEvent evt) {
+		this.calculator.resetFuntion();
+	}//end resetActionPerformed
+	private void memoryreadActionPerformed(ActionEvent evt) {
 		textFieldInput.setText(String.valueOf(textFieldMemory.getText()));
-	}//GEN-LAST:event_memoryreadActionPerformed
-
-	private void memoryclearActionPerformed(ActionEvent evt) {//GEN-FIRST:event_memoryclearActionPerformed
+	}//end memoryreadActionPerformed
+	private void memoryclearActionPerformed(ActionEvent evt) {
 		textFieldMemory.setText("0");
-	}//GEN-LAST:event_memoryclearActionPerformed
-
-	private void memorysaveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_memorysaveActionPerformed
+	}//end memoryclearActionPerformed
+	private void memorysaveActionPerformed(ActionEvent evt) {
 		textFieldMemory.setText(String.valueOf(textFieldInput.getText()));
-	}//GEN-LAST:event_memorysaveActionPerformed
-
-	private void onedividedbyxActionPerformed(ActionEvent evt) {//GEN-FIRST:event_onedividedbyxActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		out = 1 / inb;
-
-		if(out > -100000000 && out < 100000000){
-			textFieldInput.setText(String.valueOf(out));
-		}
-		else{
-			textFieldInput.setText("Error");
-		}
-		textFieldShow.setText("1/" + String.valueOf(inb));
-		out = 0;
-		op = 0;
-	}//GEN-LAST:event_onedividedbyxActionPerformed
-
-	private void piActionPerformed(ActionEvent evt) {//GEN-FIRST:event_piActionPerformed
+	}//end memorysaveActionPerformed
+	private void onedividedbyxActionPerformed(ActionEvent evt) {
+		this.calculator.onedividedbyxFuntion();
+	}//end onedividedbyxActionPerformed
+	private void piActionPerformed(ActionEvent evt) {
 		textFieldInput.setText(String.valueOf(Math.PI));
-	}//GEN-LAST:event_piActionPerformed
-
-	private void squaredActionPerformed(ActionEvent evt) {//GEN-FIRST:event_squaredActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		out = inb * inb;
-
-		if(out > -100000000 && out < 100000000){
-			textFieldInput.setText(String.valueOf(out));
+	}//end piActionPerformed
+	private void squaredActionPerformed(ActionEvent evt) {
+		this.calculator.squarFuntion();
+	}//end squaredActionPerformed
+	private void squarerootActionPerformed(ActionEvent evt) {
+		this.calculator.squarerootFuntion();
+	}//end squarerootActionPerformed
+	private void cubedActionPerformed(ActionEvent evt) {
+		this.calculator.cubedFuntion();
+	}//end cubedActionPerformed
+	private void cubedrootActionPerformed(ActionEvent evt) {
+		this.calculator.cuberootFuntion();
+	}//end cubedrootActionPerformed
+	private void shiftMouseClicked(MouseEvent evt) {
+		if(!this.calculator.sh){
+			this.calculator.sh = true;
 		}
 		else{
-			textFieldInput.setText("Error");
+			this.calculator.sh = false;
 		}
-
-		textFieldShow.setText(String.valueOf(inb) + "²");
-		out = 0;
-		op = 0;
-	}//GEN-LAST:event_squaredActionPerformed
-
-	private void squarerootActionPerformed(ActionEvent evt) {//GEN-FIRST:event_squarerootActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		out = Math.sqrt(inb);
-
-		textFieldInput.setText(String.valueOf(out));
-
-		textFieldShow.setText("√" + String.valueOf(inb));
-		out = 0;
-		op = 0;
-	}//GEN-LAST:event_squarerootActionPerformed
-
-	private void cubedActionPerformed(ActionEvent evt) {//GEN-FIRST:event_cubedActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		out = inb * inb * inb;
-
-		if(out > -100000000 && out < 100000000){
-			textFieldInput.setText(String.valueOf(out));
-		}
-		else{
-			textFieldInput.setText("Error");
-		}
-
-		textFieldShow.setText(String.valueOf(inb) + "³");
-		out = 0;
-		op = 0;
-	}//GEN-LAST:event_cubedActionPerformed
-
-	private void cuberootActionPerformed(ActionEvent evt) {//GEN-FIRST:event_cuberootActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		out = Math.cbrt(inb);
-
-		textFieldInput.setText(String.valueOf(out));
-
-		textFieldShow.setText("³√" + String.valueOf(inb));
-		out = 0;
-		op = 0;
-	}//GEN-LAST:event_cuberootActionPerformed
-
-	private void shiftMouseClicked(MouseEvent evt) {//GEN-FIRST:event_shiftMouseClicked
-		if(!sh){
-			sh = true;
-		}
-		else{
-			sh = false;
-		}
-	}//GEN-LAST:event_shiftMouseClicked
-
-	private void sinActionPerformed(ActionEvent evt) {//GEN-FIRST:event_sinActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		if(!sh){
-			if(!dgrrad){
-				textFieldShow.setText("sin(" + String.valueOf(inb) + ")");
-				inb = inb * 0.0174532925;
-			}
-			out = Math.sin(inb);
-		}
-		else{
-			textFieldShow.setText("sinh(" + String.valueOf(inb) + ")");
-			out = Math.sinh(inb);
-		}
-
-		textFieldInput.setText(String.valueOf(out));
-		out = 0;
-		op = 0;
-	}//GEN-LAST:event_sinActionPerformed
-
-	private void cosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_cosActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		if(!sh){
-			if(!dgrrad){
-				textFieldShow.setText("cos(" + String.valueOf(inb) + ")");
-				inb = inb * 0.0174532925;
-			}
-			out = Math.cos(inb);
-		}
-		else{
-			textFieldShow.setText("cosh(" + String.valueOf(inb) + ")");
-			out = Math.cosh(inb);
-		}
-
-		textFieldInput.setText(String.valueOf(out));
-		out = 0;
-		op = 0;
-	}//GEN-LAST:event_cosActionPerformed
-
-	private void tanActionPerformed(ActionEvent evt) {//GEN-FIRST:event_tanActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		if(!sh){
-			if(!dgrrad){
-				textFieldShow.setText("tan(" + String.valueOf(inb) + ")");
-				inb = inb * 0.0174532925;
-			}
-			out = Math.tan(inb);
-		}
-		else{
-			textFieldShow.setText("tanh(" + String.valueOf(inb) + ")");
-			out = Math.tanh(inb);
-		}
-
-		textFieldInput.setText(String.valueOf(out));
-		out = 0;
-		op = 0;
-	}//GEN-LAST:event_tanActionPerformed
-
-	private void degreesActionPerformed(ActionEvent evt) {//GEN-FIRST:event_degreesActionPerformed
-		dgrrad = false;
-	}//GEN-LAST:event_degreesActionPerformed
-
-	private void radiansActionPerformed(ActionEvent evt) {//GEN-FIRST:event_radiansActionPerformed
-		dgrrad = true;
-	}//GEN-LAST:event_radiansActionPerformed
-
-	private void addActionPerformed(ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-		calOperator();
-		textFieldInput.setText("0");
-		textFieldShow.setText(String.valueOf(ina) + " + ");
-
-		op = 1;
-
-		decdisp = false;
-		zerodisp = false;
-	}//GEN-LAST:event_addActionPerformed
-
-	private void subtractActionPerformed(ActionEvent evt) {//GEN-FIRST:event_subtractActionPerformed
-		calOperator();
-		textFieldInput.setText("0");
-		textFieldShow.setText(String.valueOf(ina) + " - ");
-
-		op = 2;
-
-		decdisp = false;
-		zerodisp = false;
-	}//GEN-LAST:event_subtractActionPerformed
-
-	private void multiplyActionPerformed(ActionEvent evt) {//GEN-FIRST:event_multiplyActionPerformed
-		calOperator();
-		textFieldInput.setText("0");
-		textFieldShow.setText(String.valueOf(ina) + " * ");
-
-		op = 3;
-
-		decdisp = false;
-		zerodisp = false;
-	}//GEN-LAST:event_multiplyActionPerformed
-
-	private void divideActionPerformed(ActionEvent evt) {//GEN-FIRST:event_divideActionPerformed
-		calOperator();
-
-		textFieldInput.setText("0");
-		textFieldShow.setText(String.valueOf(ina) + " / ");
-
-		op = 4;
-
-		decdisp = false;
-		zerodisp = false;
-	}//GEN-LAST:event_divideActionPerformed
-
-	private void percentActionPerformed(ActionEvent evt) {//GEN-FIRST:event_percentActionPerformed
-		ina = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		textFieldInput.setText("0");
-		textFieldShow.setText(String.valueOf(ina) + "%(");
-
-		decdisp = false;
-		zerodisp = false;
-		op = 5;
-	}//GEN-LAST:event_percentActionPerformed
-
-	private void equalsActionPerformed(ActionEvent evt) {//GEN-FIRST:event_equalsActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-
-		if(op == 0){
-			out = inb;
-			textFieldShow.setText(String.valueOf(inb));
-		}
-
-		if(op == 1){
-			out = ina + inb;
-			textFieldShow.setText(textFieldShow.getText() + String.valueOf(inb));
-		}
-
-		if(op == 2){
-			out = ina - inb;
-			textFieldShow.setText(textFieldShow.getText() + String.valueOf(inb));
-		}
-
-		if(op == 3){
-			out = ina * inb;
-			textFieldShow.setText(textFieldShow.getText() + String.valueOf(inb));
-		}
-
-		if(op == 4){
-			out = ina / inb;
-			textFieldShow.setText(textFieldShow.getText() + String.valueOf(inb));
-		}
-
-		if(op == 5){
-			out = ina * inb / 100;
-			textFieldShow.setText(textFieldShow.getText() + String.valueOf(inb) + ")");
-		}
-
-		if(out > -100000000 && out < 100000000){
-			textFieldInput.setText(String.valueOf(out));
-		}
-		else{
-			textFieldInput.setText("Error");
-		}
-
-		ina = 0;
-		inb = 0;
-		out = 0;
-
-		op = 0;
-		decdisp = false;
-		zerodisp = false;
-	}//GEN-LAST:event_equalsActionPerformed
-	private void addActionPerformed(KeyEvent evt) {//GEN-FIRST:event_addActionPerformed
-		calOperator();
-		textFieldInput.setText("0");
-		textFieldShow.setText(String.valueOf(ina) + " + ");
-
-		op = 1;
-
-		decdisp = false;
-		zerodisp = false;
-	}//GEN-LAST:event_addActionPerformed
-
-	private void subtractActionPerformed(KeyEvent evt) {//GEN-FIRST:event_subtractActionPerformed
-		calOperator();
-
-		textFieldInput.setText("0");
-		textFieldShow.setText(String.valueOf(ina) + " - ");
-
-		op = 2;
-
-		decdisp = false;
-		zerodisp = false;
-	}//GEN-LAST:event_subtractActionPerformed
-
-	private void multiplyActionPerformed(KeyEvent evt) {//GEN-FIRST:event_multiplyActionPerformed
-		calOperator();
-
-		textFieldInput.setText("0");
-		textFieldShow.setText(String.valueOf(ina) + " * ");
-
-		op = 3;
-
-		decdisp = false;
-		zerodisp = false;
-	}//GEN-LAST:event_multiplyActionPerformed
-
-	private void divideActionPerformed(KeyEvent evt) {//GEN-FIRST:event_divideActionPerformed
-		calOperator();
-
-		textFieldInput.setText("0");
-		textFieldShow.setText(String.valueOf(ina) + " / ");
-
-		op = 4;
-
-		decdisp = false;
-		zerodisp = false;
-	}//GEN-LAST:event_divideActionPerformed
-
-	private void percentActionPerformed(KeyEvent evt) {//GEN-FIRST:event_percentActionPerformed
-		ina = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		textFieldInput.setText("0");
-		textFieldShow.setText(String.valueOf(ina) + "%(");
-
-		decdisp = false;
-		zerodisp = false;
-		op = 5;
-	}//GEN-LAST:event_percentActionPerformed
-
-	private void equalsActionPerformed(KeyEvent evt) {//GEN-FIRST:event_equalsActionPerformed
-		inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-
-		if(op == 0){
-			out = inb;
-			textFieldShow.setText(String.valueOf(inb));
-		}
-
-		if(op == 1){
-			out = ina + inb;
-			textFieldShow.setText(textFieldShow.getText() + String.valueOf(inb));
-		}
-
-		if(op == 2){
-			out = ina - inb;
-			textFieldShow.setText(textFieldShow.getText() + String.valueOf(inb));
-		}
-
-		if(op == 3){
-			out = ina * inb;
-			textFieldShow.setText(textFieldShow.getText() + String.valueOf(inb));
-		}
-
-		if(op == 4){
-			out = ina / inb;
-			textFieldShow.setText(textFieldShow.getText() + String.valueOf(inb));
-		}
-
-		if(op == 5){
-			out = ina * inb / 100;
-			textFieldShow.setText(textFieldShow.getText() + String.valueOf(inb) + ")");
-		}
-
-		if(out > -100000000 && out < 100000000){
-			textFieldInput.setText(String.valueOf(out));
-		}
-		else{
-			textFieldInput.setText("Error");
-		}
-
-		ina = 0;
-		inb = 0;
-		out = 0;
-
-		op = 0;
-		decdisp = false;
-		zerodisp = false;
-	}//GEN-LAST:event_equalsActionPerformed
-	public void calOperator(){
-		if(op == 0){
-			ina = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		}
-		else{
-			inb = Double.parseDouble(String.valueOf(textFieldInput.getText()));
-		}
-
-		if(op == 1){
-			ina = ina + inb;
-		}
-
-		if(op == 2){
-			ina = ina - inb;
-		}
-
-		if(op == 3){
-			ina = ina * inb;
-		}
-
-		if(op == 4){
-			ina = ina / inb;
-		}
-
-		if(op == 5){
-			ina = ina * inb / 100;
-		}
-
-	}
-
+	}//end shiftMouseClicked
+	private void sinActionPerformed(ActionEvent evt) {
+		this.calculator.sinFuntion();
+	}//end sinActionPerformed
+	private void cosActionPerformed(ActionEvent evt) {
+		this.calculator.cosFuntion();
+	}//end cosActionPerformed
+	private void tanActionPerformed(ActionEvent evt) {
+		this.calculator.tanFuntion();
+	}//end tanActionPerformed
+	private void degreesActionPerformed(ActionEvent evt) {
+		this.calculator.dgrrad = false;
+	}//end degreesActionPerformed
+	private void radiansActionPerformed(ActionEvent evt) {
+		this.calculator.dgrrad = true;
+	}//end radiansActionPerformed
+	private void addActionPerformed(ActionEvent evt) {
+		this.calculator.operatorFuntion("+",(byte) 1);
+	}//end addActionPerformed
+	private void subtractActionPerformed(ActionEvent evt) {
+		this.calculator.operatorFuntion("-",(byte) 2);
+	}//end subtractActionPerformed
+	private void multiplyActionPerformed(ActionEvent evt) {
+		this.calculator.operatorFuntion("*",(byte) 3);
+	}//end multiplyActionPerformed
+	private void divideActionPerformed(ActionEvent evt) {
+		this.calculator.operatorFuntion("/",(byte) 4);
+	}//end divideActionPerformed
+	private void percentActionPerformed(ActionEvent evt) {
+		this.calculator.percentFintion();
+	}//end percentActionPerformed
+	private void equalsActionPerformed(ActionEvent evt) {
+		this.calculator.equalsFunfumtion();
+	}//end equalsActionPerformed
+	private void addActionPerformed(KeyEvent evt) {
+		this.calculator.operatorFuntion("+",(byte) 1);
+	}//end addActionPerformed
+	private void subtractActionPerformed(KeyEvent evt) {
+		this.calculator.operatorFuntion("-",(byte) 2);
+	}//end subtractActionPerformed
+	private void multiplyActionPerformed(KeyEvent evt) {
+		this.calculator.operatorFuntion("*",(byte) 3);
+	}//end multiplyActionPerformed
+	private void divideActionPerformed(KeyEvent evt) {
+		this.calculator.operatorFuntion("/",(byte) 4);
+	}//end divideActionPerformed
+	private void percentActionPerformed(KeyEvent evt) {
+		this.calculator.percentFintion();
+	}//end percentActionPerformed
+	private void equalsActionPerformed(KeyEvent evt) {
+		this.calculator.equalsFunfumtion();
+	}//end equalsActionPerformed
 }
