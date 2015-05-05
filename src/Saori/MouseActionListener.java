@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import Saori.Event.StandingEvent;
 import Saori.Listener.ExitListener;
 
 public class MouseActionListener implements MouseListener {
@@ -22,13 +23,12 @@ public class MouseActionListener implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		ui.event.enterHandler();
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		ui.toolBox.setVisible(false);
 	}
 
 	@Override

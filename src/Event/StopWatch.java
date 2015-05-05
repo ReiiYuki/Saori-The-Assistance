@@ -1,4 +1,4 @@
-package Saori.Event;
+package Event;
 /**
 * A StopWatch that measures elapsed time between a starting time
 * and stopping time, or until the present time.

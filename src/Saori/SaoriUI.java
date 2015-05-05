@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import Core.ToolUI;
 import Saori.Event.Event;
 import Saori.Event.FallingEvent;
 import Saori.Event.MovingEvent;
@@ -23,6 +24,7 @@ public class SaoriUI extends JDialog implements Runnable{
 	
 	Thread t;
 	Event event;
+	ToolUI toolBox;
 	public JLabel Saori;
 	
 	public SaoriUI (){
@@ -31,12 +33,14 @@ public class SaoriUI extends JDialog implements Runnable{
 		initComponents();
 		setLocation(0,0);
 		pack();
-		 t = new Thread(this);
-		 event = new MovingEvent(this);
-		 t.start();
+		toolBox = new ToolUI();
+		t = new Thread(this);
+		event = new MovingEvent(this);
+		t.start();
 	}
 	public void initComponents(){
 		Container field = this.getContentPane();
+		field.setBounds(0, 0, 150, 180);
 		field.setLayout(new GridLayout(1,1));
 		ImageIcon im = new ImageIcon(ClassLoader.getSystemResource("Resource/Images/saori1.png"));
 		Saori = new JLabel(im);
@@ -60,6 +64,10 @@ public class SaoriUI extends JDialog implements Runnable{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	public void appearTool(){
+		toolBox.setLocation(getX(), getY()+100);
+		toolBox.setVisible(true);
 	}
 	public static void main(String[] args) {
 		SaoriUI s = new SaoriUI();
