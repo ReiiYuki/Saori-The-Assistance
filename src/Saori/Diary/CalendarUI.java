@@ -54,7 +54,7 @@ public class CalendarUI extends JDialog {
 	private GregorianCalendar  calendar;
 	private GregorianCalendar  calendarNow;
 	JPanel panel;
-	public CalendarUI() throws FontFormatException, IOException {
+	public CalendarUI()  {
 		super();
 		setUndecorated(true);
 		calendarNow = new GregorianCalendar();
@@ -62,7 +62,12 @@ public class CalendarUI extends JDialog {
 		calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(System.currentTimeMillis());
         URL fontUrl = ClassLoader.getSystemResource("Resource/Font/WaffleRegular.otf");
-        font = Font.createFont(Font.TRUETYPE_FONT, fontUrl.openStream());
+        try {
+			font = Font.createFont(Font.TRUETYPE_FONT, fontUrl.openStream());
+		} catch (FontFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         font = font.deriveFont(Font.PLAIN,20);
         GraphicsEnvironment ge =GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);

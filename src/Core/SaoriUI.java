@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 
 import Event.Event;
 import Event.FallingEvent;
+import Event.ListeningEvent;
 
 public class SaoriUI extends JDialog implements Runnable{
 	/**
@@ -27,7 +28,7 @@ public class SaoriUI extends JDialog implements Runnable{
 		super();
 		initLocation();
 		initComponent();
-		toolbox = new ToolUI();
+		toolbox = new ToolUI(this);
 		event = new FallingEvent(this);
 		thread = new Thread(this);
 		thread.start();
@@ -51,6 +52,7 @@ public class SaoriUI extends JDialog implements Runnable{
 		setLocation((int) (Math.random()*width),-200);
 	}
 	public void changeEvent(Event event){
+		if (this.event.getClass()!=ListeningEvent.class)  toolBoxDisappear();
 		this.event = event;
 	}
 	@Override

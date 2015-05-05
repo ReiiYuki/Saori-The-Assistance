@@ -4,37 +4,41 @@ import java.awt.event.MouseEvent;
 
 import Core.SaoriUI;
 
-public class ListeningEvent implements Event{
+public class WritingEvent implements Event {
 	private SaoriUI ui;
 	private StopWatch animationCounter;
-	public ListeningEvent(SaoriUI ui){
+	public WritingEvent(SaoriUI ui){
 		this.ui = ui;
 		animationCounter = new StopWatch();
 	}
 	@Override
 	public void perform() {
-		ui.toolBoxAppear();
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void dragHandler(MouseEvent e) {
-		leaveEvent(new FlyingEvent(ui));
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void releaseHandler() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void enterHandler() {
-		
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void leaveEvent(Event event) {
-		ui.changeEvent(event);
+		// TODO Auto-generated method stub
+
 	}
-	
+
 }
