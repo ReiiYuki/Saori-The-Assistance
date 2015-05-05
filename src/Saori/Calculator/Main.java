@@ -9,6 +9,7 @@ public class Main {
 		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
 		 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
 		 */
+		
 //		try {
 //			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 //				if ("Nimbus".equals(info.getName())) {
@@ -37,7 +38,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Calculator c = new Calculator();
+					CalculatorUI c = new CalculatorUI();
 					c.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
