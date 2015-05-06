@@ -3,33 +3,33 @@ package Saori.Calculator;
 public class Calculator{
 
 	private CalculatorUI calculatorUI;
-	protected boolean zerodisp;
-	protected boolean decdisp;
-	protected boolean dgrrad;
-	protected boolean sh;
-	protected byte op; //operator
-	protected double ina;
-	protected double inb;
-	protected double out;
+	protected boolean isZero ;
+	protected boolean isDot ;
+	protected boolean isDegrees ;
+	protected boolean sh ; //shift
+	protected byte op ; //operator
+	protected double ina ;
+	protected double inb ;
+	protected double out ;
 
 	public Calculator(CalculatorUI calculatorUI){
 		this.calculatorUI = calculatorUI;
 	}
 
-	public void numberFuntion(String num){
-		if(!zerodisp && !decdisp){
+	public void numberFunction(String num){
+		if(!isZero && !isDot){
 			calculatorUI.textFieldInput.setText(null);
 		}
 		calculatorUI.textFieldInput.setText(calculatorUI.textFieldInput.getText() + num );
-		zerodisp = true;
+		isZero = true;
 	}
-	public void zeroFuntion(String num){
-		if(!zerodisp && !decdisp){
+	public void zeroFunction(String num){
+		if(!isZero && !isDot){
 			this.calculatorUI.textFieldInput.setText(null);
 		}
 		this.calculatorUI.textFieldInput.setText(this.calculatorUI.textFieldInput.getText() + num);
 	}
-	public void equalsFunfumtion(){
+	public void equalsFunction(){
 		inb = Double.parseDouble(String.valueOf(calculatorUI.textFieldInput.getText()));
 
 		if(op == 0){
@@ -74,10 +74,47 @@ public class Calculator{
 		out = 0;
 
 		op = 0;
-		decdisp = false;
-		zerodisp = false;
+		isDot = false;
+		isZero = false;
 	}
-	public void operatorFuntion(String opString , byte opInteger){
+	public void operatorShiftFunction(String opString , byte opInteger){
+		if(op == 0){
+			ina = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText().substring(0, this.calculatorUI.textFieldInput.getText().length()-1)));
+		}
+		else{
+			inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText().substring(0, this.calculatorUI.textFieldInput.getText().length()-1)));
+		}
+
+		if(op == 1){
+			ina =ina + inb;
+		}
+
+		if(op == 2){
+			ina = ina - inb;
+		}
+
+		if(op == 3){
+			ina = ina *inb;
+		}
+
+		if(op == 4){
+			ina = ina / inb;
+		}
+
+		if(op == 5){
+			ina = ina * inb / 100;
+		}
+
+		this.calculatorUI.textFieldInput.setText("0");
+		this.calculatorUI.textFieldShow.setText(String.valueOf(ina) + " "+opString+" ");
+
+		op = opInteger;
+
+		isDot = false;
+		isZero = false;
+
+	}
+	public void operatorFunction(String opString , byte opInteger){
 		if(op == 0){
 			ina = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		}
@@ -110,14 +147,14 @@ public class Calculator{
 
 		op = opInteger;
 
-		decdisp = false;
-		zerodisp = false;
+		isDot = false;
+		isZero = false;
 
 	}
-	public void sinFuntion(){
+	public void sinFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		if(!sh){
-			if(!dgrrad){
+			if(!isDegrees){
 				this.calculatorUI.textFieldShow.setText("sin(" + inb + ")");
 				inb = inb * 0.0174532925;
 			}
@@ -132,10 +169,10 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
-	public void cosFuntion(){
+	public void cosFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		if(!sh){
-			if(!dgrrad){
+			if(!isDegrees){
 				this.calculatorUI.textFieldShow.setText("cos(" + inb + ")");
 				inb = inb * 0.0174532925;
 			}
@@ -150,10 +187,10 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
-	public void tanFuntion(){
+	public void tanFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		if(!sh){
-			if(!dgrrad){
+			if(!isDegrees){
 				this.calculatorUI.textFieldShow.setText("tan(" + inb + ")");
 				inb = inb * 0.0174532925;
 			}
@@ -168,16 +205,16 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
-	public void percentFintion(){
+	public void percentFunction(){
 		ina = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		this.calculatorUI.textFieldInput.setText("0");
 		this.calculatorUI.textFieldShow.setText( ina + "%(");
 
-		decdisp = false;
-		zerodisp = false;
+		isDot = false;
+		isZero = false;
 		op = 5;
 	}
-	public void cuberootFuntion(){
+	public void cuberootFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = Math.cbrt(inb);
 
@@ -187,7 +224,7 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
-	public void cubedFuntion(){
+	public void cubedFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = inb * inb * inb;
 
@@ -202,7 +239,7 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
-	public void squarerootFuntion(){
+	public void squarerootFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = Math.sqrt(inb);
 
@@ -212,7 +249,7 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
-	public void onedividedbyxFuntion(){
+	public void onedividedbyxFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = 1 / inb;
 
@@ -226,7 +263,7 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
-	public void squarFuntion(){
+	public void squarFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = inb * inb;
 
@@ -241,11 +278,11 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
-	public void resetFuntion(){
+	public void resetFunction(){
 		this.calculatorUI.textFieldInput.setText("0");
 		this.calculatorUI.textFieldShow.setText(null);
-		zerodisp = false;
-		decdisp = false;
+		isZero = false;
+		isDot = false;
 		ina = 0;
 		inb = 0;
 		out = 0;
@@ -260,7 +297,7 @@ public class Calculator{
 		else{
 			this.calculatorUI.textFieldInput.setText("Error");
 		}
-		decdisp = true;
+		isDot = true;
 		out = 0;
 	}
 }
