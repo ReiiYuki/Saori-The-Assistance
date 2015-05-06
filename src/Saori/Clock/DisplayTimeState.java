@@ -19,6 +19,7 @@ public class DisplayTimeState implements ClockState{
 	 * Constructor for new DisplayTimeState
 	 * @param clock is attributes,type is Clock
 	 */
+	@SuppressWarnings("static-access")
 	public DisplayTimeState(Clock clock){
 		time = time.getInstance();
 		this.clock = clock ;
@@ -26,6 +27,7 @@ public class DisplayTimeState implements ClockState{
 	/**
 	 * updateTime is update method when over time
 	 */
+	@SuppressWarnings("static-access")
 	public void updateTime(){
 		
 		time.setTimeInMillis( System.currentTimeMillis() );

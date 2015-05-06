@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import Event.Event;
 import Event.FallingEvent;
 import Event.ListeningEvent;
+import Saori.Clock.Clock;
 
 public class SaoriUI extends JDialog implements Runnable{
 	/**
@@ -24,10 +25,12 @@ public class SaoriUI extends JDialog implements Runnable{
 	private Event event;
 	private Thread thread;
 	private ToolUI toolbox;
+	private Clock clock;
 	public SaoriUI() {
 		super();
 		initLocation();
 		initComponent();
+		clock = new Clock();
 		toolbox = new ToolUI(this);
 		event = new FallingEvent(this);
 		thread = new Thread(this);
@@ -54,6 +57,9 @@ public class SaoriUI extends JDialog implements Runnable{
 	public void changeEvent(Event event){
 		if (this.event.getClass()!=ListeningEvent.class)  toolBoxDisappear();
 		this.event = event;
+	}
+	public Clock getClock(){
+		return clock;
 	}
 	@Override
 	public void run() {

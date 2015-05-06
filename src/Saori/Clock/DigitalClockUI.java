@@ -2,7 +2,6 @@ package Saori.Clock;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 
@@ -22,6 +21,10 @@ import javax.swing.Timer;
  * @version 3/11/2015
  */
 public class DigitalClockUI extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7420402910042556L;
 	// attributes for graphical components
 	private JPanel pane ,panel1 ,panel2 ,panelStatus ,panelDay;
 	private JButton stopButton, setButton ,plusButton ,minusButton ;
@@ -33,9 +36,9 @@ public class DigitalClockUI extends JFrame{
 	/**
 	 * Constructor for new DigitalClockUI
 	 */
-	public DigitalClockUI(){
+	public DigitalClockUI(Clock clock){
 		this.setTitle( "DigitalClock" );
-		clock = new Clock();
+		this.clock = clock;
 		this.setDefaultCloseOperation( EXIT_ON_CLOSE );
 		this.initComponents();
 		getSelected();
@@ -102,6 +105,7 @@ public class DigitalClockUI extends JFrame{
 
 
 		icon = new ImageIcon [14] ;
+		@SuppressWarnings("rawtypes")
 		Class time = this.getClass();
 		URL time0 = time.getResource("images/0.gif");
 		icon[0] = new ImageIcon( time0 );

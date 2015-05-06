@@ -1,13 +1,11 @@
 package Saori.Diary;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -22,15 +20,18 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import Saori.Listener.DragListener;
 import Saori.Listener.ExitListener;
+import Saori.Listener.Diary.dateChooseButtonListener;
 
 public class CalendarUI extends JDialog {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4456125431731463002L;
 	private JTextField YearLab;
 	private JTextField MonthLab;
 	private String[] monthName;
@@ -79,18 +80,19 @@ public class CalendarUI extends JDialog {
 		Container field = getContentPane();
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-		
+		JPanel exitBar = new JPanel();
+		exitBar.setLayout(new FlowLayout());
+		JButton exit = new JButton("x");
+		exit.addActionListener(new ExitListener());
+		exitBar.add(exit);	
+		panel.add(exitBar);
 		JPanel header = new JPanel();
-		header.setLayout(new FlowLayout());
-		header.add(new JLabel("      "));
 		YearLab = new JTextField(4);
 		YearLab.setText(calendar.get(Calendar.YEAR)+"");
 		YearLab.setFont(font);
 		YearLab.addActionListener(new setListener());
+		header.setLayout(new FlowLayout());
 		header.add(YearLab);
-		JButton exit = new JButton("x");
-		exit.addActionListener(new ExitListener());
-		header.add(exit);		
 		panel.add(header);
 		JPanel title = new JPanel();
 		title.setLayout(new FlowLayout());
@@ -98,15 +100,13 @@ public class CalendarUI extends JDialog {
 		MonthLab = new JTextField(9);
 		MonthLab.setText(monthName[calendar.get(Calendar.MONTH)]);
 		MonthLab.addActionListener(new setListener());
-		JButton event = new JButton("view event");
 		title.add(MonthLab);
-		title.add(event);
 		panel.add(title);
 		JPanel calendarTable = new JPanel();
 		calendarTable.setLayout(new GridLayout(7,7));
 		String[] listDay = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 		for (int i =0;i<7;i++){
-			calendarTable.add(new JLabel(listDay[i]));
+			calendarTable.add(new JLabel(listDay[i],SwingConstants.CENTER));
 		}
 		calendarShow = new JButton[6][7];
 		for (int i = 0;i<6;i++){
@@ -127,6 +127,9 @@ public class CalendarUI extends JDialog {
 		for (int i =0;i<6;i++) {
 			for (int j =0;j<7;j++){
 				calendarShow[i][j].setText("");
+				for (ActionListener k :	calendarShow[i][j].getActionListeners()) {
+					calendarShow[i][j].removeActionListener(k);
+				}
 			}
 		}
 		YearLab.setText(calendar.get(Calendar.YEAR)+"");
@@ -137,6 +140,8 @@ public class CalendarUI extends JDialog {
 			int row = (i+dayOfFirst-2)/7;
 			int column = (i+dayOfFirst-2)%7;
 			calendarShow[row][column].setText(i+"");
+			calendarShow[row][column].setHorizontalAlignment(SwingConstants.CENTER);
+			calendarShow[row][column].addActionListener(new dateChooseButtonListener(new GregorianCalendar(upCalendar.get(GregorianCalendar.YEAR),upCalendar.get(GregorianCalendar.MONTH),i)));
 		}
 		pack();
 	}

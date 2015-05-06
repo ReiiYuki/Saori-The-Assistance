@@ -189,6 +189,7 @@ public class Clock {
 	public void setSat(boolean sat) {
 		this.sat = sat;
 	}
+	@SuppressWarnings({ "unchecked", "resource" })
 	public void restore(){
 		File alertFile = new File("src\\Saori\\Clock\\listOfAlert.loa");
 		if (alertFile.exists()){
@@ -264,6 +265,7 @@ public class Clock {
 	public void soundEffect(){
 		try{
 			sound = AudioSystem.getClip();
+			@SuppressWarnings("rawtypes")
 			Class loader = this.getClass();
 			URL audio = loader.getResource( "sounds/RingTone.wav" );
 			AudioInputStream soundStrem = AudioSystem.getAudioInputStream( audio );
