@@ -7,13 +7,12 @@ import Core.SaoriUI;
 public class SittingEvent implements Event {
 
 	private SaoriUI ui;
-	private StopWatch animationCounter;
 	private StopWatch stateChangeCounter;
 	private int dicisionToAction;
 	private int dicisionToLeave;
 	public SittingEvent(SaoriUI ui){
 		this.ui = ui;
-		animationCounter = new StopWatch();
+		ui.setImage("Resource/Images/saori9.png");
 		stateChangeCounter = new StopWatch();
 		dicisionToLeave = (int) (Math.random()*40+10);
 		dicisionToAction = (int) (Math.random()*2+1);

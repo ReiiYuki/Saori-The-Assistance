@@ -7,12 +7,11 @@ import Core.SaoriUI;
 public class PainEvent implements Event {
 	
 	private SaoriUI ui;
-	private StopWatch animationCounter;
 	private StopWatch stateChangeCounter;
 	private int timeToLeave;
 	public PainEvent(SaoriUI ui){
 		this.ui = ui;
-		animationCounter = new StopWatch();
+		ui.setImage("Resource/Images/saori11.png");
 		stateChangeCounter = new StopWatch();
 		stateChangeCounter.start();
 		timeToLeave = (int) (Math.random()*40+20);

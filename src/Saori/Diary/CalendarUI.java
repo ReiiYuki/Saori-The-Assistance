@@ -121,7 +121,7 @@ public class CalendarUI extends JDialog {
 		panel.add(calendarTable);
 		setContentPane(panel);
 		addMouseMotionListener(new DragListener(this));
-		setVisible(true);
+		//setVisible(true);
 	}
 	public void updateTime(){
 		for (int i =0;i<6;i++) {

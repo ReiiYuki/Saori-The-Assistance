@@ -7,10 +7,9 @@ import Core.SaoriUI;
 public class FlyingEvent implements Event{
 	
 	private SaoriUI ui;
-	private StopWatch animationCounter;
 	public FlyingEvent(SaoriUI ui){
 		this.ui = ui;
-		animationCounter = new StopWatch();
+		ui.setImage("Resource/Images/saori5.png");
 	}
 	@Override
 	public void perform() {

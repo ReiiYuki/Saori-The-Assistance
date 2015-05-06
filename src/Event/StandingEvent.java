@@ -7,13 +7,13 @@ import Core.SaoriUI;
 public class StandingEvent implements Event{
 	
 	private SaoriUI ui;
-	private StopWatch animationCounter;
 	private StopWatch stateChangeCounter;
 	private int dicisionToAction;
 	private int dicisionToLeave;
 	public StandingEvent(SaoriUI ui){
 		this.ui = ui;
-		animationCounter = new StopWatch();
+		ui.setImage("Resource/Images/saori7.png", "Resource/Images/saori8.png");
+		ui.restartAnimate();
 		stateChangeCounter = new StopWatch();
 		dicisionToLeave = (int) (Math.random()*40+10);
 		dicisionToAction = (int) (Math.random()*2+1);
@@ -44,6 +44,7 @@ public class StandingEvent implements Event{
 
 	@Override
 	public void leaveEvent(Event event) {
+		ui.pauseAnimate();
 		ui.changeEvent(event);
 	}
 

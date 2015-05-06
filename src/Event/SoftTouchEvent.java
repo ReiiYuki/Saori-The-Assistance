@@ -9,10 +9,9 @@ import Core.SaoriUI;
 public class SoftTouchEvent implements Event {
 
 	private SaoriUI ui;
-	private StopWatch animationCounter;
 	public SoftTouchEvent(SaoriUI ui){
 		this.ui = ui;
-		animationCounter = new StopWatch();
+		ui.setImage("Resource/Images/saori15.png");
 	}
 
 	
@@ -20,14 +19,13 @@ public class SoftTouchEvent implements Event {
 	public void perform() {
 		int screenHeigh = Toolkit.getDefaultToolkit().getScreenSize().height;
 		int realScreenHigh = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
-		int realHeigh = realScreenHigh-(screenHeigh-realScreenHigh)-150;
+		int realHeigh = realScreenHigh-(screenHeigh-realScreenHigh)+150;
 		int y = (int) ui.getLocation().getY();
-		if (y==realHeigh) leaveEvent(new SmartStandingEvent(ui));
+		if (y==realHeigh) leaveEvent(new StandingEvent(ui));
 		else if (y>realHeigh) {
-			y-=1;
+			y+=1;
 			ui.setLocation((int) ui.getLocation().getX(), y);
 		}
-		else leaveEvent(new FallingEvent(ui));
 	}
 
 	@Override

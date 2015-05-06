@@ -8,10 +8,10 @@ public class FallingEvent implements Event {
 	
 	private SaoriUI ui;
 	private int initialY;
-	private StopWatch animationCounter;
 	public FallingEvent(SaoriUI ui){
 		this.ui = ui;
-		animationCounter = new StopWatch();
+		ui.setImage("Resource/Images/saori3.png", "Resource/Images/saori4.png");
+		ui.restartAnimate();
 		this.initialY = (int) ui.getLocation().getY();
 	}
 	@Override
@@ -19,7 +19,7 @@ public class FallingEvent implements Event {
 		int screenHeigh = Toolkit.getDefaultToolkit().getScreenSize().height;
 		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 		int realScreenHigh = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
-		int realHeigh = realScreenHigh-(screenHeigh-realScreenHigh)-150;
+		int realHeigh = realScreenHigh-(screenHeigh-realScreenHigh)-90;
 		int y = (int) ui.getLocation().getY();
 		if (y>screenHeigh){
 			int x = (int) (Math.random()*screenWidth);
@@ -28,11 +28,14 @@ public class FallingEvent implements Event {
 			ui.setLocation(x, y);
 		}
 		else {
-			y-=1;
+			y+=1;
 			ui.setLocation((int) ui.getLocation().getX(), y);
-			if (y>300&&y<realHeigh){
-				if (y-initialY>300) leaveEvent(new HardTouchEvent(ui));
-				else leaveEvent(new SoftTouchEvent(ui));
+			if (y>=300&&y<realHeigh){
+				 if (y-initialY<300) leaveEvent(new SoftTouchEvent(ui));
+			}
+			if (y>=realHeigh){
+				ui.setLocation((int) ui.getLocation().getX(), realHeigh);
+				leaveEvent(new HardTouchEvent(ui));
 			}
 		}
 	}
@@ -56,6 +59,7 @@ public class FallingEvent implements Event {
 
 	@Override
 	public void leaveEvent(Event event) {
+		ui.pauseAnimate();
 		ui.changeEvent(event);
 	}
 

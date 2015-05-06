@@ -1,33 +1,25 @@
 package Event;
 
-import java.awt.GraphicsEnvironment;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+
 
 import Core.SaoriUI;
 
 public class HardTouchEvent implements Event {
 
 	private SaoriUI ui;
-	private StopWatch animationCounter;
+	private StopWatch leaveCounter;
 	public HardTouchEvent(SaoriUI ui){
 		this.ui = ui;
-		animationCounter = new StopWatch();
+		leaveCounter = new StopWatch();
+		ui.setImage("Resource/Images/saori16.png", "Resource/Images/saori17.png");
+		ui.restartAnimate();
+		leaveCounter.start();
 	}
 
 	@Override
 	public void perform() {
-		int screenHeigh = Toolkit.getDefaultToolkit().getScreenSize().height;
-		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-		int realScreenHigh = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
-		int realHeigh = realScreenHigh-(screenHeigh-realScreenHigh)-150;
-		int y = (int) ui.getLocation().getY();
-		if (y==realHeigh) leaveEvent(new PainEvent(ui));
-		else if (y>realHeigh) {
-			y-=1;
-			ui.setLocation((int) ui.getLocation().getX(), y);
-		}
-		else leaveEvent(new FallingEvent(ui));
+		if (leaveCounter.getElapsed()>3) leaveEvent(new PainEvent(ui));
 	}
 
 	@Override
@@ -49,6 +41,7 @@ public class HardTouchEvent implements Event {
 
 	@Override
 	public void leaveEvent(Event event) {
+		ui.pauseAnimate();
 		ui.changeEvent(event);
 	}
 
