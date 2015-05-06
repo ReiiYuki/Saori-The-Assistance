@@ -59,7 +59,10 @@ public class DiaryUI extends JDialog {
 	}
 	class S implements ActionListener {
 		public void actionPerformed(ActionEvent e){
-			Diary diary = new Diary(titleField.getText(),article.getText().split("\\n"),timeEdited);
+			String[] b = article.getText().split("\\n");
+			ArrayList<String> a = new ArrayList<String>();
+			for (String i : b) a.add(i);
+			Diary diary = new Diary(timeEdited,titleField.getText(),a);
 			String path = "src\\Saori\\Diary\\Data\\"+timeEdited.get(Calendar.DATE)+"-"+timeEdited.get(Calendar.MONTH)+"-"+timeEdited.get(Calendar.YEAR);
 			File file = new File(path);
 			if (file.exists()){

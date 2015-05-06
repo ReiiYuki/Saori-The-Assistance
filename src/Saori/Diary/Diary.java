@@ -1,41 +1,45 @@
 package Saori.Diary;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.GregorianCalendar;
 
-import javax.swing.JTextArea;
 
 public class Diary implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private GregorianCalendar time;
-	private String title;
-	private String[] article;
-	public Diary(String title,String[] article,GregorianCalendar time){
-		this.time = time;
+	private static final long serialVersionUID = -8692162105901890624L;
+	String title;
+	ArrayList<String> article;
+	GregorianCalendar timeEdited;
+	public Diary(){
+		timeEdited = new GregorianCalendar();
+		title = timeEdited.getTimeInMillis()+"";
+		article = new ArrayList<String>();
+	}
+	public Diary(GregorianCalendar timeEdited,String title,ArrayList<String> article){
+		this.timeEdited = timeEdited;
 		this.title = title;
 		this.article = article;
+	}
+	public Diary(Diary diary){
+		this.timeEdited = diary.timeEdited;
+		this.title = diary.title;
+		this.article = diary.article;
+	}
+	public ArrayList<String> read(){
+		return this.article;
+	}
+	public void write(String line){
+		article.add(line);
 	}
 	public String getTitle(){
 		return title;
 	}
-	public void read(JTextArea textArea){
-		for (String i : article){
-			textArea.append(i+"\n");
-		}
-	}
-	public void write(JTextArea textArea,GregorianCalendar thatTime){
-		article = textArea.getText().split("\\n");
-		time = thatTime;
-	}
 	public String getDescription(){
-		return String.format("Type: %s Title: %s Date: %d-%d-%d",getClass().getName(), title,time.get(GregorianCalendar.DATE),time.get(GregorianCalendar.MONTH)+1,time.get(GregorianCalendar.YEAR));
+		return String.format("%s %s %s", getClass().getName(),getTitle(),timeEdited.toString());
 	}
-	public String getType(){
-		return getClass().getName();
+	public GregorianCalendar getDate(){
+		return timeEdited;
 	}
 }

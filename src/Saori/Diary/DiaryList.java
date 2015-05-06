@@ -34,7 +34,7 @@ public class DiaryList {
 			e.printStackTrace();
 			return new Diary[]{};
 		}
-	}
+
 	public static void main(String[] args) {
 		DiaryList diary = new DiaryList(new GregorianCalendar(2015,4,3));
 		Diary[] d = diary.loadDiary();

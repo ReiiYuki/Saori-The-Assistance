@@ -10,7 +10,8 @@ public class Main {
 	 * @param args is argument for run String
 	 */
 	public static void main(String[] args) {
-		DigitalClockUI LED = new DigitalClockUI();
+		Clock clock = new Clock();
+		DigitalClockUI LED = new DigitalClockUI(clock);
 		LED.pack();
 		LED.setVisible( true );
 	}

@@ -1,5 +1,4 @@
 package Saori.Clock;
-import java.util.Calendar;
 
 /**
  * SettingAlarmState can change the AlarmTime that you want
@@ -114,6 +113,7 @@ public class SettingAlarmState implements ClockState{
 			clock.setBlinkSec( false );
 			clock.setShowAlarm( true );
 			clock.setShowSetDay( false );
+			clock.save();
 			clock.setState( clock.getDisplayTimeState() );
 		}
 

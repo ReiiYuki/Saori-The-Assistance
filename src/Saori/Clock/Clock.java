@@ -1,6 +1,12 @@
 package Saori.Clock;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.sound.sampled.AudioInputStream;
@@ -28,6 +34,8 @@ public class Clock {
 	private int numSun ,numMon ,numTue ,numWed ,numThu ,numFri ,numSat ;
 	private Clip sound ;
 	private Calendar calendar  ;
+	private Calendar alarm;
+	private ArrayList<Calendar> setOfAlarm;
 	/**
 	 * Constructor for new Clock
 	 */
@@ -56,8 +64,11 @@ public class Clock {
 		this.numThu = 0 ;
 		this.numFri = 0 ;
 		this.numSat = 0 ;
-		this.calendar = this.calendar.getInstance();
+		this.calendar = Calendar.getInstance();
+		this.alarm = Calendar.getInstance();
+		this.setOfAlarm = new ArrayList<Calendar>();
 		this.checkDay();
+		restore();
 		this.setState( DisplayTimeState );
 	}
 	public int getNumSun() {
@@ -178,12 +189,83 @@ public class Clock {
 	public void setSat(boolean sat) {
 		this.sat = sat;
 	}
+	@SuppressWarnings({ "unchecked", "resource" })
+	public void restore(){
+		File alertFile = new File("src\\Saori\\Clock\\listOfAlert.loa");
+		if (alertFile.exists()){
+	        try {
+	    		FileInputStream filein = new FileInputStream(alertFile);
+	            ObjectInputStream instream = new ObjectInputStream(filein);
+				setOfAlarm = (ArrayList<Calendar>) instream.readObject();
+				for (Calendar i : setOfAlarm){
+					if (i.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY) setSun(true);
+					if (i.get(Calendar.DAY_OF_WEEK)==Calendar.MONDAY) setMon(true);
+					if (i.get(Calendar.DAY_OF_WEEK)==Calendar.TUESDAY) setTue(true);
+					if (i.get(Calendar.DAY_OF_WEEK)==Calendar.WEDNESDAY) setWed(true);
+					if (i.get(Calendar.DAY_OF_WEEK)==Calendar.THURSDAY) setThu(true);
+					if (i.get(Calendar.DAY_OF_WEEK)==Calendar.FRIDAY) setFri(true);
+					if (i.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY) setSat(true);
+					setAlarmHr(i.get(Calendar.HOUR));
+					setAlarmMin(i.get(Calendar.MINUTE));
+					setAlarmSec(i.get(Calendar.SECOND));
+					setShowAlarm(true);
+				}
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	public void save(){
+         try {
+    		FileOutputStream fileout = new FileOutputStream("src\\Saori\\Clock\\listOfAlert.loa");
+			ObjectOutputStream outstream= new ObjectOutputStream(fileout);
+			outstream.writeObject(getListOfAlarm());
+			outstream.close();
+			fileout.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public ArrayList<Calendar> getListOfAlarm(){
+		if (isSun()) {
+			alarm.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			setOfAlarm.add(alarm);
+		}
+		if (isMon()) {
+			alarm.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+			setOfAlarm.add(alarm);
+		}
+		if (isTue()) {
+			alarm.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+			setOfAlarm.add(alarm);
+		}
+		if (isWed()) {
+			alarm.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+			setOfAlarm.add(alarm);
+		}
+		if (isThu()) {
+			alarm.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+			setOfAlarm.add(alarm);
+		}
+		if (isFri()) {
+			alarm.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+			setOfAlarm.add(alarm);
+		}
+		if (isSat()) {
+			alarm.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+			setOfAlarm.add(alarm);
+		}
+		return setOfAlarm;
+	}
 	/**
 	 * soundEffect is open effect method
 	 */
 	public void soundEffect(){
 		try{
 			sound = AudioSystem.getClip();
+			@SuppressWarnings("rawtypes")
 			Class loader = this.getClass();
 			URL audio = loader.getResource( "sounds/RingTone.wav" );
 			AudioInputStream soundStrem = AudioSystem.getAudioInputStream( audio );
@@ -331,6 +413,7 @@ public class Clock {
 	 */
 	public void setAlarmHr(int alarmHr) {
 		this.alarmHr = alarmHr;
+		alarm.set(Calendar.HOUR, alarmHr);
 	}
 	/**
 	 * getAlarmMin is get alarmMin that you set
@@ -345,6 +428,7 @@ public class Clock {
 	 */
 	public void setAlarmMin(int alarmMin) {
 		this.alarmMin = alarmMin;
+		alarm.set(Calendar.MINUTE, alarmMin);
 	}
 	/**
 	 * getAlarmSec is get alarmSec that you set
@@ -359,6 +443,7 @@ public class Clock {
 	 */
 	public void setAlarmSec(int alarmSec) {
 		this.alarmSec = alarmSec;
+		alarm.set(Calendar.SECOND,alarmSec);
 	}
 	/**
 	 * updateTime is update method when over time
@@ -440,5 +525,5 @@ public class Clock {
 	public void handleMinusKey(){
 		state.pressMinus();
 	}
-
+	
 }

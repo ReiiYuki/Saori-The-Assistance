@@ -1,6 +1,5 @@
 package Saori.Clock;
 
-import java.util.Calendar;
 
 /**
  * A StopWatch that measures elapsed time between a starting time
@@ -9,12 +8,7 @@ import java.util.Calendar;
  * @version 1.0
  */
 public class StopWatch implements ClockState{
-	/** constant for converting nanoseconds to seconds. */
-	private static final double NANOSECONDS = 1.0E-9;
-	/** time that the StopWacth was started, in nanoseconds. */
-	private long startTime = 0 ;
-	/** time that the StopWacth was stopped, in nanoseconds. */
-	private long stopTime = 0 ;
+
 	/** Constructor StopWacth was running or stopped. */
 	private int min = 0 , sec = 0 ;
 	private double 	millisec = 0;
