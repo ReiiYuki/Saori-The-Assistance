@@ -2,21 +2,22 @@ package Saori.Search;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.JList;
 import javax.swing.ListModel;
 
 import Saori.Calculator.CalculatorUI;
 
 public class FindFile {
-	private FindFileUI findfileUI;
-	public FindFile(FindFileUI findfileUI){
-		this.findfileUI = findfileUI;
+	protected ArrayList<String> fileFrom ;
+	public FindFile(){
+		fileFrom = new ArrayList<String>();
 	}
 	public void findFile(String name,File file){
 		File[] list = file.listFiles();
-		ArrayList<String> fileFrom = new ArrayList<String>();
+		
 		if(list!=null)
 			for (File fil : list)
 			{
@@ -29,7 +30,8 @@ public class FindFile {
 					fileFrom.add(fil.getParentFile()+"");
 				}
 			}
-		this.findfileUI.jlist = new JList((ListModel) fileFrom);
+	
+		//this.findfileUI.jlist = new JList( (ListModel) fileFrom );
 	}
 //    public static void main(String[] args) 
 //    {

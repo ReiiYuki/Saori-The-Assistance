@@ -5,8 +5,10 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Area;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -28,11 +30,13 @@ public class FindFileUI extends JFrame{
 	private JTextField fileNameTextField ;
 	private JButton searchButton ;
 	protected JList jlist ;
-	public FindFileUI(){
+	DefaultListModel listModel = new DefaultListModel();
+	private String[] c  = {"s","a"};
+	public FindFileUI(FindFile findfile){
 		this.setTitle( "DigitalClock" );
 		this.setDefaultCloseOperation( EXIT_ON_CLOSE );
 		this.initComponents();
-		this.findfile = new FindFile(this);
+		this.findfile = findfile ;
 	}
 	private void initComponents(){
 		pane = new JPanel();
@@ -40,19 +44,16 @@ public class FindFileUI extends JFrame{
 		searchFrom = new JLabel("the directory where to search");
 		fileName = new JLabel("the file to be searched    ");
 		searchFromBox = new JComboBox();
-		searchFromBox.addItem("D:");
+		searchFromBox.addItem("D:\\");
 		fileNameTextField = new JTextField();
-		jlist = new JList();
+
+		jlist = new JList(listModel);
 		searchButton = new JButton("search...");
-		System.out.println("ไม่เข้า");
 		searchButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("เข้า");
-				System.out.println(searchFromBox.getSelectedItem()+"\\");
+				listModel.clear();
 				findflieActionPerformed( e );
-
 			}
-			
 		});
 		pane.add(searchFrom);
 		pane.add(searchFromBox);
@@ -63,18 +64,25 @@ public class FindFileUI extends JFrame{
 
 
 		super.add(pane);
-//		int delay = 500 ; // milliseconds
-//		ActionListener task = new ActionListener() {
-//			public void actionPerformed(ActionEvent evt) {
-//
-//				findFile(fileName.getText(),new File(searchFrom.getText()));
-//			}
-//		};
-//		timer = new Timer( delay , task );
-//		timer.start();
+		//		int delay = 500 ; // milliseconds
+		//		ActionListener task = new ActionListener() {
+		//			public void actionPerformed(ActionEvent evt) {
+		//
+		//				findFile(fileName.getText(),new File(searchFrom.getText()));
+		//			}
+		//		};
+		//		timer = new Timer( delay , task );
+		//		timer.start();
 	}
 	private void findflieActionPerformed(ActionEvent evt) {
-		System.out.println(searchFromBox.getSelectedItem()+"\\");
-		this.findfile.findFile( fileName.getText() , new File(searchFromBox.getSelectedItem()+"\\") );
+
+		this.findfile.fileFrom.clear();
+		this.findfile.findFile( fileNameTextField.getText() , new File(searchFromBox.getSelectedItem()+"") );
+
+		for (int i = 0; i < this.findfile.fileFrom.size(); i++) {
+			listModel.add(i, this.findfile.fileFrom.get(i));
+		}
+	
+		jlist.setModel(listModel);
 	}//end findflieActionPerformed
 }
