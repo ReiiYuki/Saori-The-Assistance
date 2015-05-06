@@ -3,6 +3,7 @@ package Saori.Calculator;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 public class CalculatorUI extends JFrame {
@@ -54,7 +55,8 @@ public class CalculatorUI extends JFrame {
 	private JButton clear;
 	private JButton reset;
 	// End of variables 
-
+	private String buffer = null ;
+	private boolean isShiftPressed = false ;
 	public CalculatorUI() {
 		setTitle("Java Calculator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,14 +84,11 @@ public class CalculatorUI extends JFrame {
 		textFieldInput.setBounds(10, 52, 289, 35);
 		textFieldInput.setBackground(new Color(199, 218, 220));
 		textFieldInput.setFont(new Font("Tahoma", 1, 24)); 
-		//textFieldInput.setAutoscrolls(false);
 		textFieldInput.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
 		textFieldInput.addKeyListener(new KeyListener(){
 			public void keyPressed(KeyEvent evt) {
 
 				int keyCode = evt.getKeyCode();
-				//System.out.println(keyCode+" "+KeyEvent.VK_SHIFT);
-				//System.out.println(keyCode+" "+KeyEvent.VK_EQUALS);
 				if( keyCode == KeyEvent.VK_0 || keyCode == KeyEvent.VK_NUMPAD0 ){
 					zeroActionPerformed(evt);
 				}
@@ -114,37 +113,66 @@ public class CalculatorUI extends JFrame {
 				else if( keyCode == KeyEvent.VK_7 || keyCode == KeyEvent.VK_NUMPAD7 ){
 					sevenActionPerformed(evt);
 				}
-				else if( keyCode == KeyEvent.VK_8 || keyCode == KeyEvent.VK_NUMPAD8 ){
+				else if( ( keyCode == KeyEvent.VK_8 || keyCode == KeyEvent.VK_NUMPAD8 ) && !isShiftPressed){
 					eightActionPerformed(evt);
 				}
 				else if( keyCode == KeyEvent.VK_9 || keyCode == KeyEvent.VK_NUMPAD9 ){
 					nineActionPerformed(evt);
 				}
-				else if( keyCode == KeyEvent.VK_ADD || ( keyCode == KeyEvent.VK_EQUALS && keyCode == KeyEvent.SHIFT_DOWN_MASK )){
-					System.out.println("+++");
+				else if( keyCode == KeyEvent.VK_ADD ){
 					addActionPerformed(evt);
 				}
 				else if( keyCode == KeyEvent.VK_SUBTRACT || keyCode == KeyEvent.VK_MINUS ){
 					subtractActionPerformed(evt);
 				}
-				else if( keyCode == KeyEvent.VK_MULTIPLY || ( keyCode == KeyEvent.VK_8 && keyCode == KeyEvent.VK_SHIFT)){
+				else if( keyCode == KeyEvent.VK_MULTIPLY ){
 
 					multiplyActionPerformed(evt);
 				}
 				else if( keyCode == KeyEvent.VK_DIVIDE || keyCode == KeyEvent.VK_SLASH){
 					divideActionPerformed(evt);
 				}
-				else if( keyCode == KeyEvent.VK_ENTER || keyCode == KeyEvent.VK_EQUALS){
+				else if( (keyCode == KeyEvent.VK_ENTER)  ){
 					equalsActionPerformed(evt);
 				}
+				else if( keyCode == KeyEvent.VK_EQUALS  && !isShiftPressed ){
+					try {
+						Robot robot = new Robot();
+						robot.keyPress(KeyEvent.VK_BACK_SPACE);
+						robot.keyRelease(KeyEvent.VK_BACK_SPACE);
+					} catch (AWTException e) {
+						e.printStackTrace();
+					}
+					equalsActionPerformed(evt);
+				
+				}
+
+				else if (keyCode == KeyEvent.VK_SHIFT){
+					buffer = "" ;
+					isShiftPressed = true; 	
+				}
+
 
 			}
 			@Override
-			public void keyReleased(KeyEvent evt) {
+			public void keyTyped(KeyEvent evt) {
+				if (isShiftPressed){
+					buffer = evt.getKeyChar()+"" ;
+				}
 			}
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyReleased(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_SHIFT){
+					isShiftPressed = false;
+					if ( buffer.equals("+") ){ 
+						operatorPlusFuntion(evt);
+					}
+					if ( buffer.equals("*") ){ 
+						operatorMultiplyFuntion(evt);
+					}
+				}
 			}
+
 
 		});
 
@@ -200,7 +228,7 @@ public class CalculatorUI extends JFrame {
 		degrees.setFocusable(false);
 		degrees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				radians.setSelected(!calculator.dgrrad);
+				radians.setSelected(!calculator.isDegrees);
 				degreesActionPerformed(evt);
 			}
 		});
@@ -213,7 +241,7 @@ public class CalculatorUI extends JFrame {
 		radians.setFocusable(false);
 		radians.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				degrees.setSelected(calculator.dgrrad);
+				degrees.setSelected(calculator.isDegrees);
 				radiansActionPerformed(evt);
 			}
 		});
@@ -618,69 +646,69 @@ public class CalculatorUI extends JFrame {
 		panel.add(reset);
 	}
 	private void zeroActionPerformed(ActionEvent evt) {
-		this.calculator.zeroFuntion("0");
+		this.calculator.zeroFunction("0");
 	}//end zeroActionPerformed
 	private void oneActionPerformed(ActionEvent evt) {
-		this.calculator.numberFuntion("1");
+		this.calculator.numberFunction("1");
 	}//end oneActionPerformed
 	private void twoActionPerformed(ActionEvent evt) {
-		this.calculator.numberFuntion("2");
+		this.calculator.numberFunction("2");
 	}//end twoActionPerformed
 	private void threeActionPerformed(ActionEvent evt) {
-		this.calculator.numberFuntion("3");
+		this.calculator.numberFunction("3");
 	}//end threeActionPerformed
 	private void fourActionPerformed(ActionEvent evt) {
-		this.calculator.numberFuntion("4");
+		this.calculator.numberFunction("4");
 	}//end fourActionPerformed
 	private void fiveActionPerformed(ActionEvent evt) {
-		this.calculator.numberFuntion("5");
+		this.calculator.numberFunction("5");
 	}//end fiveActionPerformed
 	private void sixActionPerformed(ActionEvent evt) {
-		this.calculator.numberFuntion("6");
+		this.calculator.numberFunction("6");
 	}//end sixActionPerformed
 	private void sevenActionPerformed(ActionEvent evt) {
-		this.calculator.numberFuntion("7");
+		this.calculator.numberFunction("7");
 	}//end sevenActionPerformed
 	private void eightActionPerformed(ActionEvent evt) {
-		this.calculator.numberFuntion("8");
+		this.calculator.numberFunction("8");
 	}//end eightActionPerformed
 	private void nineActionPerformed(ActionEvent evt) {
-		this.calculator.numberFuntion("9");
+		this.calculator.numberFunction("9");
 	}//end nineActionPerformed
 	private void zeroActionPerformed(KeyEvent evt) {
-		this.calculator.zeroFuntion("");
+		this.calculator.zeroFunction("");
 	}//end zeroActionPerformed
 	private void oneActionPerformed(KeyEvent evt) {
-		this.calculator.numberFuntion("");
+		this.calculator.numberFunction("");
 	}//end oneActionPerformed
 	private void twoActionPerformed(KeyEvent evt) {
-		this.calculator.numberFuntion("");
+		this.calculator.numberFunction("");
 	}//end twoActionPerformed
 	private void threeActionPerformed(KeyEvent evt) {
-		this.calculator.numberFuntion("");
+		this.calculator.numberFunction("");
 	}//end threeActionPerformed
 	private void fourActionPerformed(KeyEvent evt) {
-		this.calculator.numberFuntion("");
+		this.calculator.numberFunction("");
 	}//end fourActionPerformed
 	private void fiveActionPerformed(KeyEvent evt) {
-		this.calculator.numberFuntion("");
+		this.calculator.numberFunction("");
 	}//end fiveActionPerformed
 	private void sixActionPerformed(KeyEvent evt) {
-		this.calculator.numberFuntion("");
+		this.calculator.numberFunction("");
 	}//end sixActionPerformed
 	private void sevenActionPerformed(KeyEvent evt) {
-		this.calculator.numberFuntion("");
+		this.calculator.numberFunction("");
 	}//end sevenActionPerformed
 	private void eightActionPerformed(KeyEvent evt) {
-		this.calculator.numberFuntion("");
+		this.calculator.numberFunction("");
 	}//end eightActionPerformed
 	private void nineActionPerformed(KeyEvent evt) {
-		this.calculator.numberFuntion("");
+		this.calculator.numberFunction("");
 	}//end nineActionPerformed
 	private void decpointActionPerformed(ActionEvent evt) {
-		if(!this.calculator.decdisp){
+		if(!this.calculator.isDot){
 			textFieldInput.setText(textFieldInput.getText() + ".");
-			this.calculator.decdisp = true;
+			this.calculator.isDot = true;
 		}
 	}//end decpointActionPerformed
 	private void negateActionPerformed(ActionEvent evt) {
@@ -688,11 +716,11 @@ public class CalculatorUI extends JFrame {
 	}//end negateActionPerformed
 	private void clearActionPerformed(ActionEvent evt) {
 		textFieldInput.setText("0");
-		this.calculator.zerodisp = false;
-		this.calculator.decdisp = false;
+		this.calculator.isZero = false;
+		this.calculator.isDot = false;
 	}//end clearActionPerformed
 	private void resetActionPerformed(ActionEvent evt) {
-		this.calculator.resetFuntion();
+		this.calculator.resetFunction();
 	}//end resetActionPerformed
 	private void memoryreadActionPerformed(ActionEvent evt) {
 		textFieldInput.setText(String.valueOf(textFieldMemory.getText()));
@@ -704,22 +732,22 @@ public class CalculatorUI extends JFrame {
 		textFieldMemory.setText(String.valueOf(textFieldInput.getText()));
 	}//end memorysaveActionPerformed
 	private void onedividedbyxActionPerformed(ActionEvent evt) {
-		this.calculator.onedividedbyxFuntion();
+		this.calculator.onedividedbyxFunction();
 	}//end onedividedbyxActionPerformed
 	private void piActionPerformed(ActionEvent evt) {
 		textFieldInput.setText(String.valueOf(Math.PI));
 	}//end piActionPerformed
 	private void squaredActionPerformed(ActionEvent evt) {
-		this.calculator.squarFuntion();
+		this.calculator.squarFunction();
 	}//end squaredActionPerformed
 	private void squarerootActionPerformed(ActionEvent evt) {
-		this.calculator.squarerootFuntion();
+		this.calculator.squarerootFunction();
 	}//end squarerootActionPerformed
 	private void cubedActionPerformed(ActionEvent evt) {
-		this.calculator.cubedFuntion();
+		this.calculator.cubedFunction();
 	}//end cubedActionPerformed
 	private void cubedrootActionPerformed(ActionEvent evt) {
-		this.calculator.cuberootFuntion();
+		this.calculator.cuberootFunction();
 	}//end cubedrootActionPerformed
 	private void shiftMouseClicked(MouseEvent evt) {
 		if(!this.calculator.sh){
@@ -730,54 +758,61 @@ public class CalculatorUI extends JFrame {
 		}
 	}//end shiftMouseClicked
 	private void sinActionPerformed(ActionEvent evt) {
-		this.calculator.sinFuntion();
+		this.calculator.sinFunction();
 	}//end sinActionPerformed
 	private void cosActionPerformed(ActionEvent evt) {
-		this.calculator.cosFuntion();
+		this.calculator.cosFunction();
 	}//end cosActionPerformed
 	private void tanActionPerformed(ActionEvent evt) {
-		this.calculator.tanFuntion();
+		this.calculator.tanFunction();
 	}//end tanActionPerformed
 	private void degreesActionPerformed(ActionEvent evt) {
-		this.calculator.dgrrad = false;
+		this.calculator.isDegrees = false;
 	}//end degreesActionPerformed
 	private void radiansActionPerformed(ActionEvent evt) {
-		this.calculator.dgrrad = true;
+		this.calculator.isDegrees = true;
 	}//end radiansActionPerformed
+
 	private void addActionPerformed(ActionEvent evt) {
-		this.calculator.operatorFuntion("+",(byte) 1);
+		this.calculator.operatorFunction("+",(byte) 1);
 	}//end addActionPerformed
 	private void subtractActionPerformed(ActionEvent evt) {
-		this.calculator.operatorFuntion("-",(byte) 2);
+		this.calculator.operatorFunction("-",(byte) 2);
 	}//end subtractActionPerformed
 	private void multiplyActionPerformed(ActionEvent evt) {
-		this.calculator.operatorFuntion("*",(byte) 3);
+		this.calculator.operatorFunction("*",(byte) 3);
 	}//end multiplyActionPerformed
 	private void divideActionPerformed(ActionEvent evt) {
-		this.calculator.operatorFuntion("/",(byte) 4);
+		this.calculator.operatorFunction("/",(byte) 4);
 	}//end divideActionPerformed
 	private void percentActionPerformed(ActionEvent evt) {
-		this.calculator.percentFintion();
+		this.calculator.percentFunction();
 	}//end percentActionPerformed
 	private void equalsActionPerformed(ActionEvent evt) {
-		this.calculator.equalsFunfumtion();
+		this.calculator.equalsFunction();
 	}//end equalsActionPerformed
+	private void operatorPlusFuntion(KeyEvent evt) {
+		this.calculator.operatorShiftFunction("+",(byte) 1);
+	}
+	private void operatorMultiplyFuntion(KeyEvent evt) {
+		this.calculator.operatorShiftFunction("*",(byte) 3);
+	}
 	private void addActionPerformed(KeyEvent evt) {
-		this.calculator.operatorFuntion("+",(byte) 1);
+		this.calculator.operatorFunction("+",(byte) 1);
 	}//end addActionPerformed
 	private void subtractActionPerformed(KeyEvent evt) {
-		this.calculator.operatorFuntion("-",(byte) 2);
+		this.calculator.operatorFunction("-",(byte) 2);
 	}//end subtractActionPerformed
 	private void multiplyActionPerformed(KeyEvent evt) {
-		this.calculator.operatorFuntion("*",(byte) 3);
+		this.calculator.operatorFunction("*",(byte) 3);
 	}//end multiplyActionPerformed
 	private void divideActionPerformed(KeyEvent evt) {
-		this.calculator.operatorFuntion("/",(byte) 4);
+		this.calculator.operatorFunction("/",(byte) 4);
 	}//end divideActionPerformed
 	private void percentActionPerformed(KeyEvent evt) {
-		this.calculator.percentFintion();
+		this.calculator.percentFunction();
 	}//end percentActionPerformed
 	private void equalsActionPerformed(KeyEvent evt) {
-		this.calculator.equalsFunfumtion();
+		this.calculator.equalsFunction();
 	}//end equalsActionPerformed
 }
