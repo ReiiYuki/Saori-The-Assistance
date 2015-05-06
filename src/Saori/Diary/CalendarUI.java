@@ -1,6 +1,5 @@
 package Saori.Diary;
 
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -21,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import Saori.Listener.DragListener;
 import Saori.Listener.ExitListener;
@@ -54,7 +54,6 @@ public class CalendarUI extends JDialog {
 	Font font;
 	private GregorianCalendar  calendar;
 	private GregorianCalendar  calendarNow;
-	JPanel panel;
 	public CalendarUI()  {
 		super();
 		setUndecorated(true);
@@ -77,8 +76,9 @@ public class CalendarUI extends JDialog {
 		pack();
 	}
 	public void initComponent(){
-		Container field = getContentPane();
-		panel = new JPanel();
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(10,10,10,10));
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		JPanel exitBar = new JPanel();
 		exitBar.setLayout(new FlowLayout());
@@ -119,7 +119,7 @@ public class CalendarUI extends JDialog {
 			}
 		}
 		panel.add(calendarTable);
-		field.add(panel);
+		setContentPane(panel);
 		addMouseMotionListener(new DragListener(this));
 		setVisible(true);
 	}
