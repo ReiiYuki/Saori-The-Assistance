@@ -13,6 +13,8 @@ import Event.Event;
 import Event.FallingEvent;
 import Event.ListeningEvent;
 import Saori.Clock.Clock;
+import Saori.Listener.Core.UIMouseListener;
+import Saori.Listener.Core.UIMouseMotionListener;
 
 public class SaoriUI extends JDialog implements Runnable{
 	/**
@@ -49,6 +51,8 @@ public class SaoriUI extends JDialog implements Runnable{
 		getContentPane ().setBackground (new Color (0, 0, 0, 0));
 		setBackground (new Color (0, 0, 0, 0));
 		setAlwaysOnTop(true);
+		addMouseListener(new UIMouseListener(this));
+		addMouseMotionListener(new UIMouseMotionListener(this));
 	}
 
 	public void initLocation(){
@@ -61,6 +65,9 @@ public class SaoriUI extends JDialog implements Runnable{
 	}
 	public Clock getClock(){
 		return clock;
+	}
+	public Event getEvent(){
+		return event;
 	}
 	public void setImage(String url){
 		body.setIcon(new ImageIcon(ClassLoader.getSystemResource(url)));

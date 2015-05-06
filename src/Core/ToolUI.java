@@ -36,7 +36,7 @@ public class ToolUI extends JDialog{
 		clock = new DigitalClockUI(saori.getClock());
 		calendar = new CalendarUI();
 		calculator = new CalculatorUI();
-		findFile = new FindFileUI();
+		//findFile = new FindFileUI();
 	}
 	public void initComponent(){
 		setSize(150,50);

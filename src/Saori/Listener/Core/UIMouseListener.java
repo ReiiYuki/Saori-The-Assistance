@@ -1,4 +1,4 @@
-package Saori;
+package Saori.Listener.Core;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -6,29 +6,30 @@ import java.awt.event.MouseListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import Saori.Event.StandingEvent;
 import Saori.Listener.ExitListener;
+import Core.SaoriUI;
 
-public class MouseActionListener implements MouseListener {
+public class UIMouseListener implements MouseListener {
 	private SaoriUI ui;
-	public MouseActionListener(SaoriUI ui){
-		this.ui=ui;
+	public UIMouseListener(SaoriUI ui){
+		this.ui = ui;
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		ui.event.leftClickHandler();
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		ui.event.enterHandler();
+		ui.getEvent().enterHandler();
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		ui.toolBox.setVisible(false);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -48,12 +49,12 @@ public class MouseActionListener implements MouseListener {
 		// TODO Auto-generated method stub
 		if (e.isPopupTrigger()){
 			JPopupMenu popup = new JPopupMenu();
-			JMenuItem exit = new JMenuItem("Exit");
+			JMenuItem exit = new JMenuItem();
 			exit.addActionListener(new ExitListener());
 			popup.add(exit);
 			popup.show(e.getComponent(), e.getX(), e.getY());
 		}
-		else ui.event.releaseHandler();
+		ui.getEvent().releaseHandler();
 	}
 
 }

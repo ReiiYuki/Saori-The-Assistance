@@ -24,6 +24,8 @@ public class MovingEvent implements Event {
 	public void perform() {
 		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 		int x = (int) ui.getLocation().getX();
+		x+=direction;
+		ui.setLocation(x, (int) ui.getLocation().getY());
 		if (x<=0){
 			direction = 1;
 			ui.setImage("Resource/Images/saori18.png", "Resource/Images/saori19.png");
@@ -34,8 +36,6 @@ public class MovingEvent implements Event {
 			ui.setImage("Resource/Images/saori1.png", "Resource/Images/saori2.png");
 			ui.restartAnimate();
 		}
-		x+=direction;
-		ui.setLocation(x, (int) ui.getLocation().getY());
 		if (stateChangeCounter.getElapsed()>dicisionToLeave) {
 			if (dicisionToAction == 1) leaveEvent(new StandingEvent(ui));
 			else leaveEvent(new SittingEvent(ui));

@@ -22,7 +22,7 @@ public class SoftTouchEvent implements Event {
 		int realHeigh = realScreenHigh-(screenHeigh-realScreenHigh)+150;
 		int y = (int) ui.getLocation().getY();
 		if (y==realHeigh) leaveEvent(new StandingEvent(ui));
-		else if (y>realHeigh) {
+		if (y>realHeigh) {
 			y+=1;
 			ui.setLocation((int) ui.getLocation().getX(), y);
 		}
