@@ -164,24 +164,28 @@ public class CalendarUI extends JDialog {
 		panel.add(calendarTable);
 		setContentPane(panel);
 		addMouseMotionListener(new DragListener(this));
-		//setVisible(true);
 	}
 	public void updateTime(){
 		for (int i =0;i<6;i++) {
 			for (int j =0;j<7;j++){
 				calendarShow[i][j].setText("");
 				for (ActionListener k :	calendarShow[i][j].getActionListeners()) {
+					calendarShow[i][j].setBackground(Color.decode("#F3E2A9"));
 					calendarShow[i][j].removeActionListener(k);
 				}
 			}
 		}
 		YearLab.setText(calendar.get(Calendar.YEAR)+"");
 		Calendar upCalendar = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),1);
+		calendar.setTimeInMillis(System.currentTimeMillis());
 		int maxDay = upCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 		int dayOfFirst = upCalendar.get(Calendar.DAY_OF_WEEK);
 		for (int i = 1;i<=maxDay;i++){
 			int row = (i+dayOfFirst-2)/7;
 			int column = (i+dayOfFirst-2)%7;
+			if (i == calendar.get(Calendar.DATE)&& upCalendar.get(Calendar.MONTH) ==  calendar.get(Calendar.MONTH) && upCalendar.get(Calendar.YEAR) ==  calendar.get(Calendar.YEAR)){
+				calendarShow[row][column].setBackground(Color.RED);
+			}
 			calendarShow[row][column].setText(i+"");
 			calendarShow[row][column].setHorizontalTextPosition(JButton.CENTER);
 			calendarShow[row][column].setVerticalTextPosition(JButton.CENTER);

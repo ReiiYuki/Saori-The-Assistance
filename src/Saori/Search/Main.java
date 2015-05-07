@@ -10,14 +10,6 @@ public class Main {
 	 * @param args is argument for run String
 	 */
 	public static void main(String[] args) {
-<<<<<<< HEAD
-
-
-		FindFile findfile = new FindFile();
-		FindFileUI findfileUI = new FindFileUI(findfile);
-		findfileUI.pack();
-		findfileUI.setVisible( true );
-=======
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -29,6 +21,5 @@ public class Main {
 				}
 			}
 		});
->>>>>>> 4b2dda23385369f5246429c624c47d103a0850ff
 	}
 }

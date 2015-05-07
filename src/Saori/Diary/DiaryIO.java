@@ -1,9 +1,7 @@
 package Saori.Diary;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -14,8 +12,8 @@ public class DiaryIO {
 	public DiaryIO(){
 		this.diary = new Diary();
 	}
-	public DiaryIO(GregorianCalendar timeEdited,String title,ArrayList<String> article){
-		this.diary = new Diary(timeEdited,title,article);
+	public DiaryIO(Diary diary){
+		this.diary = diary;
 	}
 	public void toRemind(GregorianCalendar remindDate){
 		diary = new Reminder(diary,remindDate);
@@ -73,9 +71,16 @@ public class DiaryIO {
 		information.addAll(diary.read());
 		return information;
 	}
-//	public ArrayList<String> readUI(DiaryUI ui){
-//		
-//	}
+	public void writeOnUI(DiaryUI ui){
+		for (String i: read(diary)){
+			ui.article.append(i);
+		}
+		ui.setTitle(diary.getTitle());
+		ui.timeEdit.setText(diary.getDate().get(GregorianCalendar.DATE)+"/"+diary.getDate().get(GregorianCalendar.MONTH)+"/"+diary.getDate().get(GregorianCalendar.YEAR));
+	}
+	public void setDiary(Diary diary){
+		this.diary = diary;
+	}
 	public Diary getDiary() {
 		return diary;
 	}

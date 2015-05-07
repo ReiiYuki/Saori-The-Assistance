@@ -33,6 +33,9 @@ public class Diary implements Serializable{
 	public void write(String line){
 		article.add(line);
 	}
+	public void setTitle(String title){
+		this.title = title;
+	}
 	public String getTitle(){
 		return title;
 	}
@@ -41,5 +44,8 @@ public class Diary implements Serializable{
 	}
 	public GregorianCalendar getDate(){
 		return timeEdited;
+	}
+	public String toString(){
+		return String.format("%02d:%02d:%02d %d/%d/%d %s %s",timeEdited.get(GregorianCalendar.HOUR),timeEdited.get(GregorianCalendar.MINUTE),timeEdited.get(GregorianCalendar.SECOND),timeEdited.get(GregorianCalendar.DATE),timeEdited.get(GregorianCalendar.MONTH),timeEdited.get(GregorianCalendar.YEAR),getClass().getName(),getTitle() );
 	}
 }

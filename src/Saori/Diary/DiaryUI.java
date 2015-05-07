@@ -19,10 +19,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import java.awt.FlowLayout;
+import javax.swing.JTextPane;
+import java.awt.GridLayout;
 
-public class DiaryUI extends JDialog {
+public class DiaryUI extends JDialog implements Runnable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3186829717912930588L;
 	GregorianCalendar timeEdited;
-	JTextField titleField;
 	JLabel dateEdit;
 	JLabel timeEdit;
 	JLabel SerialNumber;
@@ -33,72 +39,82 @@ public class DiaryUI extends JDialog {
 	JTextField remindHour;
 	JTextField remindMin;
 	JTextArea article;
-	JButton Save;
 	JButton Clear;
 	JButton Exit;
 	JButton Minimize;
-	public DiaryUI(GregorianCalendar timeEdited){
+	DiaryIO io;
+	private JPanel exitBar;
+	JTextField title;
+	public DiaryUI(Diary diary){
 		super();
-		this.timeEdited = timeEdited;
+		io = new DiaryIO(diary);
+		initComponent();
+		io.writeOnUI(this);
+		pack();
+	}
+	public DiaryUI(){
+		super();
+		io = new DiaryIO();
 		initComponent();
 		pack();
-		setVisible(true);
 	}
 	public void initComponent(){
 		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-		titleField = new JTextField(20);
-		panel.add(titleField);
-		article = new JTextArea(20,1);
-		panel.add(article);
-		Save = new JButton("Confirm");
-		Save.addActionListener(new S());
-		panel.add(Save);
 		setContentPane(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
+		exitBar = new JPanel();
+		panel.add(exitBar);
+		exitBar.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton exitButton = new JButton("New button");
+		exitBar.add(exitButton);
+		
+		JPanel dateBar = new JPanel();
+		panel.add(dateBar);
+		dateBar.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel dateLab = new JLabel();
+		dateBar.add(dateLab);
+		
+		JPanel titleBar = new JPanel();
+		panel.add(titleBar);
+		titleBar.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		title = new JTextField();
+		titleBar.add(title);
+		title.setColumns(10);
+		
+		JPanel body = new JPanel();
+		panel.add(body);
+		body.setLayout(new GridLayout(1, 1, 0, 0));
+		
+		article = new JTextArea(10,1);
+		body.add(article);
+		
+		JPanel confirmBar = new JPanel();
+		panel.add(confirmBar);
+		
+		JButton confirmButton = new JButton("New button");
+		confirmBar.add(confirmButton);
 		pack();
 	}
-	class S implements ActionListener {
-		public void actionPerformed(ActionEvent e){
-			String[] b = article.getText().split("\\n");
-			ArrayList<String> a = new ArrayList<String>();
-			for (String i : b) a.add(i);
-			Diary diary = new Diary(timeEdited,titleField.getText(),a);
-			String path = "src\\Saori\\Diary\\Data\\"+timeEdited.get(Calendar.DATE)+"-"+timeEdited.get(Calendar.MONTH)+"-"+timeEdited.get(Calendar.YEAR);
-			File file = new File(path);
-			if (file.exists()){
-				try {
-
-					FileOutputStream fout = new FileOutputStream(path+"\\"+diary.getTitle()+".isr");
-					ObjectOutputStream oos = new ObjectOutputStream(fout);   
-					oos.writeObject(diary);
-					oos.close();
-
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} 
+	class confirmActionListener implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Diary diary  = new Diary();
+			diary.setTitle(title.getText());
+			for (String i : article.getText().split("\\n")){
+				diary.write(i);
 			}
-			else {
-				if (file.mkdirs()){
-					
-						
-					try {
-
-						FileOutputStream fout = new FileOutputStream(path+"\\"+diary.getTitle()+".isr");
-						ObjectOutputStream oos = new ObjectOutputStream(fout);   
-						oos.writeObject(diary);
-						oos.close();
-
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} 
-					
-				}
-			}
+			io.setDiary(diary);
+			io.writeFile();
 		}
+		
 	}
-	public static void main(String[] args) {
-		DiaryUI ui = new DiaryUI(new GregorianCalendar());
+	@Override
+	public void run() {
+		setVisible(true);
 	}
 }
