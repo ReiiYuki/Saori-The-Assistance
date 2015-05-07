@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import Saori.Listener.Diary.createNewDiaryUIListener;
 import Saori.Listener.Diary.selectListListener;
 
 public class DiaryListUI extends JDialog{
@@ -45,6 +46,7 @@ public class DiaryListUI extends JDialog{
 		JPanel newPanel = new JPanel();
 		newPanel.setLayout(new FlowLayout());
 		JButton createDiaryButton = new JButton();
+		createDiaryButton.addActionListener(new createNewDiaryUIListener());
 		newPanel.add(createDiaryButton);
 		JPanel showDiary = new JPanel();
 		showDiary.setBorder(new EmptyBorder(10,10,10,10));

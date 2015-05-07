@@ -76,7 +76,7 @@ public class DiaryIO {
 			ui.article.append(i);
 		}
 		ui.setTitle(diary.getTitle());
-		ui.timeEdit.setText(diary.getDate().get(GregorianCalendar.DATE)+"/"+diary.getDate().get(GregorianCalendar.MONTH)+"/"+diary.getDate().get(GregorianCalendar.YEAR));
+		ui.dateLab.setText(diary.getDate().get(GregorianCalendar.DATE)+"/"+diary.getDate().get(GregorianCalendar.MONTH)+"/"+diary.getDate().get(GregorianCalendar.YEAR));
 	}
 	public void setDiary(Diary diary){
 		this.diary = diary;

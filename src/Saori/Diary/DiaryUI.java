@@ -29,14 +29,8 @@ public class DiaryUI extends JDialog implements Runnable{
 	 */
 	private static final long serialVersionUID = 3186829717912930588L;
 	GregorianCalendar timeEdited;
-	JLabel dateEdit;
-	JLabel timeEdit;
-	JLabel SerialNumber;
-	JCheckBox typeChooser;
-	JTextField remindYear; 
-	JTextField remindMonth;
-	JTextField remindDate;
-	JTextField remindHour;
+
+	JLabel dateLab;
 	JTextField remindMin;
 	JTextArea article;
 	JButton Clear;
@@ -74,7 +68,7 @@ public class DiaryUI extends JDialog implements Runnable{
 		panel.add(dateBar);
 		dateBar.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel dateLab = new JLabel();
+		dateLab = new JLabel();
 		dateBar.add(dateLab);
 		
 		JPanel titleBar = new JPanel();
@@ -96,6 +90,7 @@ public class DiaryUI extends JDialog implements Runnable{
 		panel.add(confirmBar);
 		
 		JButton confirmButton = new JButton("New button");
+		confirmButton.addActionListener(new confirmActionListener());
 		confirmBar.add(confirmButton);
 		pack();
 	}

@@ -16,7 +16,7 @@ public class DiaryList {
 	@SuppressWarnings("resource")
 	public Diary[] loadDiary(){
 		try {
-			String path = "src\\Saori\\Diary\\Data\\"+date.get(Calendar.DATE)+"-"+date.get(Calendar.MONTH)+"-"+date.get(Calendar.YEAR);
+			String path = "src\\Saori\\Diary\\Data\\"+date.get(Calendar.DATE)+"-"+(date.get(Calendar.MONTH)+1)+"-"+date.get(Calendar.YEAR);
 			File folder = new File(path);
 			ArrayList<Diary> diary = new ArrayList<Diary>();
 			File[] listOfFile = folder.listFiles();
@@ -41,7 +41,7 @@ public class DiaryList {
 		return date;
 	}
 	public static void main(String[] args) {
-		DiaryList diary = new DiaryList(new GregorianCalendar(2015,4,3));
+		DiaryList diary = new DiaryList(new GregorianCalendar(2015,5,8));
 		Diary[] d = diary.loadDiary();
 		System.out.println(d.length);
 		for (Diary i : d){
