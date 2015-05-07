@@ -22,6 +22,7 @@ public class SittingEvent implements Event {
 	@Override
 	public void perform() {
 		if (stateChangeCounter.getElapsed()>dicisionToLeave) {
+			ui.setLocation((int)ui.getLocationOnScreen().getX(), (int)ui.getLocationOnScreen().getY());
 			if (dicisionToAction == 1) leaveEvent(new MovingEvent(ui));
 			else leaveEvent(new StandingEvent(ui));
 		}

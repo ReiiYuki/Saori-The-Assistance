@@ -7,12 +7,10 @@ import Core.SaoriUI;
 public class FallingEvent implements Event {
 	
 	private SaoriUI ui;
-	private int initialY;
 	public FallingEvent(SaoriUI ui){
 		this.ui = ui;
 		ui.setImage("Resource/Images/saori3.png", "Resource/Images/saori4.png");
 		ui.restartAnimate();
-		this.initialY = (int) ui.getLocation().getY();
 	}
 	@Override
 	public void perform() {
@@ -24,19 +22,27 @@ public class FallingEvent implements Event {
 		if (y>screenHeigh){
 			int x = (int) (Math.random()*screenWidth);
 			y = -200;
-			initialY = y;
 			ui.setLocation(x, y);
 		}
 		else {
 			y+=1;
 			ui.setLocation((int) ui.getLocation().getX(), y);
-			if (y>=300&&y<realHeigh){
-				 if (y-initialY<300) leaveEvent(new SoftTouchEvent(ui));
-			}
 			if (y>=realHeigh){
 				ui.setLocation((int) ui.getLocation().getX(), realHeigh);
 				leaveEvent(new HardTouchEvent(ui));
 			}
+			
+		}
+		int x = (int)ui.getLocationOnScreen().getX();
+		if (x> screenWidth) {
+			x = 0;
+			x+=1;
+			ui.setLocation(x,(int)ui.getLocation().getY());
+		}
+		if (x< 0 ) {
+			x = screenWidth;
+			x-=1;
+			ui.setLocation(x,(int)ui.getLocation().getY());
 		}
 	}
 

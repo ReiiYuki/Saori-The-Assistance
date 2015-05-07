@@ -1,12 +1,13 @@
 package Saori.Listener.Core;
 
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import Saori.Listener.ExitListener;
+import Saori.Listener.ExitApplication;
 import Core.SaoriUI;
 
 public class UIMouseListener implements MouseListener {
@@ -37,8 +38,8 @@ public class UIMouseListener implements MouseListener {
 		// TODO Auto-generated method stub
 		if (e.isPopupTrigger()){
 			JPopupMenu popup = new JPopupMenu();
-			JMenuItem exit = new JMenuItem();
-			exit.addActionListener(new ExitListener());
+			JMenuItem exit = new JMenuItem("Exit");
+			exit.addActionListener(new ExitApplication());
 			popup.add(exit);
 			popup.show(e.getComponent(), e.getX(), e.getY());
 		}
@@ -49,8 +50,8 @@ public class UIMouseListener implements MouseListener {
 		// TODO Auto-generated method stub
 		if (e.isPopupTrigger()){
 			JPopupMenu popup = new JPopupMenu();
-			JMenuItem exit = new JMenuItem();
-			exit.addActionListener(new ExitListener());
+			JMenuItem exit = new JMenuItem("Exit");
+			exit.addActionListener(new ExitApplication());
 			popup.add(exit);
 			popup.show(e.getComponent(), e.getX(), e.getY());
 		}

@@ -1,8 +1,10 @@
 package Saori.Diary;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,13 +15,15 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+
 import javax.swing.border.EmptyBorder;
 
 import Saori.Listener.DragListener;
@@ -50,7 +54,7 @@ public class CalendarUI extends JDialog {
 		monthMap.put("November",new Object[]{ 11,"November"});
 		monthMap.put("December",new Object[]{12,"December"});
 	};
-	JButton[][] calendarShow;
+	TransperantButton[][] calendarShow;
 	Font font;
 	private GregorianCalendar  calendar;
 	private GregorianCalendar  calendarNow;
@@ -65,10 +69,8 @@ public class CalendarUI extends JDialog {
         try {
 			font = Font.createFont(Font.TRUETYPE_FONT, fontUrl.openStream());
 		} catch (FontFormatException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        font = font.deriveFont(Font.PLAIN,20);
         GraphicsEnvironment ge =GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 		initComponent();
@@ -77,47 +79,88 @@ public class CalendarUI extends JDialog {
 	}
 	public void initComponent(){
 		
-		JPanel panel = new JPanel();
+		JPanel panel = new ImagePanel();
 		panel.setBorder(new EmptyBorder(10,10,10,10));
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		JPanel exitBar = new JPanel();
 		exitBar.setLayout(new FlowLayout());
-		JButton exit = new JButton("x");
-		exit.addActionListener(new ExitListener());
+		JButton exit = new JButton();
+		exit.setOpaque(false);
+		exit.setContentAreaFilled(false);
+		exit.setBorderPainted(false);
+		exit.setBorder(BorderFactory.createEmptyBorder());
+		exit.addActionListener(new ExitListener(this));
+		exit.setIcon(new ImageIcon(ClassLoader.getSystemResource("Saori/Diary/Imagee/exit.png")));
 		exitBar.add(exit);	
+		exitBar.setOpaque(false);
+		exitBar.setBackground (new Color (0, 0, 0, 0));
 		panel.add(exitBar);
 		JPanel header = new JPanel();
 		YearLab = new JTextField(4);
+        font = font.deriveFont(Font.PLAIN,30);
+        YearLab.setForeground(Color.decode("#3B240B"));
+        YearLab.setHorizontalAlignment(JTextField.CENTER);
 		YearLab.setText(calendar.get(Calendar.YEAR)+"");
+		YearLab.setBackground (new Color (0, 0, 0, 0));
+		YearLab.setOpaque(false);
+		YearLab.setBorder(null);
 		YearLab.setFont(font);
 		YearLab.addActionListener(new setListener());
 		header.setLayout(new FlowLayout());
+		header.setOpaque(false);
+		header.setBackground (new Color (0, 0, 0, 0));
 		header.add(YearLab);
 		panel.add(header);
 		JPanel title = new JPanel();
 		title.setLayout(new FlowLayout());
 		monthName = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 		MonthLab = new JTextField(9);
+		font = font.deriveFont(Font.PLAIN,40);
+		MonthLab.setForeground(Color.decode("#3B240B"));
+		MonthLab.setHorizontalAlignment(JTextField.CENTER);
+		MonthLab.setText(calendar.get(Calendar.YEAR)+"");
+		MonthLab.setBackground (new Color (0, 0, 0, 0));
+		MonthLab.setOpaque(false);
+		MonthLab.setBorder(null);
+		MonthLab.setFont(font);
 		MonthLab.setText(monthName[calendar.get(Calendar.MONTH)]);
 		MonthLab.addActionListener(new setListener());
+		title.setOpaque(false);
+		title.setBackground (new Color (0, 0, 0, 0));
 		title.add(MonthLab);
 		panel.add(title);
 		JPanel calendarTable = new JPanel();
 		calendarTable.setLayout(new GridLayout(7,7));
 		String[] listDay = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 		for (int i =0;i<7;i++){
-			calendarTable.add(new JLabel(listDay[i],SwingConstants.CENTER));
+			JLabel dayLab = new JLabel();
+			font = font.deriveFont(Font.PLAIN,15);
+			dayLab.setForeground(Color.decode("#3B240B"));
+			dayLab.setFont(font);
+			dayLab.setIconTextGap(-109);
+			dayLab.setIcon(new ImageIcon(ClassLoader.getSystemResource("Saori/Diary/Imagee/Label.jpg")));
+			dayLab.setOpaque(true);
+			dayLab.setText(listDay[i]);
+			dayLab.setHorizontalTextPosition(JLabel.CENTER);
+			calendarTable.add(dayLab);
 		}
-		calendarShow = new JButton[6][7];
+		calendarShow = new TransperantButton[6][7];
 		for (int i = 0;i<6;i++){
 			for (int j = 0;j<7;j++){
-				calendarShow[i][j] = new JButton();
-				calendarShow[i][j].setOpaque(false);
+				calendarShow[i][j] = new TransperantButton();
+				font = font.deriveFont(Font.PLAIN,15);
+				calendarShow[i][j].setBackground(Color.WHITE);
+				calendarShow[i][j].setFont(font);
+				calendarShow[i][j].setForeground(Color.decode("#3B240B"));
+				calendarShow[i][j].setBackground( Color.decode("#F3E2A9") );
+				calendarShow[i][j].setOpaque(true);
 				calendarShow[i][j].setContentAreaFilled(false);
 				calendarShow[i][j].setBorderPainted(false);
 				calendarTable.add(calendarShow[i][j]);
 			}
 		}
+		calendarTable.setOpaque(false);
+		calendarTable.setBackground (new Color (0, 0, 0, 0));
 		panel.add(calendarTable);
 		setContentPane(panel);
 		addMouseMotionListener(new DragListener(this));
@@ -140,7 +183,8 @@ public class CalendarUI extends JDialog {
 			int row = (i+dayOfFirst-2)/7;
 			int column = (i+dayOfFirst-2)%7;
 			calendarShow[row][column].setText(i+"");
-			calendarShow[row][column].setHorizontalAlignment(SwingConstants.CENTER);
+			calendarShow[row][column].setHorizontalTextPosition(JButton.CENTER);
+			calendarShow[row][column].setVerticalTextPosition(JButton.CENTER);
 			calendarShow[row][column].addActionListener(new dateChooseButtonListener(new GregorianCalendar(upCalendar.get(GregorianCalendar.YEAR),upCalendar.get(GregorianCalendar.MONTH),i)));
 		}
 		pack();
@@ -180,7 +224,34 @@ public class CalendarUI extends JDialog {
 		}
 		
 	}
-	public static void main(String[] args) throws FontFormatException, IOException {
-		CalendarUI test = new CalendarUI();
+	private class ImagePanel extends JPanel{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 7739895286879920819L;
+
+		public void paintComponent(Graphics g) {
+		    g.drawImage(new ImageIcon(ClassLoader.getSystemResource("Saori/Diary/Imagee/bg.jpg")).getImage(), 0, 0, null);
+		 }
+	}
+	private class TransperantButton extends JButton{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 7252957684507474258L;
+		/** 
+         * @inherited <p>
+         */
+        @Override
+        protected void paintComponent(Graphics g)
+        {
+            g.setColor( getBackground() );
+            g.fillRect(0, 0, getWidth(), getHeight());
+            super.paintComponent(g);
+        }
+	}
+	public static void main(String[] args) {
+		CalendarUI ui = new CalendarUI();
+		ui.setVisible(true);
 	}
 }

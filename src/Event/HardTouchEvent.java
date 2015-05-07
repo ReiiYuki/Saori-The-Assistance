@@ -19,7 +19,11 @@ public class HardTouchEvent implements Event {
 
 	@Override
 	public void perform() {
-		if (leaveCounter.getElapsed()>3) leaveEvent(new PainEvent(ui));
+		if (leaveCounter.getElapsed()>1){
+			ui.setLocation((int)ui.getLocationOnScreen().getX(), (int)ui.getLocationOnScreen().getY());
+			leaveEvent(new PainEvent(ui));
+			leaveCounter.stop();
+		}
 	}
 
 	@Override

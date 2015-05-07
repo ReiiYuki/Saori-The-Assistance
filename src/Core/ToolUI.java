@@ -31,12 +31,13 @@ public class ToolUI extends JDialog{
 	private FindFileUI findFile;
 	public ToolUI(SaoriUI saori){
 		super();
-		initComponent();
 		this.saori = saori;
 		clock = new DigitalClockUI(saori.getClock());
 		calendar = new CalendarUI();
 		calculator = new CalculatorUI();
 		//findFile = new FindFileUI();
+		initComponent();
+
 	}
 	public void initComponent(){
 		setSize(150,50);

@@ -27,7 +27,6 @@ public class MovingEvent implements Event {
 
 	}
 	public void perform() { 
-		System.out.println("Yes");
 		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 		if (x<-100 ){
 			direction = 1;
@@ -42,7 +41,7 @@ public class MovingEvent implements Event {
 		x+=direction;
 		ui.setLocation(x+direction, (int) ui.getLocation().getY());
 		if (stateChangeCounter.getElapsed()>dicisionToLeave) {
-			System.out.println("ff");
+			stateChangeCounter.stop();
 			if (dicisionToAction == 1) leaveEvent(new StandingEvent(ui));
 			else leaveEvent(new SittingEvent(ui));
 		}

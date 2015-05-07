@@ -14,7 +14,7 @@ public class PainEvent implements Event {
 		ui.setImage("Resource/Images/saori11.png");
 		stateChangeCounter = new StopWatch();
 		stateChangeCounter.start();
-		timeToLeave = (int) (Math.random()*40+20);
+		timeToLeave = (int) (Math.random()*5+1);
 	}
 	
 	@Override
