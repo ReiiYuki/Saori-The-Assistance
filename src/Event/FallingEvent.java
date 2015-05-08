@@ -1,9 +1,15 @@
 package Event;
 import java.awt.GraphicsEnvironment;
+
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 
 import Core.SaoriUI;
+/**
+ * FallingEvent is event which Saori is scaring and crying because of high. 
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class FallingEvent implements Event {
 	
 	private SaoriUI ui;

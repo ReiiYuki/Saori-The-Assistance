@@ -4,6 +4,11 @@ import java.awt.event.MouseEvent;
 
 import Core.SaoriUI;
 
+/**
+ * FlyingEvent is event that Saori is dragged by mouse.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class FlyingEvent implements Event{
 	
 	private SaoriUI ui;
