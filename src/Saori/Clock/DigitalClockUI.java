@@ -18,7 +18,7 @@ import javax.swing.Timer;
 /**
  * DigitalClockUI is GUI of DigitalClock
  * @author Wanchanapon Thanwaranurak
- * @version 3/11/2015
+ * @version 5/7/2015
  */
 public class DigitalClockUI extends JFrame{
 	/**

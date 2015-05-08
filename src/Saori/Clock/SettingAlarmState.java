@@ -3,7 +3,7 @@ package Saori.Clock;
 /**
  * SettingAlarmState can change the AlarmTime that you want
  * @author Wanchanapon Thanwaranurak
- * @version 3/11/2015
+ * @version 5/7/2015
  */
 public class SettingAlarmState implements ClockState{
 	/**

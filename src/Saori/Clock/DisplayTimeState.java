@@ -2,9 +2,9 @@ package Saori.Clock;
 import java.util.Calendar;
 
 /**
- * DisplayTimeState is real time and can chand state to SettingAlarmState.
+ * DisplayTimeState is real time and can change state to SettingAlarmState.
  * @author Wanchanapon Thanwaranurak
- * @version 3/11/2015
+ * @version 5/7/2015
  */
 public class DisplayTimeState implements ClockState{
 	/**
