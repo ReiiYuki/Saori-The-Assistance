@@ -2,7 +2,7 @@ package Saori.Clock;
 /**
  * main class for show DigitalClockUI
  * @author Wanchanapon Thanwaranurak
- * @version 3/11/2015
+ * @version 5/7/2015
  */
 public class Main {
 	/**

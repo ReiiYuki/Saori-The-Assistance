@@ -15,14 +15,13 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 /**
- * AlarmRingingState is check that pressPlus ,pressMinus and pressSet come back to DisplayTimeState
+ * Clock is command center that have everything get and set
  * @author Wanchanapon Thanwaranurak
- * @version 3/11/2015
+ * @version 5/7/2015
  */
 public class Clock {
 	// attributes for can use every method
 	private ClockState state ;
-	
 	private ClockState DisplayTimeState ;
 	private ClockState AlarmRingingState ;
 	private ClockState SettingAlarmState ;
@@ -71,54 +70,107 @@ public class Clock {
 		restore();
 		this.setState( DisplayTimeState );
 	}
+	/**
+	 * getNumSun is return number of Sunday
+	 * @return numSun is number of Sunday, type integer
+	 */
 	public int getNumSun() {
 		return numSun;
 	}
-	public ClockState getStopWatch() {
-		return StopWatch;
-	}
-	public void setStopWatch(ClockState stopWatch) {
-		StopWatch = stopWatch;
-	}
+	/**
+	 * setNumSun can set number of Sunday that you want
+	 * @param numSun is number of Sunday, type integer
+	 */
 	public void setNumSun(int numSun) {
 		this.numSun = numSun;
 	}
+	/**
+	 * getNumMon is return number of Monday
+	 * @return numMon is number of Monday, type integer
+	 */
 	public int getNumMon() {
 		return numMon;
 	}
+	/**
+	 * setNumMon can set number of Monday that you want
+	 * @param numMon is number of Monday, type integer
+	 */
 	public void setNumMon(int numMon) {
 		this.numMon = numMon;
 	}
+	/**
+	 * getNumTue is return number of Tuesday
+	 * @return numTue is number of Tuesday, type integer
+	 */
 	public int getNumTue() {
 		return numTue;
 	}
+	/**
+	 * setNumTue can set number of Tuesday that you want
+	 * @param numTue is number of Tuesday, type integer
+	 */
 	public void setNumTue(int numTue) {
 		this.numTue = numTue;
 	}
+	/**
+	 * getNumWed is return number of Wednesday
+	 * @return numWed is number of Wednesday, type integer
+	 */
 	public int getNumWed() {
 		return numWed;
 	}
+	/**
+	 * setNumWed can set number of Wednesday that you want
+	 * @param numWed is number of Wednesday, type integer
+	 */
 	public void setNumWed(int numWed) {
 		this.numWed = numWed;
 	}
+	/**
+	 * getNumThu is return number of Thursday
+	 * @return numThu is number of Thursday, type integer
+	 */
 	public int getNumThu() {
 		return numThu;
 	}
+	/**
+	 * setNumThu can set number of Thursday that you want
+	 * @param numThu is number of Thursday, type integer
+	 */
 	public void setNumThu(int numThu) {
 		this.numThu = numThu;
 	}
+	/**
+	 * getNumFri is return number of Friday
+	 * @return numFri is number of Friday, type integer
+	 */
 	public int getNumFri() {
 		return numFri;
 	}
+	/**
+	 * setNumFri can set number of Friday that you want
+	 * @param numFri is number of Friday, type integer
+	 */
 	public void setNumFri(int numFri) {
 		this.numFri = numFri;
 	}
+	/**
+	 * getNumSat is return number of Saturday 
+	 * @return numSat is number of Saturday, type integer
+	 */
 	public int getNumSat() {
 		return numSat;
 	}
+	/**
+	 * setNumSat can set number of Saturday that you want
+	 * @param numSat is number of Saturday, type integer
+	 */
 	public void setNumSat(int numSat) {
 		this.numSat = numSat;
 	}
+	/**
+	 * checkDay is Check day of to day 
+	 */
 	public void checkDay(){
 		if( calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY )
 			this.setSun(true);
@@ -135,57 +187,129 @@ public class Clock {
 		else {
 			this.setSat(true);}
 	}
+	/**
+	 * getCalendar can get Calendar that you set
+	 * @return calendar is day or time realtime ,type Calendar
+	 */
 	public Calendar getCalendar() {
 		return calendar;
 	}
+	/**
+	 * setCalendar can set Calendar that you want
+	 * @param calendar is day or time realtime ,type Calendar
+	 */
 	public void setCalendar(Calendar calendar) {
 		this.calendar = calendar;
 	}
+	/**
+	 * isShowSetDay is ShowSetDay that you set
+	 * @return showSetDay is day of month
+	 */
 	public boolean isShowSetDay() {
 		return showSetDay;
 	}
+	/**
+	 * setShowSetDay can set that you want to show
+	 * @param showSetDay is day of month
+	 */
 	public void setShowSetDay(boolean showSetDay) {
 		this.showSetDay = showSetDay;
 	}
+	/**
+	 * isSun return true when to day is Sunday
+	 * @return sun is day of month, type boolean
+	 */
 	public boolean isSun() {
 		return sun;
 	}
+	/**
+	 * setSun can set that you want to day is Sunday
+	 * @param sun is day of month, type boolean
+	 */
 	public void setSun(boolean sun) {
 		this.sun = sun;
 	}
+	/**
+	 * isMon return true when to day is Monday
+	 * @return mon is day of month, type boolean
+	 */
 	public boolean isMon() {
 		return mon;
 	}
+	/**
+	 * setMon can set that you want to day is Monday
+	 * @param mon is day of month, type boolean
+	 */
 	public void setMon(boolean mon) {
 		this.mon = mon;
 	}
+	/**
+	 * isTue return true when to day is Tuesday
+	 * @return tue is day of month, type boolean
+	 */
 	public boolean isTue() {
 		return tue;
 	}
+	/**
+	 * setTue can set that you want to day is Tuesday
+	 * @param tue is day of month, type boolean
+	 */
 	public void setTue(boolean tue) {
 		this.tue = tue;
 	}
+	/**
+	 * isWed return true when to day is Wednesday
+	 * @return wed is day of month, type boolean
+	 */
 	public boolean isWed() {
 		return wed;
 	}
+	/**
+	 * setWed can set that you want to day is Wednesday
+	 * @param wed is day of month, type boolean
+	 */
 	public void setWed(boolean wed) {
 		this.wed = wed;
 	}
+	/**
+	 * isThu return true when to day is Thursday
+	 * @return thu is day of month, type boolean
+	 */
 	public boolean isThu() {
 		return thu;
 	}
+	/**
+	 * setThu can set that you want to day is Thursday
+	 * @param thu is day of month, type boolean
+	 */
 	public void setThu(boolean thu) {
 		this.thu = thu;
 	}
+	/**
+	 * isFri return true when to day is Friday
+	 * @return fri is day of month, type boolean
+	 */
 	public boolean isFri() {
 		return fri;
 	}
+	/**
+	 * setFri can set that you want to day is Friday
+	 * @param fri is day of month, type boolean
+	 */
 	public void setFri(boolean fri) {
 		this.fri = fri;
 	}
+	/**
+	 * isSat return true when to day is Saturday
+	 * @return sat is day of month, type boolean
+	 */
 	public boolean isSat() {
 		return sat;
 	}
+	/**
+	 * setSat can set that you want to day is Saturday
+	 * @param sat is day of month, type boolean
+	 */
 	public void setSat(boolean sat) {
 		this.sat = sat;
 	}
@@ -193,9 +317,9 @@ public class Clock {
 	public void restore(){
 		File alertFile = new File("src\\Saori\\Clock\\listOfAlert.loa");
 		if (alertFile.exists()){
-	        try {
-	    		FileInputStream filein = new FileInputStream(alertFile);
-	            ObjectInputStream instream = new ObjectInputStream(filein);
+			try {
+				FileInputStream filein = new FileInputStream(alertFile);
+				ObjectInputStream instream = new ObjectInputStream(filein);
 				setOfAlarm = (ArrayList<Calendar>) instream.readObject();
 				for (Calendar i : setOfAlarm){
 					if (i.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY) setSun(true);
@@ -211,20 +335,18 @@ public class Clock {
 					setShowAlarm(true);
 				}
 			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 	public void save(){
-         try {
-    		FileOutputStream fileout = new FileOutputStream("src\\Saori\\Clock\\listOfAlert.loa");
+		try {
+			FileOutputStream fileout = new FileOutputStream("src\\Saori\\Clock\\listOfAlert.loa");
 			ObjectOutputStream outstream= new ObjectOutputStream(fileout);
 			outstream.writeObject(getListOfAlarm());
 			outstream.close();
 			fileout.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -473,6 +595,20 @@ public class Clock {
 		return this.AlarmRingingState;
 	}
 	/**
+	 * getStopWatch is get StopWatch that you set
+	 * @return StopWatch is StopWatch ,type ClockState
+	 */
+	public ClockState getStopWatch() {
+		return StopWatch;
+	}
+	/**
+	 * setStopWatch can set StopWatch that you want to change
+	 * @param stopWatch is StopWatch ,type ClcokState
+	 */
+	public void setStopWatch(ClockState stopWatch) {
+		StopWatch = stopWatch;
+	}
+	/**
 	 * setAlarmRingingState can set setAlarmRinging that you want to change
 	 * @param AlarmRingingState is AlarmRinging ,type ClockState
 	 */
@@ -525,5 +661,5 @@ public class Clock {
 	public void handleMinusKey(){
 		state.pressMinus();
 	}
-	
+
 }

@@ -1,21 +1,31 @@
 package Saori.Calculator;
-
+/**
+ * Calculator is command calculator everything 
+ * @author Wanchanapon Thanwaranurak
+ * @version 5/7/2015
+ */
 public class Calculator{
 
 	private CalculatorUI calculatorUI;
-	protected boolean isZero ;
-	protected boolean isDot ;
-	protected boolean isDegrees ;
+	protected boolean isZero ; //number zero 
+	protected boolean isDot ; //dot or .
+	protected boolean isDegrees ; // check that click degrees
 	protected boolean sh ; //shift
 	protected byte op ; //operator
-	protected double ina ;
-	protected double inb ;
-	protected double out ;
-
+	protected double ina ; //integer a
+	protected double inb ; //integer b
+	protected double out ; //out lead print to String
+	/**
+	 * Constructor for new Calculator 
+	 * @param calculatorUI is GUI of Calculator 
+	 */
 	public Calculator(CalculatorUI calculatorUI){
 		this.calculatorUI = calculatorUI;
 	}
-
+	/**
+	 * zeroFunction is work of number button
+	 * @param num is number that print
+	 */
 	public void numberFunction(String num){
 		if(!isZero && !isDot){
 			calculatorUI.textFieldInput.setText(null);
@@ -23,12 +33,19 @@ public class Calculator{
 		calculatorUI.textFieldInput.setText(calculatorUI.textFieldInput.getText() + num );
 		isZero = true;
 	}
+	/**
+	 * zeroFunction is work of number zero button
+	 * @param num is number that print
+	 */
 	public void zeroFunction(String num){
 		if(!isZero && !isDot){
 			this.calculatorUI.textFieldInput.setText(null);
 		}
 		this.calculatorUI.textFieldInput.setText(this.calculatorUI.textFieldInput.getText() + num);
 	}
+	/**
+	 * equalsFunction is work of equals button
+	 */
 	public void equalsFunction(){
 		inb = Double.parseDouble(String.valueOf(calculatorUI.textFieldInput.getText()));
 
@@ -77,43 +94,22 @@ public class Calculator{
 		isDot = false;
 		isZero = false;
 	}
-	public void operatorShiftFunction(String opString , byte opInteger){
-		if(op == 0){
-			ina = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText().substring(0, this.calculatorUI.textFieldInput.getText().length()-1)));
+	/**
+	 * operatorShiftFunction is work of shift button
+	 */
+	public void operatorShiftFunction(){
+		if(!sh){
+			sh = true;
 		}
 		else{
-			inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText().substring(0, this.calculatorUI.textFieldInput.getText().length()-1)));
+			sh = false;
 		}
-
-		if(op == 1){
-			ina =ina + inb;
-		}
-
-		if(op == 2){
-			ina = ina - inb;
-		}
-
-		if(op == 3){
-			ina = ina *inb;
-		}
-
-		if(op == 4){
-			ina = ina / inb;
-		}
-
-		if(op == 5){
-			ina = ina * inb / 100;
-		}
-
-		this.calculatorUI.textFieldInput.setText("0");
-		this.calculatorUI.textFieldShow.setText(String.valueOf(ina) + " "+opString+" ");
-
-		op = opInteger;
-
-		isDot = false;
-		isZero = false;
-
 	}
+	/**
+	 * operatorFunction is work of operator button
+	 * @param opString is operator that you print
+	 * @param opInteger is number of operator
+	 */
 	public void operatorFunction(String opString , byte opInteger){
 		if(op == 0){
 			ina = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
@@ -151,6 +147,9 @@ public class Calculator{
 		isZero = false;
 
 	}
+	/**
+	 * sinFunction is work of sin button
+	 */
 	public void sinFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		if(!sh){
@@ -169,6 +168,9 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
+	/**
+	 * cosFunction is work of cos button
+	 */
 	public void cosFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		if(!sh){
@@ -187,6 +189,9 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
+	/**
+	 * tanFunction is work of tan button
+	 */
 	public void tanFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		if(!sh){
@@ -205,6 +210,9 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
+	/**
+	 * percentFunction is work of percent button
+	 */
 	public void percentFunction(){
 		ina = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		this.calculatorUI.textFieldInput.setText("0");
@@ -214,6 +222,9 @@ public class Calculator{
 		isZero = false;
 		op = 5;
 	}
+	/**
+	 * cuberootFunction is work of cuberoot button
+	 */
 	public void cuberootFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = Math.cbrt(inb);
@@ -224,6 +235,9 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
+	/**
+	 * cubedFunction is work of cubed button
+	 */
 	public void cubedFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = inb * inb * inb;
@@ -239,6 +253,9 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
+	/**
+	 * squarerootFunction is work of squareroot button
+	 */
 	public void squarerootFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = Math.sqrt(inb);
@@ -249,6 +266,9 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
+	/**
+	 * onedividedbyxFunction is work of 1/x button
+	 */
 	public void onedividedbyxFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = 1 / inb;
@@ -263,6 +283,9 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
+	/**
+	 * squarFunction is work of squar button
+	 */
 	public void squarFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = inb * inb;
@@ -278,6 +301,9 @@ public class Calculator{
 		out = 0;
 		op = 0;
 	}
+	/**
+	 * resetFunction is work of reset button
+	 */
 	public void resetFunction(){
 		this.calculatorUI.textFieldInput.setText("0");
 		this.calculatorUI.textFieldShow.setText(null);
@@ -287,6 +313,9 @@ public class Calculator{
 		inb = 0;
 		out = 0;
 	}
+	/**
+	 * negateFunction is work of negate button
+	 */
 	public void negateFunction(){
 		inb = Double.parseDouble(String.valueOf(this.calculatorUI.textFieldInput.getText()));
 		out = inb * -1;

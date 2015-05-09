@@ -2,7 +2,7 @@ package Saori.Clock;
 /**
  * AlarmRingingState is check that pressPlus ,pressMinus and pressSet come back to DisplayTimeState
  * @author Wanchanapon Thanwaranurak
- * @version 3/11/2015
+ * @version 5/7/2015
  */
 public class AlarmRingingState implements ClockState{
 	/**

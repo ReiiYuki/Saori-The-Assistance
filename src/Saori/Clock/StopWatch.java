@@ -5,7 +5,7 @@ package Saori.Clock;
  * A StopWatch that measures elapsed time between a starting time
  * and stopping time, or until the present time.
  * @author Wanchanapon Thanwaranurak
- * @version 1.0
+ * @version 5/7/2015
  */
 public class StopWatch implements ClockState{
 

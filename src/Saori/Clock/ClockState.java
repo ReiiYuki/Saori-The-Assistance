@@ -2,7 +2,7 @@ package Saori.Clock;
 /**
  * ClockState is interface of DisplayTimeState class ,AlarmRingingState class and SettingAlarmState class
  * @author Wanchanapon Thanwaranurak
- * @version 3/11/2015
+ * @version 5/7/2015
  */
 public interface ClockState {
 	/**

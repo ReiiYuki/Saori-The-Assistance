@@ -1,20 +1,13 @@
 package Saori.Search;
 
-import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Area;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -24,14 +17,16 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
-import javax.swing.Timer;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
-
-import Saori.Calculator.Calculator;
+/**
+ * FindFileUI is GUI of FindFile
+ * @author Wanchanapon Thanwaranurak
+ * @version 5/7/2015
+ */
 public class FindFileUI extends JFrame{
+	// attributes for graphical components
 	private FindFile findfile;
 	private JPanel pane , panelButton;
 	private JLabel searchFrom , fileName ;
@@ -41,6 +36,9 @@ public class FindFileUI extends JFrame{
 	protected JList jList ;
 	private JScrollPane scrollPane ;
 	DefaultListModel listModel = new DefaultListModel();
+	/**
+	 * Constructor for new DigitalClockUI
+	 */
 	public FindFileUI(FindFile findfile){
 		this.setTitle( "SearchFile" );
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,6 +47,9 @@ public class FindFileUI extends JFrame{
 		this.initComponents();
 		this.findfile = findfile ;
 	}
+	/**
+	 * initialize components in the window
+	 */
 	private void initComponents(){
 
 		pane = new JPanel();
@@ -115,7 +116,7 @@ public class FindFileUI extends JFrame{
 		openButton.setFocusable(false);
 		openButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				openflieActionPerformed( e );
+				openflieActionPerformed();
 			}
 
 
@@ -129,7 +130,10 @@ public class FindFileUI extends JFrame{
 		pane.add(searchButton);
 		pane.add(openButton);
 
-	}
+	}//end initComponents
+	/**
+	 * findflieActionPerformed is action find file when you click search
+	 */
 	private void findflieActionPerformed() {
 		this.findfile.fileFrom.clear();
 		this.findfile.findFile( fileNameTextField.getText() , new File(searchFromBox.getSelectedItem()+"") );
@@ -138,7 +142,10 @@ public class FindFileUI extends JFrame{
 		}
 		jList.setModel(listModel);
 	}//end findflieActionPerformed
-	private void openflieActionPerformed(ActionEvent evt) {
+	/**
+	 * openflieActionPerformed is action open file when you click open
+	 */
+	private void openflieActionPerformed() {
 		this.findfile.openFile( jList.getSelectedValue()+"");
 	}//end openflieActionPerformed
 }

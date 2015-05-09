@@ -3,10 +3,14 @@ package Saori.Search;
 import java.awt.EventQueue;
 
 import Saori.Calculator.CalculatorUI;
-
+/**
+ * main class for show FindFileUI
+ * @author Wanchanapon Thanwaranurak
+ * @version 5/7/2015
+ */
 public class Main {
 	/**
-	 * to run main for show DigitalClockUI
+	 * to run main for show FindFileUI
 	 * @param args is argument for run String
 	 */
 	public static void main(String[] args) {
