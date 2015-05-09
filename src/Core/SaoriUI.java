@@ -16,7 +16,11 @@ import Event.ListeningEvent;
 import Saori.Clock.Clock;
 import Saori.Listener.Core.UIMouseListener;
 import Saori.Listener.Core.UIMouseMotionListener;
-
+/**
+ * SaoriUI is use for show Saori and Combine Saori to her event which make her realistic.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class SaoriUI extends JDialog implements Runnable{
 	/**
 	 * 
@@ -38,6 +42,9 @@ public class SaoriUI extends JDialog implements Runnable{
 		event = new FallingEvent(this);
 		thread.start();
 	}	
+	/**
+	 * Initialize component to SaoriUI.
+	 */
 	public void initComponent(){
 		setSize(130,150);
 		setUndecorated(true);
@@ -55,24 +62,47 @@ public class SaoriUI extends JDialog implements Runnable{
 		addMouseListener(new UIMouseListener(this));
 		addMouseMotionListener(new UIMouseMotionListener(this));
 	}
-
+	/**
+	 * Use for initialize location of Saori on the Screen.
+	 */
 	public void initLocation(){
 		int width=Toolkit.getDefaultToolkit().getScreenSize().width;
 		setLocation((int) (Math.random()*width),0);
 	}
+	/**
+	 * Changing the event.
+	 * @param event is new event.
+	 */
 	public void changeEvent(Event event){
 		if (this.event.getClass()!=ListeningEvent.class)  toolBoxDisappear();
 		this.event = event;
 	}
+	/**
+	 * Getting the clock.
+	 * @return the clock.
+	 */
 	public Clock getClock(){
 		return clock;
 	}
+	/**
+	 * Getting event.
+	 * @return event.
+	 */
 	public Event getEvent(){
 		return event;
 	}
+	/**
+	 * Setting image of Saori.
+	 * 
+	 */
 	public void setImage(String url){
 		body.setIcon(new ImageIcon(ClassLoader.getSystemResource(url)));
 	}
+	/**
+	 * SettiangeI
+	 * @param url1
+	 * @param url2
+	 */
 	public void setImage(String url1,String url2){
 		body.setImage(url1, url2);
 	}
@@ -95,15 +125,17 @@ public class SaoriUI extends JDialog implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Setting toolbox to visible.
+	 */
 	public void toolBoxAppear(){
 		toolbox.setLocation(getLocationOnScreen());
 		toolbox.setVisible(true);
 	}
+	/**
+	 * Disappearing toolbox.
+	 */
 	public void toolBoxDisappear(){
 		toolbox.setVisible(false);
-	}
-	public static void main(String[] args) {
-		SaoriUI s = new SaoriUI();
-		s.run();
 	}
 }

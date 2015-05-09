@@ -6,7 +6,11 @@ import java.util.GregorianCalendar;
 
 import Saori.Diary.DiaryList;
 import Saori.Diary.DiaryListUI;
-
+/**
+ * dateChooseButtonListener is used for choose date to see diary.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class dateChooseButtonListener implements ActionListener {
 	private DiaryListUI ui;
 	public dateChooseButtonListener(GregorianCalendar calendar){

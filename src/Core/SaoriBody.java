@@ -10,7 +10,11 @@ import org.jdesktop.core.animation.timing.TimingSource;
 import org.jdesktop.core.animation.timing.Animator.Direction;
 import org.jdesktop.core.animation.timing.TimingTarget;
 import org.jdesktop.swing.animation.timing.sources.SwingTimerTimingSource;
-
+/**
+ * SaoriBody is body of Saori which show in ui.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class SaoriBody extends JLabel implements TimingTarget{
 
 	/**
@@ -32,6 +36,11 @@ public class SaoriBody extends JLabel implements TimingTarget{
 		state = 0;
 		
 	}
+	/**
+	 * Setting Image to SaoriBody.
+	 * @param url1 is url of image location.
+	 * @param url2 is url of image location.
+	 */
 	public void setImage(String url1,String url2){
 		image1 = new ImageIcon(ClassLoader.getSystemResource(url1));
 		image2 = new ImageIcon(ClassLoader.getSystemResource(url2));

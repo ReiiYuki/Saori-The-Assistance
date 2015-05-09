@@ -15,19 +15,27 @@ import javax.swing.border.EmptyBorder;
 
 import Saori.Listener.Diary.createNewDiaryUIListener;
 import Saori.Listener.Diary.selectListListener;
-
+/**
+ * DiaryListUI is ui that show list of diary of that time.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class DiaryListUI extends JDialog implements Runnable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5805365650919114775L;
 	private DiaryList diaryList;
+	private JList<Diary> list;
 	public DiaryListUI(DiaryList diaryList){
 		super();
 		this.diaryList = diaryList;
 		initComponent();
 		pack();
 	}
+	/**
+	 * To initialize the component of ui.
+	 */
 	public void initComponent(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
@@ -48,8 +56,7 @@ public class DiaryListUI extends JDialog implements Runnable{
 		JPanel showDiary = new JPanel();
 		showDiary.setBorder(new EmptyBorder(10,10,10,10));
 		showDiary.setLayout(new GridLayout(1,1));
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		JList<Diary> list = new JList(diaryList.loadDiary());
+		list = new JList<Diary>(diaryList.loadDiary());
 		list.addMouseListener(new selectListListener(list));
 		JScrollPane scroll = new JScrollPane(list);
 		panel.add(exitPanel);
@@ -60,6 +67,14 @@ public class DiaryListUI extends JDialog implements Runnable{
 		setContentPane(panel);
 		
 	}
+	/**
+	 * Update list of diary.
+	 */
+	public void updateList(){
+		list =  new JList<Diary>(diaryList.loadDiary());
+		repaint();
+	}
+	@Override
 	public void run(){
 		setVisible(true);
 	}

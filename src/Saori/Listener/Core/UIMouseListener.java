@@ -9,7 +9,11 @@ import javax.swing.JPopupMenu;
 
 import Saori.Listener.ExitApplication;
 import Core.SaoriUI;
-
+/**
+ * UIMouseListener is use for call doing event of Saori.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class UIMouseListener implements MouseListener {
 	private SaoriUI ui;
 	public UIMouseListener(SaoriUI ui){

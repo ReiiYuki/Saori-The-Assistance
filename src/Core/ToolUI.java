@@ -17,7 +17,11 @@ import Saori.Listener.ToolUI.calendarButtonListener;
 import Saori.Listener.ToolUI.clockButtonListener;
 import Saori.Listener.ToolUI.searchButtonListener;
 import Saori.Search.FindFileUI;
-
+/**
+ * ToolboxUI is toolbox which link to other application.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class ToolUI extends JDialog{
 	
 	/**
@@ -39,6 +43,9 @@ public class ToolUI extends JDialog{
 		initComponent();
 
 	}
+	/**
+	 * Initialize components to toolui.
+	 */
 	public void initComponent(){
 		setSize(150,50);
 		setUndecorated(true);
@@ -86,7 +93,10 @@ public class ToolUI extends JDialog{
 		setBackground (new Color (0, 0, 0, 0));
 		setAlwaysOnTop(true);
 	}
-	
+	/**
+	 * Change event of Saori.
+	 * @param newEvent is new event.
+	 */
 	public void changeEvent(Event newEvent){
 		saori.changeEvent(newEvent);
 	}

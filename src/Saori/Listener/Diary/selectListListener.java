@@ -7,7 +7,11 @@ import javax.swing.JList;
 
 import Saori.Diary.Diary;
 import Saori.Diary.DiaryUI;
-
+/**
+ * selectListListener is action listener which use for run diaryui.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class selectListListener implements MouseListener {
 	private JList<Diary> list;
 	public selectListListener(JList<Diary> list){
@@ -26,26 +30,22 @@ public class selectListListener implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		//do nothing
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		//do nothing
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		//do nothing
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		//do nothing
 	}
 
 }
