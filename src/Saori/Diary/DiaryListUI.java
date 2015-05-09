@@ -2,9 +2,6 @@ package Saori.Diary;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
@@ -19,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 import Saori.Listener.Diary.createNewDiaryUIListener;
 import Saori.Listener.Diary.selectListListener;
 
-public class DiaryListUI extends JDialog{
+public class DiaryListUI extends JDialog implements Runnable{
 	/**
 	 * 
 	 */

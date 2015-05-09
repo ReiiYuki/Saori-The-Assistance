@@ -29,7 +29,12 @@ import javax.swing.border.EmptyBorder;
 import Saori.Listener.DragListener;
 import Saori.Listener.ExitListener;
 import Saori.Listener.Diary.dateChooseButtonListener;
-
+/**
+ * CalendarUI is GUI of Calendar which make user able viewing calendar.
+ * It is connected to the diary list which make user can be edit or create new diary.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class CalendarUI extends JDialog {
 
 	/**
@@ -77,6 +82,9 @@ public class CalendarUI extends JDialog {
 		updateTime();
 		pack();
 	}
+	/**
+	 * Initialize component to the CalendarUI.
+	 */
 	public void initComponent(){
 		
 		JPanel panel = new ImagePanel();
@@ -165,6 +173,9 @@ public class CalendarUI extends JDialog {
 		setContentPane(panel);
 		addMouseMotionListener(new DragListener(this));
 	}
+	/**
+	 * Updating the calendar when it is changed or started.
+	 */
 	public void updateTime(){
 		for (int i =0;i<6;i++) {
 			for (int j =0;j<7;j++){
@@ -193,7 +204,11 @@ public class CalendarUI extends JDialog {
 		}
 		pack();
 	}
-	
+	/**
+	 * Listener to set month or year.
+	 * @author Voraton Lertrattanapaisal
+	 *
+	 */
 	private class setListener implements ActionListener{
 		
 		@Override
@@ -228,16 +243,26 @@ public class CalendarUI extends JDialog {
 		}
 		
 	}
+	/**
+	 * JPanel which have image as the background.
+	 * @author Voraton Lertrattanapaisal
+	 *
+	 */
 	private class ImagePanel extends JPanel{
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 7739895286879920819L;
-
+		@Override
 		public void paintComponent(Graphics g) {
 		    g.drawImage(new ImageIcon(ClassLoader.getSystemResource("Saori/Diary/Imagee/bg.jpg")).getImage(), 0, 0, null);
 		 }
 	}
+	/**
+	 * JButton which have background.
+	 * @author Voraton Lertrattanapaisal
+	 *
+	 */
 	private class TransperantButton extends JButton{
 		/**
 		 * 

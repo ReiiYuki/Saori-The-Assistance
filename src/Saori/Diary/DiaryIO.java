@@ -6,21 +6,43 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-
+/**
+ * DiaryIO is use for inputing or outputing the diary.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class DiaryIO {
 	private Diary diary;
+	/**
+	 * Constructor for initialize empty diary.
+	 */
 	public DiaryIO(){
 		this.diary = new Diary();
 	}
+	/**
+	 * Constructor for setup diary.
+	 * @param diary that will be set.
+	 */
 	public DiaryIO(Diary diary){
 		this.diary = diary;
 	}
+	/**
+	 * Setup the reminder.
+	 * @param remindDate is date to notify.
+	 */
 	public void toRemind(GregorianCalendar remindDate){
 		diary = new Reminder(diary,remindDate);
 	}
+	/**
+	 * To write line to the diary.
+	 * @param line is line which is written to the diary.
+	 */
 	public void write(String line){
 		diary.write(line);
 	}
+	/**
+	 * To write the output file of diary.
+	 */
 	public void writeFile(){
 		GregorianCalendar date = diary.getDate();
 		String path = "src\\Saori\\Diary\\Data\\"+date.get(GregorianCalendar.DATE)+"-"+(date.get(GregorianCalendar.MONTH)+1)+"-"+date.get(GregorianCalendar.YEAR);
@@ -57,20 +79,18 @@ public class DiaryIO {
 			}
 		}
 	}
+	/**
+	 * Reading the diary.
+	 * @param diary is diary which will be read. 
+	 * @return article of diary.
+	 */
 	public ArrayList<String> read(Diary diary){
 		return diary.article;
 	}
-	public ArrayList<String> readAI(Diary diary){
-		ArrayList<String> information = new ArrayList<String>();
-		if (diary.getClass().getName().indexOf("Diary")>0) information.add("Diary");
-		else {
-			information.add("Reminder");
-			information.add("Remind at "+((Reminder) diary).getRemindDate());
-		}
-		information.add(diary.getTitle());
-		information.addAll(diary.read());
-		return information;
-	}
+	/**
+	 * Writing article title and date on the GUI.
+	 * @param ui is DiaryUI that will be written.
+	 */
 	public void writeOnUI(DiaryUI ui){
 		for (String i: read(diary)){
 			ui.article.append(i);
@@ -78,9 +98,17 @@ public class DiaryIO {
 		ui.setTitle(diary.getTitle());
 		ui.dateLab.setText(diary.getDate().get(GregorianCalendar.DATE)+"/"+diary.getDate().get(GregorianCalendar.MONTH)+"/"+diary.getDate().get(GregorianCalendar.YEAR));
 	}
+	/**
+	 * Set the diary to DiaryIO.
+	 * @param diary is diary that will be set.
+	 */
 	public void setDiary(Diary diary){
 		this.diary = diary;
 	}
+	/**
+	 * Get the diary which was set in DiaryIO.
+	 * @return diary of DiaryIO.
+	 */
 	public Diary getDiary() {
 		return diary;
 	}

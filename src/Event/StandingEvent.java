@@ -3,7 +3,11 @@ package Event;
 import java.awt.event.MouseEvent;
 
 import Core.SaoriUI;
-
+/**
+ * StandingEvent is done when Saori is standing.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class StandingEvent implements Event{
 	
 	private SaoriUI ui;

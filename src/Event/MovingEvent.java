@@ -5,7 +5,11 @@ import java.awt.event.MouseEvent;
 
 
 import Core.SaoriUI;
-
+/**
+ * MovingEvent is event which is done when Saori is moving.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class MovingEvent implements Event {
 
 	private SaoriUI ui;

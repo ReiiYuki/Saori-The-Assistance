@@ -4,7 +4,11 @@ import java.awt.event.MouseEvent;
 
 
 import Core.SaoriUI;
-
+/**
+ * HardTouchEvent is the event which is done when Saori hit the ground powerful.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class HardTouchEvent implements Event {
 
 	private SaoriUI ui;

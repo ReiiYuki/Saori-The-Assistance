@@ -7,12 +7,20 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
+/**
+ * DiaryList is using for loading Diarys which were written by date.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class DiaryList {
 	private GregorianCalendar date;
 	public DiaryList(GregorianCalendar dateToGet){
 		date = dateToGet;
 	}
+	/**
+	 * Loading the diaries follow the date.
+	 * @return array of diaries.
+	 */
 	@SuppressWarnings("resource")
 	public Diary[] loadDiary(){
 		try {
@@ -37,15 +45,12 @@ public class DiaryList {
 			return new Diary[]{};
 		}
 	}
+	/**
+	 * Get date.
+	 * @return date of diarylist.
+	 */
 	public GregorianCalendar getDate(){
 		return date;
 	}
-	public static void main(String[] args) {
-		DiaryList diary = new DiaryList(new GregorianCalendar(2015,5,8));
-		Diary[] d = diary.loadDiary();
-		System.out.println(d.length);
-		for (Diary i : d){
-			System.out.println(i.getDescription());
-		}
-	}
+
 }

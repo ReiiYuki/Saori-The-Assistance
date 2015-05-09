@@ -3,7 +3,11 @@ package Event;
 import java.awt.event.MouseEvent;
 
 import Core.SaoriUI;
-
+/**
+ * PainEvent is done when Saori feel in pain.
+ * @author Lenovo
+ *
+ */
 public class PainEvent implements Event {
 	
 	private SaoriUI ui;

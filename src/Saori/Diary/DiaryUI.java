@@ -13,7 +13,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-
+/**
+ * DiaryUI is user interface which is use for writing diary.
+ * @author Voraton Lertrattanapaisal
+ *
+ */
 public class DiaryUI extends JDialog implements Runnable{
 	/**
 	 * 
@@ -30,6 +34,10 @@ public class DiaryUI extends JDialog implements Runnable{
 	DiaryIO io;
 	private JPanel exitBar;
 	JTextField title;
+	/**
+	 * Constructor to initialize ui with old diary.
+	 * @param diary is diary that will be set on ui.
+	 */
 	public DiaryUI(Diary diary){
 		super();
 		io = new DiaryIO(diary);
@@ -37,12 +45,18 @@ public class DiaryUI extends JDialog implements Runnable{
 		io.writeOnUI(this);
 		pack();
 	}
+	/**
+	 * Contructor to initialize ui for creating new diary.
+	 */
 	public DiaryUI(){
 		super();
 		io = new DiaryIO();
 		initComponent();
 		pack();
 	}
+	/**
+	 * To initialize component of ui.
+	 */
 	public void initComponent(){
 		JPanel panel = new JPanel();
 		setContentPane(panel);
@@ -85,8 +99,13 @@ public class DiaryUI extends JDialog implements Runnable{
 		confirmBar.add(confirmButton);
 		pack();
 	}
+	/**
+	 * Action listener of confirm button to save diary.
+	 * @author Voraton Lertrattanapaisal
+	 *
+	 */
 	class confirmActionListener implements ActionListener {
-		
+	
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Diary diary  = new Diary();

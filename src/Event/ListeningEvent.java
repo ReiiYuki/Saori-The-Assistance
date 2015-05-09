@@ -4,7 +4,11 @@ import java.awt.event.MouseEvent;
 
 
 import Core.SaoriUI;
-
+/**
+ * ListeningEvent is the event which is done when Saori use toolbox.
+ * @author Lenovo
+ *
+ */
 public class ListeningEvent implements Event{
 	private SaoriUI ui;
 	public ListeningEvent(SaoriUI ui){
