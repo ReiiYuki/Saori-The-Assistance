@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
 /**
  * DigitalClockUI is GUI of DigitalClock
  * @author Wanchanapon Thanwaranurak

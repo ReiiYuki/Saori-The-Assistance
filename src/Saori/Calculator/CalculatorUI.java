@@ -1,62 +1,49 @@
 package Saori.Calculator;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.math.*;
+import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.Robot;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
+
+/**
+ * CalculatorUI is GUI of Calculator
+ * @author Wanchanapon Thanwaranurak
+ * @version 5/7/2015
+ */
 public class CalculatorUI extends JFrame {
-
+	// attributes for graphical components
 	private Calculator calculator;
 	private JPanel panel ;
-	//row1
-	protected JTextField textFieldShow;
-	//row2
-	protected JTextField textFieldInput;
-	//row3
+	protected JTextField textFieldShow ,textFieldInput ,textFieldMemory;
 	private JButton memoryclear ,memoryread ,memorysave;
-	private JTextField textFieldMemory;
-	//row4
 	private JRadioButton degrees ,radians;
-	private JButton percent ,onedividedbyx;	
-	//row5
-	private JButton sin;
-	private JButton cos;
-	private JButton tan;
+	private JButton percent ,onedividedbyx,pi,squareroot,squared,add,subtract,multiply,cubed;	
+	private JButton equals ,clear ,reset ,divide ,cuberoot ,negate ,decpoint;
+	private JButton sin,cos,tan;
 	private JToggleButton shift;
-	private JButton pi;
-	//row6
-	private JButton seven;
-	private JButton eight;
-	private JButton nine;
-	private JButton squared;
-	private JButton add;
-	//row7
-	private JButton four;
-	private JButton five;
-	private JButton six;
-	private JButton squareroot;
-	private JButton subtract;
-	//row8
-	private JButton one;
-	private JButton two;
-	private JButton three;
-	private JButton cubed;
-	private JButton multiply;
-	//row9
-	private JButton zero;
-	private JButton decpoint;
-	private JButton negate;
-	private JButton cuberoot;
-	private JButton divide;
-	//row10
-	private JButton equals;
-	private JButton clear;
-	private JButton reset;
-	// End of variables 
+	private JButton zero ,one ,two ,three ,four ,five ,six ,seven ,eight ,nine ;
 	private String buffer = null ;
 	private boolean isShiftPressed = false ;
+	/**
+	 * Constructor for new DigitalClockUI
+	 */
 	public CalculatorUI() {
 		setTitle("Java Calculator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,6 +52,9 @@ public class CalculatorUI extends JFrame {
 		initComponents();
 		this.calculator = new Calculator(this);
 	}
+	/**
+	 * initialize components in the window
+	 */
 	private void initComponents() {
 
 		panel = new JPanel();
@@ -144,7 +134,7 @@ public class CalculatorUI extends JFrame {
 						e.printStackTrace();
 					}
 					equalsActionPerformed(evt);
-				
+
 				}
 
 				else if (keyCode == KeyEvent.VK_SHIFT){
@@ -645,173 +635,379 @@ public class CalculatorUI extends JFrame {
 		panel.add(clear);
 		panel.add(reset);
 	}
+	/**
+	 * zeroActionPerformed is function of zero number
+	 * @param evt is action that you click
+	 */
 	private void zeroActionPerformed(ActionEvent evt) {
 		this.calculator.zeroFunction("0");
 	}//end zeroActionPerformed
+	/**
+	 * oneActionPerformed is function of one number
+	 * @param evt is action that you click
+	 */
 	private void oneActionPerformed(ActionEvent evt) {
 		this.calculator.numberFunction("1");
 	}//end oneActionPerformed
+	/**
+	 * twoActionPerformed is function of two number
+	 * @param evt is action that you click
+	 */
 	private void twoActionPerformed(ActionEvent evt) {
 		this.calculator.numberFunction("2");
 	}//end twoActionPerformed
+	/**
+	 * threeActionPerformed is function of three number
+	 * @param evt is action that you click
+	 */
 	private void threeActionPerformed(ActionEvent evt) {
 		this.calculator.numberFunction("3");
 	}//end threeActionPerformed
+	/**
+	 * fourActionPerformed is function of four number
+	 * @param evt is action that you click
+	 */
 	private void fourActionPerformed(ActionEvent evt) {
 		this.calculator.numberFunction("4");
 	}//end fourActionPerformed
+	/**
+	 * fiveActionPerformed is function of five number
+	 * @param evt is action that you click
+	 */
 	private void fiveActionPerformed(ActionEvent evt) {
 		this.calculator.numberFunction("5");
 	}//end fiveActionPerformed
+	/**
+	 * sixActionPerformed is function of six number
+	 * @param evt is action that you click
+	 */
 	private void sixActionPerformed(ActionEvent evt) {
 		this.calculator.numberFunction("6");
 	}//end sixActionPerformed
+	/**
+	 * sevenActionPerformed is function of seven number
+	 * @param evt is action that you click
+	 */
 	private void sevenActionPerformed(ActionEvent evt) {
 		this.calculator.numberFunction("7");
 	}//end sevenActionPerformed
+	/**
+	 * eightActionPerformed is function of eight number
+	 * @param evt is action that you click
+	 */
 	private void eightActionPerformed(ActionEvent evt) {
 		this.calculator.numberFunction("8");
 	}//end eightActionPerformed
+	/**
+	 * nineActionPerformed is function of nine number
+	 * @param evt is action that you click
+	 */
 	private void nineActionPerformed(ActionEvent evt) {
 		this.calculator.numberFunction("9");
 	}//end nineActionPerformed
+	/**
+	 * zeroActionPerformed is function of zero number
+	 * @param evt is action that you print Keyboard
+	 */
 	private void zeroActionPerformed(KeyEvent evt) {
 		this.calculator.zeroFunction("");
 	}//end zeroActionPerformed
+	/**
+	 * oneActionPerformed is function of one number
+	 * @param evt is action that you print Keyboard
+	 */
 	private void oneActionPerformed(KeyEvent evt) {
 		this.calculator.numberFunction("");
 	}//end oneActionPerformed
+	/**
+	 * twoActionPerformed is function of two number
+	 * @param evt is action that you print Keyboard
+	 */
 	private void twoActionPerformed(KeyEvent evt) {
 		this.calculator.numberFunction("");
 	}//end twoActionPerformed
+	/**
+	 * threeActionPerformed is function of three number
+	 * @param evt is action that you print Keyboard
+	 */
 	private void threeActionPerformed(KeyEvent evt) {
 		this.calculator.numberFunction("");
 	}//end threeActionPerformed
+	/**
+	 * fourActionPerformed is function of four number
+	 * @param evt is action that you print Keyboard
+	 */
 	private void fourActionPerformed(KeyEvent evt) {
 		this.calculator.numberFunction("");
 	}//end fourActionPerformed
+	/**
+	 * fiveActionPerformed is function of five number
+	 * @param evt is action that you print Keyboard
+	 */
 	private void fiveActionPerformed(KeyEvent evt) {
 		this.calculator.numberFunction("");
 	}//end fiveActionPerformed
+	/**
+	 * sixActionPerformed is function of six number
+	 * @param evt is action that you print Keyboard
+	 */
 	private void sixActionPerformed(KeyEvent evt) {
 		this.calculator.numberFunction("");
 	}//end sixActionPerformed
+	/**
+	 * sevenActionPerformed is function of seven number
+	 * @param evt is action that you print Keyboard
+	 */
 	private void sevenActionPerformed(KeyEvent evt) {
 		this.calculator.numberFunction("");
 	}//end sevenActionPerformed
+	/**
+	 * eightActionPerformed is function of eight number
+	 * @param evt is action that you print Keyboard
+	 */
 	private void eightActionPerformed(KeyEvent evt) {
 		this.calculator.numberFunction("");
 	}//end eightActionPerformed
+	/**
+	 * nineActionPerformed is function of nine number
+	 * @param evt is action that you print Keyboard
+	 */
 	private void nineActionPerformed(KeyEvent evt) {
 		this.calculator.numberFunction("");
 	}//end nineActionPerformed
+	/**
+	 * decpointActionPerformed is function of decpoint
+	 * @param evt is action that you click
+	 */
 	private void decpointActionPerformed(ActionEvent evt) {
 		if(!this.calculator.isDot){
 			textFieldInput.setText(textFieldInput.getText() + ".");
 			this.calculator.isDot = true;
 		}
 	}//end decpointActionPerformed
+	/**
+	 * negateActionPerformed is function of negate
+	 * @param evt is action that you click
+	 */
 	private void negateActionPerformed(ActionEvent evt) {
 		this.calculator.negateFunction();
 	}//end negateActionPerformed
+	/**
+	 * clearActionPerformed is function of clearButton
+	 * @param evt is action that you click
+	 */
 	private void clearActionPerformed(ActionEvent evt) {
 		textFieldInput.setText("0");
 		this.calculator.isZero = false;
 		this.calculator.isDot = false;
 	}//end clearActionPerformed
+	/**
+	 * resetActionPerformed is function of reset
+	 * @param evt is action that you click
+	 */
 	private void resetActionPerformed(ActionEvent evt) {
 		this.calculator.resetFunction();
 	}//end resetActionPerformed
+	/**
+	 * memoryreadActionPerformed is function of memoryread
+	 * @param evt is action that you click
+	 */
 	private void memoryreadActionPerformed(ActionEvent evt) {
 		textFieldInput.setText(String.valueOf(textFieldMemory.getText()));
 	}//end memoryreadActionPerformed
+	/**
+	 * memoryclearActionPerformed is function of memoryclear
+	 * @param evt is action that you click
+	 */
 	private void memoryclearActionPerformed(ActionEvent evt) {
 		textFieldMemory.setText("0");
 	}//end memoryclearActionPerformed
+	/**
+	 * memorysaveActionPerformed is function of memorysave
+	 * @param evt is action that you click
+	 */
 	private void memorysaveActionPerformed(ActionEvent evt) {
 		textFieldMemory.setText(String.valueOf(textFieldInput.getText()));
 	}//end memorysaveActionPerformed
+	/**
+	 * onedividedbyxActionPerformed is function of 1/x
+	 * @param evt is action that you click
+	 */
 	private void onedividedbyxActionPerformed(ActionEvent evt) {
 		this.calculator.onedividedbyxFunction();
 	}//end onedividedbyxActionPerformed
+	/**
+	 * piActionPerformed is function of π
+	 * @param evt is action that you click
+	 */
 	private void piActionPerformed(ActionEvent evt) {
 		textFieldInput.setText(String.valueOf(Math.PI));
 	}//end piActionPerformed
+	/**
+	 * squaredActionPerformed is function of squared
+	 * @param evt is action that you click
+	 */
 	private void squaredActionPerformed(ActionEvent evt) {
 		this.calculator.squarFunction();
 	}//end squaredActionPerformed
+	/**
+	 * squarerootActionPerformed is function of squareroot
+	 * @param evt is action that you click
+	 */
 	private void squarerootActionPerformed(ActionEvent evt) {
 		this.calculator.squarerootFunction();
 	}//end squarerootActionPerformed
+	/**
+	 * cubedActionPerformed is function of cubed
+	 * @param evt is action that you click
+	 */
 	private void cubedActionPerformed(ActionEvent evt) {
 		this.calculator.cubedFunction();
 	}//end cubedActionPerformed
+	/**
+	 * cubedrootActionPerformed is function of cuberoot
+	 * @param evt is action that you click
+	 */
 	private void cubedrootActionPerformed(ActionEvent evt) {
 		this.calculator.cuberootFunction();
 	}//end cubedrootActionPerformed
+	/**
+	 * shiftMouseClicked is function of shift
+	 * @param evt is action that you click
+	 */
 	private void shiftMouseClicked(MouseEvent evt) {
-		if(!this.calculator.sh){
-			this.calculator.sh = true;
-		}
-		else{
-			this.calculator.sh = false;
-		}
+		this.calculator.operatorShiftFunction();
 	}//end shiftMouseClicked
+	/**
+	 * sinActionPerformed is function of sin
+	 * @param evt is action that you click
+	 */
 	private void sinActionPerformed(ActionEvent evt) {
 		this.calculator.sinFunction();
 	}//end sinActionPerformed
+	/**
+	 * cosActionPerformed is function of cos
+	 * @param evt is action that you click
+	 */
 	private void cosActionPerformed(ActionEvent evt) {
 		this.calculator.cosFunction();
 	}//end cosActionPerformed
+	/**
+	 * tanActionPerformed is function of tan
+	 * @param evt is action that you click
+	 */
 	private void tanActionPerformed(ActionEvent evt) {
 		this.calculator.tanFunction();
 	}//end tanActionPerformed
+	/**
+	 * degreesActionPerformed is function of degrees
+	 * @param evt is action that you click
+	 */
 	private void degreesActionPerformed(ActionEvent evt) {
 		this.calculator.isDegrees = false;
 	}//end degreesActionPerformed
+	/**
+	 * radiansActionPerformed is function of radians
+	 * @param evt is action that you click
+	 */
 	private void radiansActionPerformed(ActionEvent evt) {
 		this.calculator.isDegrees = true;
 	}//end radiansActionPerformed
-
+	/**
+	 * addActionPerformed is function of add
+	 * @param evt is action that you click
+	 */
 	private void addActionPerformed(ActionEvent evt) {
 		this.calculator.operatorFunction("+",(byte) 1);
 	}//end addActionPerformed
+	/**
+	 * subtractActionPerformed is function of subtract
+	 * @param evt is action that you click
+	 */
 	private void subtractActionPerformed(ActionEvent evt) {
 		this.calculator.operatorFunction("-",(byte) 2);
 	}//end subtractActionPerformed
+	/**
+	 * multiplyActionPerformed is function of multiply
+	 * @param evt is action that you click
+	 */
 	private void multiplyActionPerformed(ActionEvent evt) {
 		this.calculator.operatorFunction("*",(byte) 3);
 	}//end multiplyActionPerformed
+	/**
+	 * divideActionPerformed is function of divide
+	 * @param evt is action that you click
+	 */
 	private void divideActionPerformed(ActionEvent evt) {
 		this.calculator.operatorFunction("/",(byte) 4);
 	}//end divideActionPerformed
+	/**
+	 * percentActionPerformed is function of percent
+	 * @param evt is action that you click
+	 */
 	private void percentActionPerformed(ActionEvent evt) {
 		this.calculator.percentFunction();
 	}//end percentActionPerformed
+	/**
+	 * equalsActionPerformed is function of equals
+	 * @param evt is action that you click
+	 */
 	private void equalsActionPerformed(ActionEvent evt) {
 		this.calculator.equalsFunction();
 	}//end equalsActionPerformed
+	/**
+	 * operatorPlusFuntion is function of plus
+	 * @param evt is action that you print Keyboard
+	 */
 	private void operatorPlusFuntion(KeyEvent evt) {
-		this.calculator.operatorShiftFunction("+",(byte) 1);
+		this.calculator.operatorFunction("+",(byte) 1);
 	}
+	/**
+	 * operatorPlusFuntion is function of plus
+	 * @param evt is action that you print Keyboard
+	 */
 	private void operatorMultiplyFuntion(KeyEvent evt) {
-		this.calculator.operatorShiftFunction("*",(byte) 3);
+		this.calculator.operatorFunction("*",(byte) 3);
 	}
+	/**
+	 * addActionPerformed is function of add
+	 * @param evt is action that you print Keyboard
+	 */
 	private void addActionPerformed(KeyEvent evt) {
 		this.calculator.operatorFunction("+",(byte) 1);
 	}//end addActionPerformed
+	/**
+	 * subtractActionPerformed is function of subtract
+	 * @param evt is action that you print Keyboard
+	 */
 	private void subtractActionPerformed(KeyEvent evt) {
 		this.calculator.operatorFunction("-",(byte) 2);
 	}//end subtractActionPerformed
+	/**
+	 * multiplyActionPerformed is function of multiply
+	 * @param evt is action that you print Keyboard
+	 */
 	private void multiplyActionPerformed(KeyEvent evt) {
 		this.calculator.operatorFunction("*",(byte) 3);
 	}//end multiplyActionPerformed
+	/**
+	 * divideActionPerformed is function of divide
+	 * @param evt is action that you print Keyboard
+	 */
 	private void divideActionPerformed(KeyEvent evt) {
 		this.calculator.operatorFunction("/",(byte) 4);
 	}//end divideActionPerformed
+	/**
+	 * percentActionPerformed is function of percent
+	 * @param evt is action that you print Keyboard
+	 */
 	private void percentActionPerformed(KeyEvent evt) {
 		this.calculator.percentFunction();
 	}//end percentActionPerformed
+	/**
+	 * equalsActionPerformed is function of equals
+	 * @param evt is action that you print Keyboard
+	 */
 	private void equalsActionPerformed(KeyEvent evt) {
 		this.calculator.equalsFunction();
 	}//end equalsActionPerformed
