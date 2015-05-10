@@ -26,30 +26,39 @@ import javax.swing.border.SoftBevelBorder;
  * @version 5/7/2015
  */
 public class FindFileUI extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7835782992446656174L;
 	// attributes for graphical components
 	private FindFile findfile;
+	@SuppressWarnings("unused")
 	private JPanel pane , panelButton;
 	private JLabel searchFrom , fileName ;
+	@SuppressWarnings("rawtypes")
 	private JComboBox searchFromBox ;
 	private JTextField fileNameTextField ;
 	private JButton searchButton , openButton;
+	@SuppressWarnings("rawtypes")
 	protected JList jList ;
 	private JScrollPane scrollPane ;
+	@SuppressWarnings("rawtypes")
 	DefaultListModel listModel = new DefaultListModel();
 	/**
 	 * Constructor for new DigitalClockUI
 	 */
-	public FindFileUI(FindFile findfile){
+	public FindFileUI(){
 		this.setTitle( "SearchFile" );
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 210, 285);
 		setResizable(false);
 		this.initComponents();
-		this.findfile = findfile ;
+		this.findfile = new FindFile() ;
 	}
 	/**
 	 * initialize components in the window
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initComponents(){
 
 		pane = new JPanel();
@@ -61,12 +70,9 @@ public class FindFileUI extends JFrame{
 		searchFrom.setFont(new Font("Tahoma", 1, 12)); 
 		searchFrom.setBounds(0, 0, 204, 25);
 
-		searchFromBox = new JComboBox();
+		
+		searchFromBox = new JComboBox(File.listRoots());
 		searchFromBox.setBounds(0, 25, 204, 25);
-		searchFromBox.addItem("C:\\");
-		searchFromBox.addItem("D:\\");
-		searchFromBox.addItem("E:\\");
-		searchFromBox.addItem("F:\\");
 
 		fileName = new JLabel("the file to be searched");
 		fileName.setFont(new Font("Tahoma", 1, 12)); 
@@ -134,6 +140,7 @@ public class FindFileUI extends JFrame{
 	/**
 	 * findflieActionPerformed is action find file when you click search
 	 */
+	@SuppressWarnings("unchecked")
 	private void findflieActionPerformed() {
 		this.findfile.fileFrom.clear();
 		this.findfile.findFile( fileNameTextField.getText() , new File(searchFromBox.getSelectedItem()+"") );

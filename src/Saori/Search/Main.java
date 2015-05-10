@@ -17,8 +17,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FindFile findfile = new FindFile();
-					FindFileUI findfileUI = new FindFileUI(findfile);
+					FindFileUI findfileUI = new FindFileUI();
 					findfileUI.setVisible( true );
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -21,7 +21,7 @@ public class FindFile {
 	 */
 	public void findFile(String name,File file){
 		File[] list = file.listFiles();
-		
+		System.out.println(file.getAbsolutePath());
 		if(list!=null)
 			for (File fil : list)
 			{
