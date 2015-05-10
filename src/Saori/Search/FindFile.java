@@ -4,15 +4,19 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.swing.SwingWorker;
 /**
  * FindFile is command that have findFile method ,openFile method 
  * @author Wanchanapon Thanwaranurak
  * @version 5/7/2015
  */
-public class FindFile {
+public class FindFile extends SwingWorker{
 	protected ArrayList<String> fileFrom ;
-	public FindFile(){
+	private FindFileUI findfileUI;
+	public FindFile(FindFileUI findfileUI){
 		fileFrom = new ArrayList<String>();
+		this.findfileUI = findfileUI ;
 	}
 	/**
 	 * findFile is find file on computer that you want
@@ -47,5 +51,21 @@ public class FindFile {
 		} catch (IOException io) {
 			io.printStackTrace();
 		}
+	}
+	/**
+	 * do SwingWorker in background, dot't show in monitor
+	 */
+	protected Object doInBackground() throws Exception {
+		this.findFile(this.findfileUI.fileNameTextField.getText() , new File(this.findfileUI.searchFromBox.getSelectedItem()+""));
+		return null;
+	}
+	/**
+	 * when do SwingWorker finish, program do this method
+	 */
+	protected void done(){
+		for (int i = 0; i < this.fileFrom.size(); i++) {
+			this.findfileUI.listModel.add(i, this.fileFrom.get(i));
+		}
+		this.findfileUI.jList.setModel(this.findfileUI.listModel);
 	}
 }

@@ -17,15 +17,19 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
+
+import Core.SaoriUI;
 /**
  * FindFileUI is GUI of FindFile
  * @author Wanchanapon Thanwaranurak
  * @version 5/7/2015
  */
-public class FindFileUI extends JFrame{
+public class FindFileUI extends JFrame {
 	/**
 	 * 
 	 */
@@ -36,8 +40,8 @@ public class FindFileUI extends JFrame{
 	private JPanel pane , panelButton;
 	private JLabel searchFrom , fileName ;
 	@SuppressWarnings("rawtypes")
-	private JComboBox searchFromBox ;
-	private JTextField fileNameTextField ;
+	protected JComboBox searchFromBox ;
+	protected JTextField fileNameTextField ;
 	private JButton searchButton , openButton;
 	@SuppressWarnings("rawtypes")
 	protected JList jList ;
@@ -53,7 +57,7 @@ public class FindFileUI extends JFrame{
 		setBounds(100, 100, 210, 285);
 		setResizable(false);
 		this.initComponents();
-		this.findfile = new FindFile() ;
+		this.findfile = new FindFile(this) ;
 	}
 	/**
 	 * initialize components in the window
@@ -70,7 +74,7 @@ public class FindFileUI extends JFrame{
 		searchFrom.setFont(new Font("Tahoma", 1, 12)); 
 		searchFrom.setBounds(0, 0, 204, 25);
 
-		
+
 		searchFromBox = new JComboBox(File.listRoots());
 		searchFromBox.setBounds(0, 25, 204, 25);
 
@@ -81,7 +85,23 @@ public class FindFileUI extends JFrame{
 		fileNameTextField = new JTextField();
 		fileNameTextField.setBounds(0, 75, 204, 25);
 		fileNameTextField.setColumns(10);
+		fileNameTextField.addKeyListener(new KeyListener(){
 
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					System.out.println("innnnnnnn");
+					listModel.clear();
+					findfile.execute();
+				}
+			}
+			public void keyReleased(KeyEvent e) {
+
+			}
+			public void keyTyped(KeyEvent e) {
+
+			}
+		});
+		
 		jList = new JList();
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 100, 204, 111);
@@ -96,24 +116,10 @@ public class FindFileUI extends JFrame{
 		searchButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				listModel.clear();
-				findflieActionPerformed();
+				findfile.execute();
 			}
 		});
-		searchButton.addKeyListener(new KeyListener(){
 	
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					listModel.clear();
-					findflieActionPerformed();
-				}
-			}
-			public void keyReleased(KeyEvent e) {
-
-			}
-			public void keyTyped(KeyEvent e) {
-
-			}
-		});
 		openButton = new JButton(" open ");
 		openButton.setFont(new Font("Tahoma", 1, 12)); 
 		openButton.setBounds(110, 222, 80, 30);
@@ -138,21 +144,11 @@ public class FindFileUI extends JFrame{
 
 	}//end initComponents
 	/**
-	 * findflieActionPerformed is action find file when you click search
-	 */
-	@SuppressWarnings("unchecked")
-	private void findflieActionPerformed() {
-		this.findfile.fileFrom.clear();
-		this.findfile.findFile( fileNameTextField.getText() , new File(searchFromBox.getSelectedItem()+"") );
-		for (int i = 0; i < this.findfile.fileFrom.size(); i++) {
-			listModel.add(i, this.findfile.fileFrom.get(i));
-		}
-		jList.setModel(listModel);
-	}//end findflieActionPerformed
-	/**
 	 * openflieActionPerformed is action open file when you click open
 	 */
 	private void openflieActionPerformed() {
 		this.findfile.openFile( jList.getSelectedValue()+"");
 	}//end openflieActionPerformed
+
+
 }
