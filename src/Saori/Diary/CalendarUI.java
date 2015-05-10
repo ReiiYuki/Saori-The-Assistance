@@ -184,7 +184,7 @@ public class CalendarUI extends JDialog {
 			int row = (i+dayOfFirst-2)/7;
 			int column = (i+dayOfFirst-2)%7;
 			if (i == calendar.get(Calendar.DATE)&& upCalendar.get(Calendar.MONTH) ==  calendar.get(Calendar.MONTH) && upCalendar.get(Calendar.YEAR) ==  calendar.get(Calendar.YEAR)){
-				calendarShow[row][column].setBackground(Color.RED);
+				calendarShow[row][column].setBackground(Color.PINK);
 			}
 			calendarShow[row][column].setText(i+"");
 			calendarShow[row][column].setHorizontalTextPosition(JButton.CENTER);

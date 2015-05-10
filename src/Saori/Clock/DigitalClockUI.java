@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import Saori.Listener.DragListener;
 import Saori.Listener.ExitListener;
 
 import java.awt.BorderLayout;
@@ -45,7 +46,7 @@ public class DigitalClockUI extends JDialog{
 	public DigitalClockUI(Clock clock){
 		this.setTitle( "DigitalClock" );
 		this.clock = clock;
-		setUndecorated(true);
+		setUndecorated(false);
 
 		this.initComponents();
 		getSelected();
@@ -97,12 +98,26 @@ public class DigitalClockUI extends JDialog{
 		colonLabel1 = new JLabel();
 		colonLabel2 = new JLabel();
 		boxSun = new JCheckBox("Sun",clock.isSun());
+		boxSun.setBackground(Color.BLACK);
+		boxSun.setForeground(Color.WHITE);
 		boxMon = new JCheckBox("Mon",clock.isMon());
+		boxMon.setBackground(Color.BLACK);
+		boxMon.setForeground(Color.WHITE);
 		boxTue = new JCheckBox("Tue");
+		boxTue.setBackground(Color.BLACK);
+		boxTue.setForeground(Color.WHITE);
 		boxWed = new JCheckBox("Wed");
+		boxWed.setBackground(Color.BLACK);
+		boxWed.setForeground(Color.WHITE);
 		boxThu = new JCheckBox("Thu");
+		boxThu.setBackground(Color.BLACK);
+		boxThu.setForeground(Color.WHITE);
 		boxFri = new JCheckBox("Fri");
+		boxFri.setBackground(Color.BLACK);
+		boxFri.setForeground(Color.WHITE);
 		boxSat = new JCheckBox("Sat");
+		boxSat.setBackground(Color.BLACK);
+		boxSat.setForeground(Color.WHITE);
 
 
 
@@ -201,6 +216,7 @@ public class DigitalClockUI extends JDialog{
 		if(boxSat.isSelected())
 			clock.setNumSat(Calendar.SATURDAY);
 		super.add( pane );
+		addMouseMotionListener(new DragListener(this));
 	}
 	class StopWatchButtonListener implements ActionListener {
 		/** method to perform action when the button is pressed */

@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -22,12 +23,19 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import Saori.Listener.DragListener;
+import Saori.Listener.ExitListener;
+
 /**
  * CalculatorUI is GUI of Calculator
  * @author Wanchanapon Thanwaranurak
  * @version 5/7/2015
  */
-public class CalculatorUI extends JFrame {
+public class CalculatorUI extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1622405483478672735L;
 	// attributes for graphical components
 	private Calculator calculator;
 	private JPanel panel ;
@@ -41,13 +49,13 @@ public class CalculatorUI extends JFrame {
 	private JButton zero ,one ,two ,three ,four ,five ,six ,seven ,eight ,nine ;
 	private String buffer = null ;
 	private boolean isShiftPressed = false ;
+	private JButton exitButton;
 	/**
 	 * Constructor for new DigitalClockUI
 	 */
 	public CalculatorUI() {
-		setTitle("Java Calculator");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 314, 525);
+		setUndecorated(true);
 		setResizable(false);
 		initComponents();
 		this.calculator = new Calculator(this);
@@ -58,21 +66,15 @@ public class CalculatorUI extends JFrame {
 	private void initComponents() {
 
 		panel = new JPanel();
+		panel.setBackground(new Color(173, 216, 230));
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panel);
 		panel.setLayout(null);
 
-		textFieldShow = new JTextField();
-		textFieldShow.setBounds(10, 10, 289, 35);
-		textFieldShow.setBackground(new Color(199, 218, 220));
-		textFieldShow.setFont(new Font("Tahoma", 1, 24)); 
-		textFieldShow.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
-		textFieldShow.setFocusable(false);
-		panel.add(textFieldShow);
-
 		textFieldInput = new JTextField("0");
-		textFieldInput.setBounds(10, 52, 289, 35);
-		textFieldInput.setBackground(new Color(199, 218, 220));
+		textFieldInput.setForeground(new Color(72, 209, 204));
+		textFieldInput.setBounds(10, 79, 289, 35);
+		textFieldInput.setBackground(new Color(250, 250, 210));
 		textFieldInput.setFont(new Font("Tahoma", 1, 24)); 
 		textFieldInput.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
 		textFieldInput.addKeyListener(new KeyListener(){
@@ -167,7 +169,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		memoryread = new JButton("MR");
-		memoryread.setBounds(10, 94, 52, 28);
+		memoryread.setBounds(10, 121, 52, 28);
 		memoryread.setFont(new Font("Tahoma", 1, 10)); 
 		memoryread.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		memoryread.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -179,7 +181,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		memoryclear = new JButton("MC");
-		memoryclear.setBounds(70, 94, 52, 28);
+		memoryclear.setBounds(70, 121, 52, 28);
 		memoryclear.setFont(new Font("Tahoma", 1, 10));
 		memoryclear.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		memoryclear.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -191,7 +193,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		memorysave = new JButton("MS");
-		memorysave.setBounds(129, 94, 52, 28);
+		memorysave.setBounds(129, 121, 52, 28);
 		memorysave.setFont(new Font("Tahoma", 1, 10));
 		memorysave.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		memorysave.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -203,14 +205,16 @@ public class CalculatorUI extends JFrame {
 		});
 
 		textFieldMemory = new JTextField("0");
-		textFieldMemory.setBounds(188, 94, 111, 28);
-		textFieldMemory.setBackground(new Color(199, 218, 220));
+		textFieldMemory.setForeground(new Color(0, 0, 0));
+		textFieldMemory.setBounds(188, 121, 111, 28);
+		textFieldMemory.setBackground(new Color(248, 248, 255));
 		textFieldMemory.setFont(new Font("Tahoma", 1, 14)); 
 		textFieldMemory.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
 		textFieldMemory.setFocusable(false);
 
 		degrees = new JRadioButton("Degrees");
-		degrees.setBounds(10, 130, 80, 23);
+		degrees.setBackground(new Color(173, 216, 230));
+		degrees.setBounds(10, 157, 80, 23);
 		degrees.setFont(new Font("Tahoma", 1, 10)); 
 		degrees.setSelected(true);
 		degrees.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
@@ -224,7 +228,8 @@ public class CalculatorUI extends JFrame {
 		});
 
 		radians = new JRadioButton("Radians");
-		radians.setBounds(94, 130, 80, 23);
+		radians.setBackground(new Color(173, 216, 230));
+		radians.setBounds(94, 157, 80, 23);
 		radians.setFont(new Font("Tahoma", 1, 10));
 		radians.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		radians.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -237,7 +242,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		percent = new JButton("%");
-		percent.setBounds(188, 129, 52, 28);
+		percent.setBounds(188, 156, 52, 28);
 		percent.setFont(new Font("Tahoma", 1, 10)); 
 		percent.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		percent.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -249,7 +254,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		onedividedbyx = new JButton("1/x");
-		onedividedbyx.setBounds(247, 129, 52, 28);
+		onedividedbyx.setBounds(247, 156, 52, 28);
 		onedividedbyx.setFont(new Font("Tahoma", 1, 10));
 		onedividedbyx.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		onedividedbyx.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -261,7 +266,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		sin = new JButton("Sin");
-		sin.setBounds(10, 164, 52, 28);
+		sin.setBounds(10, 191, 52, 28);
 		sin.setFont(new Font("Tahoma", 1, 8));
 		sin.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		sin.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -273,7 +278,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		cos = new JButton("Cos");
-		cos.setBounds(70, 164, 52, 28);
+		cos.setBounds(70, 191, 52, 28);
 		cos.setFont(new Font("Tahoma", 1, 8));
 		cos.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		cos.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -285,7 +290,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		tan = new JButton("Tan");
-		tan.setBounds(129, 164, 52, 28);
+		tan.setBounds(129, 191, 52, 28);
 		tan.setFont(new Font("Tahoma", 1, 8));
 		tan.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		tan.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -297,7 +302,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		shift = new JToggleButton("Sh");
-		shift.setBounds(188, 164, 52, 28);
+		shift.setBounds(188, 191, 52, 28);
 		shift.setFont(new Font("Tahoma", 1, 10));
 		shift.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		shift.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -309,7 +314,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		pi = new JButton("π");//ⁿ 
-		pi.setBounds(247, 164, 52, 28);
+		pi.setBounds(247, 191, 52, 28);
 		pi.setFont(new Font("Tahoma", 1, 10)); 
 		pi.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		pi.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -321,7 +326,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		seven = new JButton("7");
-		seven.setBounds(10, 199, 52, 52);
+		seven.setBounds(10, 226, 52, 52);
 		seven.setFont(new Font("Tahoma", 1, 10)); 
 		seven.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		seven.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -333,7 +338,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		eight = new JButton("8");
-		eight.setBounds(70, 199, 52, 52);
+		eight.setBounds(70, 226, 52, 52);
 		eight.setFont(new Font("Tahoma", 1, 10));
 		eight.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		eight.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -345,7 +350,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		nine = new JButton("9");
-		nine.setBounds(129, 199, 52, 52);
+		nine.setBounds(129, 226, 52, 52);
 		nine.setFont(new Font("Tahoma", 1, 10)); 
 		nine.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		nine.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -357,7 +362,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		squared = new JButton("x²");
-		squared.setBounds(187, 199, 52, 52);
+		squared.setBounds(187, 226, 52, 52);
 		squared.setFont(new Font("Tahoma", 1, 8)); 
 		squared.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		squared.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -369,7 +374,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		add = new JButton("+");
-		add.setBounds(247, 199, 52, 52);
+		add.setBounds(247, 226, 52, 52);
 		add.setFont(new Font("Tahoma", 1, 10)); 
 		add.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		add.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -381,7 +386,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		four = new JButton("4");
-		four.setBounds(10, 258, 52, 52);
+		four.setBounds(10, 285, 52, 52);
 		four.setFont(new Font("Tahoma", 1, 10));
 		four.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		four.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -393,7 +398,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		five = new JButton("5");
-		five.setBounds(70, 258, 52, 52);
+		five.setBounds(70, 285, 52, 52);
 		five.setFont(new Font("Tahoma", 1, 10)); 
 		five.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		five.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -405,7 +410,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		six = new JButton("6");
-		six.setBounds(129, 258, 52, 52);
+		six.setBounds(129, 285, 52, 52);
 		six.setFont(new Font("Tahoma", 1, 10)); 
 		six.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		six.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -417,7 +422,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		squareroot = new JButton("√x");
-		squareroot.setBounds(188, 258, 52, 52);
+		squareroot.setBounds(188, 285, 52, 52);
 		squareroot.setFont(new Font("Tahoma", 1, 8)); 
 		squareroot.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		squareroot.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -429,7 +434,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		subtract = new JButton("-");
-		subtract.setBounds(247, 258, 52, 52);
+		subtract.setBounds(247, 285, 52, 52);
 		subtract.setFont(new Font("Tahoma", 1, 10)); 
 		subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		subtract.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -441,7 +446,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		one = new JButton("1");
-		one.setBounds(10, 317, 52, 52);
+		one.setBounds(10, 344, 52, 52);
 		one.setFont(new Font("Tahoma", 1, 10)); 
 		one.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		one.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -453,7 +458,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		two = new JButton("2");
-		two.setBounds(70, 317, 52, 52);
+		two.setBounds(70, 344, 52, 52);
 		two.setFont(new Font("Tahoma", 1, 10)); 
 		two.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		two.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -465,7 +470,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		three = new JButton("3");
-		three.setBounds(129, 317, 52, 52);
+		three.setBounds(129, 344, 52, 52);
 		three.setFont(new Font("Tahoma", 1, 10)); 
 		three.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		three.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -477,7 +482,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		cubed = new JButton("x³");
-		cubed.setBounds(188, 317, 52, 52);
+		cubed.setBounds(188, 344, 52, 52);
 		cubed.setFont(new Font("Tahoma", 1, 8));
 		cubed.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		cubed.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -489,7 +494,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		multiply = new JButton("*");
-		multiply.setBounds(247, 317, 52, 52);
+		multiply.setBounds(247, 344, 52, 52);
 		multiply.setFont(new Font("Tahoma", 1, 10));
 		multiply.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		multiply.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -501,7 +506,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		zero = new JButton("0");
-		zero.setBounds(10, 376, 52, 52);
+		zero.setBounds(10, 403, 52, 52);
 		zero.setFont(new Font("Tahoma", 1, 10));
 		zero.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		zero.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -513,7 +518,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		decpoint = new JButton(".");
-		decpoint.setBounds(70, 376, 52, 52);
+		decpoint.setBounds(70, 403, 52, 52);
 		decpoint.setFont(new Font("Tahoma", 1, 10));
 		decpoint.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		decpoint.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -525,7 +530,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		negate = new JButton("±");
-		negate.setBounds(129, 376, 52, 52);
+		negate.setBounds(129, 403, 52, 52);
 		negate.setFont(new Font("Tahoma", 1, 10));
 		negate.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		negate.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -537,7 +542,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		cuberoot = new JButton("3/x");
-		cuberoot.setBounds(188, 376, 52, 52);
+		cuberoot.setBounds(188, 403, 52, 52);
 		cuberoot.setFont(new Font("Tahoma", 1, 8));
 		cuberoot.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		cuberoot.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -549,7 +554,7 @@ public class CalculatorUI extends JFrame {
 		});		
 
 		divide = new JButton("/");
-		divide.setBounds(247, 376, 52, 52);
+		divide.setBounds(247, 403, 52, 52);
 		divide.setFont(new Font("Tahoma", 1, 10));
 		divide.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		divide.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -561,7 +566,7 @@ public class CalculatorUI extends JFrame {
 		});			
 
 		equals = new JButton("=");
-		equals.setBounds(10, 435, 171, 52);
+		equals.setBounds(10, 462, 171, 52);
 		equals.setFont(new Font("Tahoma", 1, 10)); 
 		equals.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		equals.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -573,7 +578,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		clear = new JButton("CE");
-		clear.setBounds(188, 435, 52, 52);
+		clear.setBounds(188, 462, 52, 52);
 		clear.setFont(new Font("Tahoma", 1, 10)); 
 		clear.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		clear.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -586,7 +591,7 @@ public class CalculatorUI extends JFrame {
 		});
 
 		reset = new JButton("C");
-		reset.setBounds(247, 435, 52, 52);
+		reset.setBounds(247, 462, 52, 52);
 		reset.setFont(new Font("Tahoma", 1, 10));
 		reset.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
 		reset.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -596,6 +601,15 @@ public class CalculatorUI extends JFrame {
 				resetActionPerformed(evt);
 			}
 		});
+		
+				textFieldShow = new JTextField();
+				textFieldShow.setForeground(new Color(72, 209, 204));
+				textFieldShow.setBounds(10, 37, 289, 35);
+				textFieldShow.setBackground(new Color(250, 250, 210));
+				textFieldShow.setFont(new Font("Tahoma", 1, 24)); 
+				textFieldShow.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
+				textFieldShow.setFocusable(false);
+				panel.add(textFieldShow);
 
 		panel.add(textFieldInput);
 		panel.add(memoryread);
@@ -634,6 +648,12 @@ public class CalculatorUI extends JFrame {
 		panel.add(equals);
 		panel.add(clear);
 		panel.add(reset);
+		
+		exitButton = new JButton("X");
+		exitButton.addActionListener(new ExitListener(this));
+		exitButton.setBounds(247, 3, 57, 23);
+		panel.add(exitButton);
+		addMouseMotionListener(new DragListener(this));
 	}
 	/**
 	 * zeroActionPerformed is function of zero number
