@@ -106,9 +106,15 @@ public class SaoriUI extends JDialog implements Runnable{
 	public void setImage(String url1,String url2){
 		body.setImage(url1, url2);
 	}
+	/**
+	 * Restart Animation.
+	 */
 	public void restartAnimate(){
 		body.restart();
 	}
+	/**
+	 * Pause Animation.
+	 */
 	public void pauseAnimate(){
 		body.pause();
 	}

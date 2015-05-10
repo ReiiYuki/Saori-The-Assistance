@@ -11,13 +11,18 @@ import Core.SaoriUI;
  */
 public class ListeningEvent implements Event{
 	private SaoriUI ui;
+	int i;
 	public ListeningEvent(SaoriUI ui){
 		this.ui = ui;
 		ui.setImage("Resource/Images/saori15.png");
+		i = 0;
 	}
 	@Override
 	public void perform() {
-		ui.toolBoxAppear();
+		if (i==0){
+			ui.toolBoxAppear();
+		}
+		i++;
 	}
 
 	@Override
@@ -33,7 +38,6 @@ public class ListeningEvent implements Event{
 
 	@Override
 	public void enterHandler() {
-		
 	}
 
 	@Override

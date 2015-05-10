@@ -18,6 +18,7 @@ public class Main {
 				try {
 					CalculatorUI c = new CalculatorUI();
 					c.setVisible(true);
+					c.textFieldInput.requestFocusInWindow();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

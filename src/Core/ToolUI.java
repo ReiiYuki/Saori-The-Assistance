@@ -100,4 +100,5 @@ public class ToolUI extends JDialog{
 	public void changeEvent(Event newEvent){
 		saori.changeEvent(newEvent);
 	}
+
 }

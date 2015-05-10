@@ -33,7 +33,7 @@ import javax.swing.SwingConstants;
  * @author Voraton Lertrattanapaisal
  *
  */
-public class DiaryUI extends JDialog implements Runnable{
+public class DiaryUI extends JDialog {
 	/**
 	 * 
 	 */
@@ -158,6 +158,7 @@ public class DiaryUI extends JDialog implements Runnable{
 		datePanel.add(reminderDateShow);
 		reminderDateShow.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		remindDate = new JTextField();
+		remindDate.setEditable(true);
 		remindDate.setFont(font);
 		remindDate.setOpaque(false);
 		remindDate.setBorder(null);
@@ -169,6 +170,7 @@ public class DiaryUI extends JDialog implements Runnable{
 		slashLab.setFont(font);
 
 		remindMonth = new JTextField();
+		remindMonth.setEditable(true);
 		reminderDateShow.add(remindMonth);
 		remindMonth.setOpaque(false);
 		remindMonth.setBorder(null);
@@ -181,6 +183,7 @@ public class DiaryUI extends JDialog implements Runnable{
 		
 		remindYear = new JTextField();
 		remindYear.setFont(font);
+		remindYear.setEditable(true);
 		remindYear.setOpaque(false);
 		remindYear.setBorder(null);
 		reminderDateShow.add(remindYear);
@@ -196,6 +199,7 @@ public class DiaryUI extends JDialog implements Runnable{
 		remindHour = new JTextField();
 		timePanel.add(remindHour);
 		remindHour.setOpaque(false);
+		remindHour.setEditable(true);
 		remindHour.setBorder(null);
 		remindHour.setFont(font);
 		remindHour.setColumns(2);
@@ -208,6 +212,7 @@ public class DiaryUI extends JDialog implements Runnable{
 
 		remindMin = new JTextField();
 		remindMin.setFont(font);
+		remindMin.setEditable(true);
 		remindMin.setOpaque(false);
 		remindMin.setBorder(null);
 		timePanel.add(remindMin);
@@ -221,6 +226,7 @@ public class DiaryUI extends JDialog implements Runnable{
 		font = font.deriveFont(Font.PLAIN, 30);
 		title = new JTextField();
 		title.setFont(font);
+		title.setEditable(true);
 		title.setOpaque(false);
 		title.setBorder(null);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -239,6 +245,7 @@ public class DiaryUI extends JDialog implements Runnable{
 		article = new JTextArea(30,50);
 		article.setFont(font);
 		article.setOpaque(false);
+		article.setEditable(true);
 		article.setBackground (new Color (0, 0, 0, 0));
 		article.setBorder(BorderFactory.createEmptyBorder());
 		JScrollPane scroll = new JScrollPane(article);
@@ -274,30 +281,36 @@ public class DiaryUI extends JDialog implements Runnable{
 	
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Diary diary  = new Diary();
-			diary.setTitle(title.getText());
-			for (String i : article.getText().split("\\n")){
-				diary.write(i);
+			try{
+				Diary diary  = new Diary();
+				diary.setTitle(title.getText());
+				for (String i : article.getText().split("\\n")){
+					diary.write(i);
+				}
+				io.setDiary(diary);
+				if (!reminderChecker.isSelected()){
+					int year = Integer.parseInt(remindYear.getText());
+					int month = Integer.parseInt(remindMonth.getText());
+					int date = Integer.parseInt(remindDate.getText());
+					int hour = Integer.parseInt(remindHour.getText());
+					int min = Integer.parseInt(remindMin.getText());
+	
+					GregorianCalendar alertTime = new GregorianCalendar();
+					alertTime.set(year, month, date, hour, min);
+					io.toRemind(alertTime);
+				}
+				io.writeFile();
 			}
-			io.setDiary(diary);
-			if (!reminderChecker.isSelected()){
-				int year = Integer.parseInt(remindYear.getText());
-				int month = Integer.parseInt(remindMonth.getText());
-				int date = Integer.parseInt(remindDate.getText());
-				int hour = Integer.parseInt(remindHour.getText());
-				int min = Integer.parseInt(remindMin.getText());
-
-				GregorianCalendar alertTime = new GregorianCalendar();
-				alertTime.set(year, month, date, hour, min);
-				io.toRemind(alertTime);
+			catch (NumberFormatException n){
+				//do nothing
 			}
-			io.writeFile();
 		}
 		
 	}
 	
-	@Override
+	/** run GUI **/
 	public void run() {
 		setVisible(true);
+		pack();
 	}
 }

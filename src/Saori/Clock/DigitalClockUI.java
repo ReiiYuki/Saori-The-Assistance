@@ -46,7 +46,7 @@ public class DigitalClockUI extends JDialog{
 	public DigitalClockUI(Clock clock){
 		this.setTitle( "DigitalClock" );
 		this.clock = clock;
-		setUndecorated(false);
+		setUndecorated(true);
 
 		this.initComponents();
 		getSelected();

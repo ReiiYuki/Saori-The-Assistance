@@ -17,6 +17,7 @@ public class calculatorButtonListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		calculator.setVisible(true);
+		calculator.textFieldInput.requestFocusInWindow();
 	}
 
 }

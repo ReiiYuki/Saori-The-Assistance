@@ -39,7 +39,7 @@ public class CalculatorUI extends JDialog {
 	// attributes for graphical components
 	private Calculator calculator;
 	private JPanel panel ;
-	protected JTextField textFieldShow ,textFieldInput ,textFieldMemory;
+	public JTextField textFieldShow ,textFieldInput ,textFieldMemory;
 	private JButton memoryclear ,memoryread ,memorysave;
 	private JRadioButton degrees ,radians;
 	private JButton percent ,onedividedbyx,pi,squareroot,squared,add,subtract,multiply,cubed;	

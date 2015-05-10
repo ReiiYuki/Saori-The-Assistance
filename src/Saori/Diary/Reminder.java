@@ -62,4 +62,7 @@ public class Reminder extends Diary implements Serializable {
 	public String getRemindDate(){
 		return remindDate.get(GregorianCalendar.YEAR)+"-"+remindDate.get(GregorianCalendar.MONTH)+"-"+remindDate.get(GregorianCalendar.DATE);
 	}
+	public GregorianCalendar getRemindCalendarDate(){
+		return remindDate;
+	}
 }

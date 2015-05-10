@@ -12,11 +12,10 @@ import Saori.Diary.CalendarUI;
 public class calendarButtonListener implements ActionListener {
 	private CalendarUI calendar;
 	public calendarButtonListener(CalendarUI calendar){
-		this.calendar = calendar;
+		this.calendar = new CalendarUI();
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		calendar.setVisible(true);
 	}
-
 }

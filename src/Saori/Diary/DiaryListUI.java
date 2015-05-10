@@ -27,7 +27,7 @@ import Saori.Loader.LoadFont;
  * @author Voraton Lertrattanapaisal
  *
  */
-public class DiaryListUI extends JDialog implements Runnable{
+public class DiaryListUI extends JDialog{
 	/**
 	 * 
 	 */
@@ -108,8 +108,8 @@ public class DiaryListUI extends JDialog implements Runnable{
 		list =  new JList<Diary>(diaryList.loadDiary());
 		repaint();
 	}
-	@Override
 	public void run(){
 		setVisible(true);
+		updateList();
 	}
 }
