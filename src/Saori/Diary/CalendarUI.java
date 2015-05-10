@@ -3,14 +3,10 @@ package Saori.Diary;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -23,12 +19,12 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import javax.swing.border.EmptyBorder;
 
 import Saori.Listener.DragListener;
 import Saori.Listener.ExitListener;
 import Saori.Listener.Diary.dateChooseButtonListener;
+import Saori.Loader.LoadFont;
 /**
  * CalendarUI is GUI of Calendar which make user able viewing calendar.
  * It is connected to the diary list which make user can be edit or create new diary.
@@ -44,7 +40,7 @@ public class CalendarUI extends JDialog {
 	private JTextField YearLab;
 	private JTextField MonthLab;
 	private String[] monthName;
-	private final HashMap<String,Object[]> monthMap = new HashMap<String,Object[]>();
+	private HashMap<String,Object[]> monthMap = new HashMap<String,Object[]>();
 	{
 		monthMap.put("January", new Object[]{1,"January"});
 		monthMap.put("February",new Object[]{2,"February"});
@@ -70,14 +66,7 @@ public class CalendarUI extends JDialog {
 		calendarNow.setTimeInMillis(System.currentTimeMillis());
 		calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(System.currentTimeMillis());
-        URL fontUrl = ClassLoader.getSystemResource("Resource/Font/WaffleRegular.otf");
-        try {
-			font = Font.createFont(Font.TRUETYPE_FONT, fontUrl.openStream());
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
-		}
-        GraphicsEnvironment ge =GraphicsEnvironment.getLocalGraphicsEnvironment();
-        ge.registerFont(font);
+		font = LoadFont.loadFont();
 		initComponent();
 		updateTime();
 		pack();
@@ -243,21 +232,7 @@ public class CalendarUI extends JDialog {
 		}
 		
 	}
-	/**
-	 * JPanel which have image as the background.
-	 * @author Voraton Lertrattanapaisal
-	 *
-	 */
-	private class ImagePanel extends JPanel{
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 7739895286879920819L;
-		@Override
-		public void paintComponent(Graphics g) {
-		    g.drawImage(new ImageIcon(ClassLoader.getSystemResource("Saori/Diary/Imagee/bg.jpg")).getImage(), 0, 0, null);
-		 }
-	}
+
 	/**
 	 * JButton which have background.
 	 * @author Voraton Lertrattanapaisal
