@@ -14,6 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import Saori.Listener.ExitListener;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
 /**
  * DigitalClockUI is GUI of DigitalClock
  * @author Wanchanapon Thanwaranurak
@@ -32,12 +37,16 @@ public class DigitalClockUI extends JDialog{
 	private ImageIcon [] icon ;
 	private Clock clock ;
 	private Timer timer;
+	private JPanel panel;
+	private JButton exitButton;
 	/**
 	 * Constructor for new DigitalClockUI
 	 */
 	public DigitalClockUI(Clock clock){
 		this.setTitle( "DigitalClock" );
 		this.clock = clock;
+		setUndecorated(true);
+
 		this.initComponents();
 		getSelected();
 	}
@@ -45,6 +54,17 @@ public class DigitalClockUI extends JDialog{
 	 * initialize components in the window
 	 */
 	private void initComponents(){
+		panel = new JPanel();
+		panel.setBackground(Color.BLACK);
+		getContentPane().add(panel, BorderLayout.NORTH);
+		panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+		
+		exitButton = new JButton("X");
+		exitButton.setBorderPainted(false);
+		exitButton.setBackground(Color.BLACK);
+		exitButton.setForeground(Color.WHITE);
+		exitButton.addActionListener(new ExitListener(this));
+		panel.add(exitButton);
 		pane = new JPanel();
 		pane.setLayout(new BoxLayout ( pane , BoxLayout.Y_AXIS ) );	
 		panelStatus = new JPanel();
