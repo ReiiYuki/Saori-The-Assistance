@@ -16,6 +16,7 @@ import Saori.Listener.ToolUI.calculatorButtonListener;
 import Saori.Listener.ToolUI.calendarButtonListener;
 import Saori.Listener.ToolUI.clockButtonListener;
 import Saori.Listener.ToolUI.searchButtonListener;
+import Saori.Search.FindFile;
 import Saori.Search.FindFileUI;
 /**
  * ToolboxUI is toolbox which link to other application.
@@ -39,7 +40,7 @@ public class ToolUI extends JDialog{
 		clock = new DigitalClockUI(saori.getClock());
 		calendar = new CalendarUI();
 		calculator = new CalculatorUI();
-		//findFile = new FindFileUI();
+		findFile = new FindFileUI(new FindFile());
 		initComponent();
 
 	}

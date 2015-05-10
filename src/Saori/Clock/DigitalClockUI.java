@@ -9,7 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -19,7 +19,7 @@ import javax.swing.Timer;
  * @author Wanchanapon Thanwaranurak
  * @version 5/7/2015
  */
-public class DigitalClockUI extends JFrame{
+public class DigitalClockUI extends JDialog{
 	/**
 	 * 
 	 */
@@ -38,7 +38,6 @@ public class DigitalClockUI extends JFrame{
 	public DigitalClockUI(Clock clock){
 		this.setTitle( "DigitalClock" );
 		this.clock = clock;
-		this.setDefaultCloseOperation( EXIT_ON_CLOSE );
 		this.initComponents();
 		getSelected();
 	}

@@ -76,7 +76,7 @@ public class CalendarUI extends JDialog {
 	 */
 	public void initComponent(){
 		
-		JPanel panel = new ImagePanel();
+		JPanel panel = new ImagePanel("Saori/Diary/Imagee/bg.jpg");
 		panel.setBorder(new EmptyBorder(10,10,10,10));
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		JPanel exitBar = new JPanel();

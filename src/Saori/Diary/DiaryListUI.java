@@ -47,7 +47,7 @@ public class DiaryListUI extends JDialog implements Runnable{
 	 */
 	public void initComponent(){
 		setUndecorated(true);
-		JPanel panel = new ImagePanel();
+		JPanel panel = new ImagePanel("Saori/Diary/Imagee/bg.jpg");
 		panel.setBorder(new EmptyBorder(10,10,10,10));
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		JPanel exitPanel = new JPanel();

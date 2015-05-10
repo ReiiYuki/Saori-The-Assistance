@@ -15,11 +15,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Saori.Listener.DragListener;
 import Saori.Listener.ExitListener;
+import Saori.Loader.LoadFont;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Component;
+
+import javax.swing.JCheckBox;
+import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
 /**
  * DiaryUI is user interface which is use for writing diary.
  * @author Voraton Lertrattanapaisal
@@ -38,12 +46,14 @@ public class DiaryUI extends JDialog implements Runnable{
 	JButton Exit;
 	DiaryIO io;
 	private JPanel exitBar;
+	
+	private Font font;
 	JTextField title;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField remindDate;
+	private JTextField remindMonth;
+	private JTextField remindYear;
+	private JTextField remindHour;
+	private JCheckBox reminderChecker;
 	/**
 	 * Constructor to initialize ui with old diary.
 	 * @param diary is diary that will be set on ui.
@@ -51,15 +61,17 @@ public class DiaryUI extends JDialog implements Runnable{
 	public DiaryUI(Diary diary){
 		super();
 		io = new DiaryIO(diary);
+		font = LoadFont.loadFont();
 		initComponent();
 		io.writeOnUI(this);
 		pack();
 	}
 	/**
-	 * Contructor to initialize ui for creating new diary.
+	 * Constructor to initialize ui for creating new diary.
 	 */
 	public DiaryUI(){
 		super();
+		font = LoadFont.loadFont();
 		io = new DiaryIO();
 		initComponent();
 		pack();
@@ -68,14 +80,17 @@ public class DiaryUI extends JDialog implements Runnable{
 	 * To initialize component of ui.
 	 */
 	public void initComponent(){
-		JPanel panel = new JPanel();
+		setUndecorated(true);
+		JPanel panel = new ImagePanel("Saori/Diary/Imagee/WhiteRosePolkaPaper.png");
+		panel.setBorder(new EmptyBorder(10,10,10,10));
 		setContentPane(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		exitBar = new JPanel();
 		panel.add(exitBar);
 		exitBar.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+		exitBar.setOpaque(false);
+		exitBar.setBackground (new Color (0, 0, 0, 0));
 		JButton exitButton = new JButton();
 		exitButton.setOpaque(false);
 		exitButton.setContentAreaFilled(false);
@@ -85,85 +100,156 @@ public class DiaryUI extends JDialog implements Runnable{
 		exitButton.setIcon(new ImageIcon(ClassLoader.getSystemResource("Saori/Diary/Imagee/exit.png")));
 		exitBar.add(exitButton);
 		
-		JPanel panel_2 = new JPanel();
-		panel.add(panel_2);
-		panel_2.setLayout(new GridLayout(2, 2, 0, 0));
+		font = font.deriveFont(Font.PLAIN, 10);
+		JPanel checkingPanel = new JPanel();
+		checkingPanel.setOpaque(false);
+		checkingPanel.setBackground (new Color (0, 0, 0, 0));
+		checkingPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panel.add(checkingPanel);
+		checkingPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		reminderChecker = new JCheckBox("Reminder");
+		reminderChecker.setOpaque(false);
+		reminderChecker.setIcon(new ImageIcon(ClassLoader.getSystemResource("Saori/Diary/Imagee/checked.png")));
+		reminderChecker.setSelectedIcon(new ImageIcon(ClassLoader.getSystemResource("Saori/Diary/Imagee/unchecked.png")));
+		reminderChecker.setFont(font);
+		checkingPanel.add(reminderChecker);
 		
-		JPanel panel_3 = new JPanel();
-		panel_2.add(panel_3);
-		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel datePanel = new JPanel();
+		datePanel.setOpaque(false);
+		datePanel.setBackground (new Color (0, 0, 0, 0));
+		panel.add(datePanel);
+		datePanel.setLayout(new GridLayout(2, 2, 0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel("Date");
-		panel_3.add(lblNewLabel_2);
+		JPanel currentDatePanel = new JPanel();
+		currentDatePanel.setOpaque(false);
+		currentDatePanel.setBackground (new Color (0, 0, 0, 0));
+		datePanel.add(currentDatePanel);
+		currentDatePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JPanel panel_4 = new JPanel();
-		panel_2.add(panel_4);
-		panel_4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		font = font.deriveFont(Font.PLAIN, 20);
+		JLabel currentDateTitle = new JLabel("Date");
+		currentDateTitle.setFont(font);
+		currentDatePanel.add(currentDateTitle);
 		
-		JLabel lblNewLabel_3 = new JLabel("Remind Date");
-		panel_4.add(lblNewLabel_3);
+		JPanel reminderPanel = new JPanel();
+		reminderPanel.setOpaque(false);
+		reminderPanel.setBackground (new Color (0, 0, 0, 0));
+		datePanel.add(reminderPanel);
+		reminderPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JPanel panel_5 = new JPanel();
-		panel_2.add(panel_5);
-		panel_5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JLabel reminderTitle = new JLabel("Remind Date");
+		reminderTitle.setFont(font);
+		reminderPanel.add(reminderTitle);
+		
+		font = font.deriveFont(Font.PLAIN, 15);
+
+		JPanel currentDateShow = new JPanel();
+		currentDateShow.setOpaque(false);
+		currentDateShow.setBackground (new Color (0, 0, 0, 0));
+		datePanel.add(currentDateShow);
+		currentDateShow.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		dateLab = new JLabel(io.getDiary().getDate().get(GregorianCalendar.DATE)+"/"+io.getDiary().getDate().get(GregorianCalendar.MONTH)+"/"+io.getDiary().getDate().get(GregorianCalendar.YEAR));
-		panel_5.add(dateLab);
+		dateLab.setFont(font);
+		currentDateShow.add(dateLab);
 		
-		JPanel panel_6 = new JPanel();
-		panel_2.add(panel_6);
-		panel_6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel reminderDateShow = new JPanel();
+		reminderDateShow.setOpaque(false);
+		reminderDateShow.setBackground (new Color (0, 0, 0, 0));
+		datePanel.add(reminderDateShow);
+		reminderDateShow.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		remindDate = new JTextField();
+		remindDate.setFont(font);
+		remindDate.setOpaque(false);
+		remindDate.setBorder(null);
+		reminderDateShow.add(remindDate);
+		remindDate.setColumns(2);
 		
-		textField = new JTextField();
-		panel_6.add(textField);
-		textField.setColumns(2);
+		JLabel slashLab = new JLabel("/");
+		reminderDateShow.add(slashLab);
+		slashLab.setFont(font);
+
+		remindMonth = new JTextField();
+		reminderDateShow.add(remindMonth);
+		remindMonth.setOpaque(false);
+		remindMonth.setBorder(null);
+		remindMonth.setFont(font);
+		remindMonth.setColumns(2);
 		
-		JLabel lblNewLabel = new JLabel("/");
-		panel_6.add(lblNewLabel);
+		JLabel slashLab2 = new JLabel("/");
+		slashLab2.setFont(font);
+		reminderDateShow.add(slashLab2);
 		
-		textField_1 = new JTextField();
-		panel_6.add(textField_1);
-		textField_1.setColumns(2);
+		remindYear = new JTextField();
+		remindYear.setFont(font);
+		remindYear.setOpaque(false);
+		remindYear.setBorder(null);
+		reminderDateShow.add(remindYear);
+		remindYear.setColumns(4);
 		
-		JLabel lblNewLabel_1 = new JLabel("/");
-		panel_6.add(lblNewLabel_1);
+		JPanel timePanel = new JPanel();
+		timePanel.setOpaque(false);
+		timePanel.setBackground (new Color (0, 0, 0, 0));
+		timePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panel.add(timePanel);
+		timePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		textField_2 = new JTextField();
-		panel_6.add(textField_2);
-		textField_2.setColumns(4);
+		remindHour = new JTextField();
+		timePanel.add(remindHour);
+		remindHour.setOpaque(false);
+		remindHour.setBorder(null);
+		remindHour.setFont(font);
+		remindHour.setColumns(2);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setAlignmentX(Component.LEFT_ALIGNMENT);
-		panel.add(panel_1);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		textField_3 = new JTextField();
-		panel_1.add(textField_3);
-		textField_3.setColumns(2);
-		
-		JLabel label = new JLabel(":");
-		panel_1.add(label);
-		
-		textField_4 = new JTextField();
-		panel_1.add(textField_4);
-		textField_4.setColumns(2);
+		JLabel colonLab = new JLabel(":");
+		dateLab.setFont(font);
+		dateLab.setOpaque(false);
+		dateLab.setBorder(null);
+		timePanel.add(colonLab);
+
+		remindMin = new JTextField();
+		remindMin.setFont(font);
+		remindMin.setOpaque(false);
+		remindMin.setBorder(null);
+		timePanel.add(remindMin);
+		remindMin.setColumns(2);
 		
 		JPanel titleBar = new JPanel();
+		titleBar.setOpaque(false);
+		titleBar.setBackground (new Color (0, 0, 0, 0));
 		panel.add(titleBar);
 		titleBar.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+		font = font.deriveFont(Font.PLAIN, 30);
 		title = new JTextField();
+		title.setFont(font);
+		title.setOpaque(false);
+		title.setBorder(null);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setText("Title");
 		titleBar.add(title);
 		title.setColumns(10);
 		
 		JPanel body = new JPanel();
+		body.setOpaque(false);
+		body.setBackground (new Color (0, 0, 0, 0));
 		panel.add(body);
+
 		body.setLayout(new GridLayout(1, 1, 0, 0));
-		
-		article = new JTextArea(10,10);
+		font = font.deriveFont(Font.PLAIN, 10);
+
+		article = new JTextArea(30,50);
+		article.setFont(font);
+		article.setOpaque(false);
+		article.setBackground (new Color (0, 0, 0, 0));
+		article.setBorder(BorderFactory.createEmptyBorder());
 		JScrollPane scroll = new JScrollPane(article);
+		scroll.setOpaque(false);
+		scroll.setBackground (new Color (0, 0, 0, 0));
+		scroll.setBorder(null);
 		body.add(scroll);
 		
 		JPanel confirmBar = new JPanel();
+		confirmBar.setOpaque(false);
+		confirmBar.setBackground (new Color (0, 0, 0, 0));
 		panel.add(confirmBar);
 		
 		JButton confirmButton = new JButton();
@@ -175,6 +261,8 @@ public class DiaryUI extends JDialog implements Runnable{
 		confirmButton.setIcon(new ImageIcon(ClassLoader.getSystemResource("Saori/Diary/Imagee/save.png")));
 		confirmButton.addActionListener(new confirmActionListener());
 		confirmBar.add(confirmButton);
+		addMouseMotionListener(new DragListener(this));
+
 		pack();
 	}
 	/**
@@ -192,10 +280,22 @@ public class DiaryUI extends JDialog implements Runnable{
 				diary.write(i);
 			}
 			io.setDiary(diary);
+			if (!reminderChecker.isSelected()){
+				int year = Integer.parseInt(remindYear.getText());
+				int month = Integer.parseInt(remindMonth.getText());
+				int date = Integer.parseInt(remindDate.getText());
+				int hour = Integer.parseInt(remindHour.getText());
+				int min = Integer.parseInt(remindMin.getText());
+
+				GregorianCalendar alertTime = new GregorianCalendar();
+				alertTime.set(year, month, date, hour, min);
+				io.toRemind(alertTime);
+			}
 			io.writeFile();
 		}
 		
 	}
+	
 	@Override
 	public void run() {
 		setVisible(true);

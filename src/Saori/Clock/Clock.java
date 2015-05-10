@@ -313,6 +313,9 @@ public class Clock {
 	public void setSat(boolean sat) {
 		this.sat = sat;
 	}
+	/**
+	 * Getting alarm setting from file.
+	 */
 	@SuppressWarnings({ "unchecked", "resource" })
 	public void restore(){
 		File alertFile = new File("src\\Saori\\Clock\\listOfAlert.loa");
@@ -339,6 +342,9 @@ public class Clock {
 			}
 		}
 	}
+	/**
+	 * Saving alarm setting to file.
+	 */
 	public void save(){
 		try {
 			FileOutputStream fileout = new FileOutputStream("src\\Saori\\Clock\\listOfAlert.loa");
@@ -350,6 +356,10 @@ public class Clock {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * For return list of alarm day of week.
+	 * @return list of calendar of alram day of week.
+	 */
 	public ArrayList<Calendar> getListOfAlarm(){
 		if (isSun()) {
 			alarm.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
