@@ -89,9 +89,18 @@ public class FindFileUI extends JFrame {
 
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					System.out.println("innnnnnnn");
 					listModel.clear();
-					findfile.execute();
+					SwingWorker< Void, Void > worker = new SwingWorker<Void, Void>() {
+
+						protected Void doInBackground() throws Exception {
+							findfile.doInBackground();
+							return null;
+						}
+						protected void done(){
+							findfile.done();
+						}
+					};
+					worker.execute();
 				}
 			}
 			public void keyReleased(KeyEvent e) {
@@ -101,7 +110,7 @@ public class FindFileUI extends JFrame {
 
 			}
 		});
-		
+
 		jList = new JList();
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 100, 204, 111);
@@ -116,10 +125,20 @@ public class FindFileUI extends JFrame {
 		searchButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				listModel.clear();
-				findfile.execute();
+				SwingWorker< Void, Void > worker = new SwingWorker<Void, Void>() {
+
+					protected Void doInBackground() throws Exception {
+						findfile.doInBackground();
+						return null;
+					}
+					protected void done(){
+						findfile.done();
+					}
+				};
+				worker.execute();
 			}
 		});
-	
+
 		openButton = new JButton(" open ");
 		openButton.setFont(new Font("Tahoma", 1, 12)); 
 		openButton.setBounds(110, 222, 80, 30);
