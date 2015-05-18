@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -1021,6 +1020,7 @@ public class CalculatorUI extends JDialog {
 	 * percentActionPerformed is function of percent
 	 * @param evt is action that you print Keyboard
 	 */
+	@SuppressWarnings("unused")
 	private void percentActionPerformed(KeyEvent evt) {
 		this.calculator.percentFunction();
 	}//end percentActionPerformed

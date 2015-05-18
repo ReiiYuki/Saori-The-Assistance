@@ -11,25 +11,23 @@ import java.io.File;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
-import Core.SaoriUI;
 /**
  * FindFileUI is GUI of FindFile
  * @author Wanchanapon Thanwaranurak
  * @version 5/7/2015
  */
-public class FindFileUI extends JFrame {
+public class FindFileUI extends JDialog {
 	/**
 	 * 
 	 */
@@ -53,7 +51,7 @@ public class FindFileUI extends JFrame {
 	 */
 	public FindFileUI(){
 		this.setTitle( "SearchFile" );
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 210, 285);
 		setResizable(false);
 		this.initComponents();

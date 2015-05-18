@@ -137,6 +137,7 @@ public class SaoriUI extends JDialog implements Runnable{
 	public void toolBoxAppear(){
 		toolbox.setLocation(getLocationOnScreen());
 		toolbox.setVisible(true);
+		toolbox.setAlwaysOnTop(true);
 	}
 	/**
 	 * Disappearing toolbox.

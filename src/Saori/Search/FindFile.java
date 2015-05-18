@@ -11,6 +11,7 @@ import javax.swing.SwingWorker;
  * @author Wanchanapon Thanwaranurak
  * @version 5/7/2015
  */
+@SuppressWarnings("rawtypes")
 public class FindFile extends SwingWorker{
 	protected ArrayList<String> fileFrom ;
 	private FindFileUI findfileUI;
@@ -62,6 +63,7 @@ public class FindFile extends SwingWorker{
 	/**
 	 * when do SwingWorker finish, program do this method
 	 */
+	@SuppressWarnings("unchecked")
 	protected void done(){
 		for (int i = 0; i < this.fileFrom.size(); i++) {
 			this.findfileUI.listModel.add(i, this.fileFrom.get(i));

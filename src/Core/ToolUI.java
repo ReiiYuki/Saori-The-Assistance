@@ -91,7 +91,6 @@ public class ToolUI extends JDialog{
 		getRootPane().setOpaque(false);
 		getContentPane ().setBackground (new Color (0, 0, 0, 0));
 		setBackground (new Color (0, 0, 0, 0));
-		setAlwaysOnTop(true);
 	}
 	/**
 	 * Change event of Saori.
