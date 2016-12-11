@@ -29,5 +29,5 @@ This project is inspired by Shimeji from Japan.
 
 ## Project Contribute by###
 
-- Wanchanapon Thanwaranurak 5710546607
-- Voraton Lertrattanapaisal (ReiiYuki) 5710546593
+- [Wanchanapon Thanwaranurak 5710546607](https://github.com/PaiizZ)
+- [Voraton Lertrattanapaisal (ReiiYuki) 5710546593](https://github.com/ReiiYuki)
